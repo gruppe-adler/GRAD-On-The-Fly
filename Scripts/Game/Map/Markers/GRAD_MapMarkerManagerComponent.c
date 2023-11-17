@@ -37,22 +37,32 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 				
 				Print(string.Format("Player with ID %1 has position %2", playerId, playerEntity.GetOrigin()), LogLevel.NORMAL);
 				
+				vector newWorldPos;
+				
+				bool teleportSuccessful = false;
+				
 				vector worldPos = {markerPos[0], 500, markerPos[1]}; // start tracing in 500m height
-
-				vector outDir = {0, -1, 0}; // downward direction
-				outDir *= 1000; // trace for 1000 meters
 				
-		        autoptr TraceParam trace = new TraceParam();
-		        trace.Start = worldPos;
-		        trace.End = worldPos + outDir;
-		        trace.Flags = TraceFlags.WORLD | TraceFlags.OCEAN | TraceFlags.ENTS;
-		        trace.LayerMask = TRACE_LAYER_CAMERA;
-   
-		        float traceDis = world.TraceMove(trace, null);
-		        
-				vector newWorldPos = worldPos + outDir * traceDis;
-				
-				SCR_Global.TeleportPlayer(playerId, newWorldPos, SCR_EPlayerTeleportedReason.DEFAULT);
+				while (!teleportSuccessful)
+				{
+					worldPos[0] = worldPos[0] + Math.RandomFloat(-3, 3);
+					worldPos[2] = worldPos[2] + Math.RandomFloat(-3, 3);
+						
+					vector outDir = {0, -1, 0}; // downward direction
+					outDir *= 1000; // trace for 1000 meters
+					
+			        autoptr TraceParam trace = new TraceParam();
+			        trace.Start = worldPos;
+			        trace.End = worldPos + outDir;
+			        trace.Flags = TraceFlags.WORLD | TraceFlags.OCEAN | TraceFlags.ENTS;
+			        trace.LayerMask = TRACE_LAYER_CAMERA;
+	   
+			        float traceDis = world.TraceMove(trace, null);
+			        
+					newWorldPos = worldPos + outDir * traceDis;
+					
+					teleportSuccessful = SCR_Global.TeleportPlayer(playerId, newWorldPos, SCR_EPlayerTeleportedReason.DEFAULT);
+				}
 				
 				Print(string.Format("Player with ID %1 teleported to position %2", playerId, newWorldPos), LogLevel.NORMAL);
 			}
