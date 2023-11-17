@@ -67,13 +67,14 @@ SCR_GameModeEditor GameMode_GameMaster : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Edi
  }
  coords 11211.576 221.628 12744.626
  {
-  SCR_FactionManager {
+  SCR_FactionManager "5EE2EADA91EC983B" {
    ID "56E685E92F1B7E7A"
    Factions {
     SCR_Faction "{56DEAC40D2DBC8B1}" {
      m_bIsPlayable 1
     }
     SCR_Faction "{56DEAC40D3C2E623}" {
+     m_bIsPlayable 1
     }
    }
   }
