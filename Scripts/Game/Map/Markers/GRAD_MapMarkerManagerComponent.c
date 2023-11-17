@@ -22,20 +22,44 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 			int markerPos[2];
 			marker.GetWorldPos(markerPos);
 			string markerText = marker.GetCustomText();
+			int markerOwnerId = marker.GetMarkerOwnerID();
+			IEntity markerOwnerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(markerOwnerId);
+			
+			SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
+			SCR_RespawnSystemComponent respawnComponent = gameMode.GetRespawnSystemComponent();
+			Faction markerOwnerFaction = SCR_FactionManager.SGetPlayerFaction(markerOwnerId);
+			string markerOwnerFactionName = markerOwnerFaction.GetFactionName();
+        
+			
 			Print(string.Format("Custom Marker '%1' placed at pos %2", markerText, markerPos), LogLevel.NORMAL);
 			
 			markerText.ToLower();
 			if (markerText != "teleport")
 				return;
 			
-			array<int> playerIds = {};
+			
+		    array<int> playerIds = {};
 			GetGame().GetPlayerManager().GetPlayers(playerIds);
-			foreach (int playerId : playerIds)
-			{
-				BaseWorld world = GetGame().GetWorld();
-				IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
+		
+		    SCR_EntityCatalog globalCatalog;
+		
+		    foreach (int playerId : playerIds)
+		    {
 				
-				Print(string.Format("Player with ID %1 has position %2", playerId, playerEntity.GetOrigin()), LogLevel.NORMAL);
+				BaseWorld world = GetGame().GetWorld();
+				
+				IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
+				string playerName = GetGame().GetPlayerManager().GetPlayerName(playerId);
+				Faction currentPlayerFaction = SCR_FactionManager.SGetPlayerFaction(playerId);
+				string currentPlayerFactionName = currentPlayerFaction.GetFactionName();
+				
+				if (markerOwnerFactionName != currentPlayerFactionName)
+					Print(string.Format("%1 denied teleporting as faction %2 differs from teleporting faction %3", playerName, currentPlayerFaction, markerOwnerFaction, LogLevel.NORMAL));
+					return;
+				
+				
+				Print(string.Format("Player has position %1", playerEntity.GetOrigin()), LogLevel.NORMAL);
+				
 				
 				vector newWorldPos;
 				
@@ -63,8 +87,8 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 					
 					teleportSuccessful = SCR_Global.TeleportPlayer(playerId, newWorldPos, SCR_EPlayerTeleportedReason.DEFAULT);
 				}
-				
-				Print(string.Format("Player with ID %1 teleported to position %2", playerId, newWorldPos), LogLevel.NORMAL);
+
+				Print(string.Format("%1 in faction %2 teleported to position %3", playerName, currentPlayerFaction, newWorldPos), LogLevel.NORMAL);
 			}
 		}
 	}
