@@ -35,13 +35,14 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 			
 			markerText.ToLower();
 			if (markerText != "teleport")
+				Print(string.Format("markertext %1 is not teleport", markerText), LogLevel.NORMAL);
 				return;
 			
 			
 		    array<int> playerIds = {};
 			GetGame().GetPlayerManager().GetPlayers(playerIds);
-		
-		    SCR_EntityCatalog globalCatalog;
+			
+			Print(string.Format("%1 player count", playerIds.Count()), LogLevel.NORMAL);
 		
 		    foreach (int playerId : playerIds)
 		    {
@@ -54,7 +55,7 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 				string currentPlayerFactionName = currentPlayerFaction.GetFactionName();
 				
 				if (markerOwnerFactionName != currentPlayerFactionName)
-					Print(string.Format("%1 denied teleporting as faction %2 differs from teleporting faction %3", playerName, currentPlayerFaction, markerOwnerFaction, LogLevel.NORMAL));
+					Print(string.Format("%1 denied teleporting as faction %2 differs from teleporting faction %3", playerName, currentPlayerFactionName, markerOwnerFactionName), LogLevel.NORMAL);
 					return;
 				
 				
@@ -88,8 +89,10 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 					teleportSuccessful = SCR_Global.TeleportPlayer(playerId, newWorldPos, SCR_EPlayerTeleportedReason.DEFAULT);
 				}
 
-				Print(string.Format("%1 in faction %2 teleported to position %3", playerName, currentPlayerFaction, newWorldPos), LogLevel.NORMAL);
+				Print(string.Format("%1 in faction %2 teleported to position %3", playerName, currentPlayerFactionName, newWorldPos), LogLevel.NORMAL);
 			}
+			
+			
 		}
 	}
 }
