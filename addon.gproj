@@ -3,7 +3,7 @@ GameProject {
  GUID "5EE0938694A39CFB"
  TITLE "GRAD On The Fly"
  Dependencies {
-  "58D0FB3206B6F859" "5EAF2B0473DB5A99"
+  "58D0FB3206B6F859"
  }
  Configurations {
   GameProjectConfig PC {

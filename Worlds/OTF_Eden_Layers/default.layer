@@ -1,3 +1,6 @@
+GRAD_OnTheFlyManager {
+ coords 6431.87 161.35 6438.722
+}
 SCR_SpawnPoint : "{45225582B358C31A}PrefabsEditable/SpawnPoints/E_SpawnPoint_USSR.et" {
  coords 6455.327 162.125 6444.557
 }
