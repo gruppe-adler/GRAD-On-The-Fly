@@ -41,6 +41,4 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 			otfManager.TeleportFactionToMapPos(markerOwnerFaction, markerPos);
 		}
 	}
-
-
 }

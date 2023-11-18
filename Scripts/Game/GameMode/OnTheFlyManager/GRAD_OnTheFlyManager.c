@@ -19,6 +19,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 			
 			SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
 			
+			if (!playerController)
+				return;
+			
 			if (playerFaction == faction)
 			{
 				Print(string.Format("Player with ID %1 is Memeber of Faction %2 and will be teleported to %3", playerId, playerFaction.GetFactionKey(), mapPos), LogLevel.NORMAL);
@@ -43,6 +46,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 			if (SCR_FactionManager.SGetPlayerFaction(playerId) != faction)
 			{
 				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
 			
 				playerController.ShowHint(message, title, duration, isSilent);
 				playerController.InsertLocalMarker(marker);
