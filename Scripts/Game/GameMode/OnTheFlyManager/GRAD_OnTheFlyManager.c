@@ -6,6 +6,21 @@ class GRAD_OnTheFlyManagerClass : GenericEntityClass
 class GRAD_OnTheFlyManager : GenericEntity
 {
 	protected static GRAD_OnTheFlyManager s_Instance;
+	protected bool m_bOpforSpawnDone;
+	protected bool m_bBluforSpawnDone;
+	
+	//------------------------------------------------------------------------------------------------
+	bool OpforSpawnDone()
+	{
+		return m_bOpforSpawnDone;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	bool BluforSpawnDone()
+	{
+		return m_bBluforSpawnDone;
+	}
+
 	
 	//------------------------------------------------------------------------------------------------
 	void TeleportFactionToMapPos(Faction faction, int mapPos[2])
@@ -24,8 +39,89 @@ class GRAD_OnTheFlyManager : GenericEntity
 			
 			if (playerFaction == faction)
 			{
-				Print(string.Format("Player with ID %1 is Memeber of Faction %2 and will be teleported to %3", playerId, playerFaction.GetFactionKey(), mapPos), LogLevel.NORMAL);
+				Print(string.Format("Player with ID %1 is Member of Faction %2 and will be teleported to %3", playerId, playerFaction.GetFactionKey(), mapPos), LogLevel.NORMAL);
 				playerController.TeleportPlayerToMapPos(playerId, mapPos);
+			}
+		}
+		
+		if (faction == "USSR") {
+			m_bOpforSpawnDone = true;
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void NotifyCantTeleportYet(Faction faction)
+	{
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+
+		string title = "On The Fly";
+		string message = "Opposing faction did not teleport yet. Wait for the signal.";
+		int duration = 10;
+		bool isSilent = false;
+		
+		foreach (int playerId : playerIds)
+		{
+			if (SCR_FactionManager.SGetPlayerFaction(playerId) == faction)
+			{
+				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
+			
+				playerController.ShowHint(message, title, duration, isSilent);
+			}
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void NotifyCantTeleportTwice(Faction faction)
+	{
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+
+		string title = "On The Fly";
+		string message = "You can only teleport once. Deal with it.";
+		int duration = 10;
+		bool isSilent = false;
+		
+		foreach (int playerId : playerIds)
+		{
+			if (SCR_FactionManager.SGetPlayerFaction(playerId) == faction)
+			{
+				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
+			
+				playerController.ShowHint(message, title, duration, isSilent);
+			}
+		}
+	}
+	
+	
+	
+	//------------------------------------------------------------------------------------------------
+	void NotifyCantTeleportThisFaction(Faction faction)
+	{
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+
+		string title = "On The Fly";
+		string message = "You can only teleport your own faction. Stop trying.";
+		int duration = 10;
+		bool isSilent = false;
+		
+		foreach (int playerId : playerIds)
+		{
+			if (SCR_FactionManager.SGetPlayerFaction(playerId) == faction)
+			{
+				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
+			
+				playerController.ShowHint(message, title, duration, isSilent);
 			}
 		}
 	}
@@ -37,7 +133,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
 
 		string title = "On The Fly";
-		string message = "Opposing faction was teleported. Open your map.";
+		string message = "Opposing faction was teleported. Open your map and choose a spawn point.";
 		int duration = 10;
 		bool isSilent = false;
 		
