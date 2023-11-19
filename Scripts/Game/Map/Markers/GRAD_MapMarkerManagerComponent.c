@@ -21,7 +21,7 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 		
 		int markerOwnerId = marker.GetMarkerOwnerID();
 		Faction markerOwnerFaction = SCR_FactionManager.SGetPlayerFaction(markerOwnerId);
-		string markerOwnerFactionName = markerOwnerFaction.GetFactionName();
+		string markerOwnerFactionName = markerOwnerFaction.GetFactionKey();
 		
 		int markerPos[2];
 		marker.GetWorldPos(markerPos);
@@ -40,12 +40,12 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 				otfManager.NotifyCantTeleportTwice(markerOwnerFaction);
 				return;
 			}
-			if (markerOwnerFactionName == "#AR-Faction_USSR") {	
+			if (markerOwnerFactionName == "USSR") {	
 				otfManager.TeleportFactionToMapPos(markerOwnerFaction, markerPos);
 				otfManager.NotifyOpposingFaction(markerOwnerFaction, marker);
 				return;
 			}
-			if (markerOwnerFactionName == "#AR-Faction_US") {
+			if (markerOwnerFactionName == "US") {
 				otfManager.NotifyCantTeleportThisFaction(markerOwnerFaction);
 				return;
 			}
@@ -55,7 +55,7 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 		if (markerText == "blufor")
 		{
 			if (otfManager.OpforSpawnDone()) {
-				if (markerOwnerFactionName == "#AR-Faction_US") {
+				if (markerOwnerFactionName == "US") {
 					if (otfManager.BluforSpawnDone()) {
 						otfManager.NotifyCantTeleportTwice(markerOwnerFaction);
 						return;
@@ -65,7 +65,7 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 					otfManager.NotifyCantTeleportThisFaction(markerOwnerFaction);
 				}
 			} else {
-				if (markerOwnerFactionName == "#AR-Faction_US") {
+				if (markerOwnerFactionName == "US") {
 					otfManager.NotifyCantTeleportYet(markerOwnerFaction)
 				} else {
 					otfManager.NotifyCantTeleportThisFaction(markerOwnerFaction);

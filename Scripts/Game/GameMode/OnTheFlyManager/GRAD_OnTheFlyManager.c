@@ -8,6 +8,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected static GRAD_OnTheFlyManager s_Instance;
 	protected bool m_bOpforSpawnDone;
 	protected bool m_bBluforSpawnDone;
+	protected bool m_bluforCapturing;
+	protected int m_bluforCapturingProgress;
 	
 	//------------------------------------------------------------------------------------------------
 	bool OpforSpawnDone()
@@ -20,6 +22,19 @@ class GRAD_OnTheFlyManager : GenericEntity
 	{
 		return m_bBluforSpawnDone;
 	}
+	
+	//------------------------------------------------------------------------------------------------
+	bool BluforCapturing()
+	{
+		return m_bluforCapturing;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	int BluforCapturingProgress()
+	{
+		return m_bluforCapturingProgress;
+	}
+	
 
 	
 	//------------------------------------------------------------------------------------------------
