@@ -11,6 +11,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected bool m_bluforCapturing;
 	protected int m_bluforCapturingProgress;
 	
+	[Attribute("", "Barrel to conquer.", params: "et")]
+	protected ResourceName m_sRuinsPrefab;
+	
 	//------------------------------------------------------------------------------------------------
 	bool OpforSpawnDone()
 	{
@@ -38,7 +41,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 	
 	//------------------------------------------------------------------------------------------------
-	void TeleportFactionToMapPos(Faction faction, int mapPos[2])
+	void TeleportFactionToMapPos(Faction faction, string factionName, int mapPos[2], bool isdebug)
 	{
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
@@ -57,10 +60,12 @@ class GRAD_OnTheFlyManager : GenericEntity
 				Print(string.Format("Player with ID %1 is Member of Faction %2 and will be teleported to %3", playerId, playerFaction.GetFactionKey(), mapPos), LogLevel.NORMAL);
 				playerController.TeleportPlayerToMapPos(playerId, mapPos);
 			}
-		}
+		} 
 		
-		if (faction == "USSR") {
+		if (factionName == "USSR" || isdebug) {
 			m_bOpforSpawnDone = true;
+			vector worldPos = {mapPos[0], 0, mapPos[1]};
+			spawnBarrel(worldPos);
 		}
 	}
 	
@@ -165,6 +170,17 @@ class GRAD_OnTheFlyManager : GenericEntity
 				playerController.InsertLocalMarker(marker);
 			}
 		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void spawnBarrel(vector spawnPosition)
+	{
+		protected ref RandomGenerator m_pRandomGenerator = new RandomGenerator();
+		EntitySpawnParams params = new EntitySpawnParams();
+		params.Transform[3] = spawnPosition;
+		Resource resource = Resource.Load("{5EE0938694A39CFB}Worlds/Enviroment/ScenarioFramework/CustomPrefabs/otfBarrel.et");
+		IEntity barrel = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
+		
 	}
 	
 	//------------------------------------------------------------------------------------------------

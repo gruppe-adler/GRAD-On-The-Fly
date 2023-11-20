@@ -1,0 +1,35 @@
+GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_BarrelFuel_01_closed.et" {
+ ID "52F07DE17573BB0C"
+ components {
+  InventoryItemComponent "{5EE96A2B1D3A8161}" {
+   Attributes SCR_ItemAttributeCollection "{5EE96A2B1D3A8179}" {
+    ItemDisplayName UIInfo "{5EE96A2B1D3A817F}" {
+     Name "Barrel"
+     Description "Barrel with 200l of Oil"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5EE96A2B1D3A817D}" {
+     Weight 215
+     SizeSetupStrategy Volume
+     ItemVolume 100
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5EE96A2B1D3A8170}" {
+      CameraPreset Top
+      CameraOrbitAngles 45 0 0
+      CameraDistanceToItem 1.3
+      CameraOffset 0 0 0
+      IsDynamicObject 1
+     }
+    }
+    CommonItemType "NONE"
+    m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
+   }
+   CanBeGarbaged 0
+  }
+  ScriptComponent "{5EE96BE82A130E2C}" {
+  }
+ }
+ coords 40.511 22.929 -10.1
+ Flags 3
+}

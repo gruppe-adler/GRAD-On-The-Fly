@@ -33,6 +33,14 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 		
 		markerText.ToLower();
 		
+		// allow debug spawn without peer tool
+		if (markerText == "debug")
+		{
+				otfManager.TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFactionName, markerPos, true);
+				otfManager.NotifyOpposingFaction(markerOwnerFaction, marker);
+				return;
+		}
+		
 		// manage opfor marker placement		
 		if (markerText == "opfor")
 		{
@@ -41,7 +49,7 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 				return;
 			}
 			if (markerOwnerFactionName == "USSR") {	
-				otfManager.TeleportFactionToMapPos(markerOwnerFaction, markerPos);
+				otfManager.TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFactionName, markerPos, false);
 				otfManager.NotifyOpposingFaction(markerOwnerFaction, marker);
 				return;
 			}
@@ -60,7 +68,7 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 						otfManager.NotifyCantTeleportTwice(markerOwnerFaction);
 						return;
 					}
-					otfManager.TeleportFactionToMapPos(markerOwnerFaction, markerPos);
+					otfManager.TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFactionName, markerPos, false);
 				} else {
 					otfManager.NotifyCantTeleportThisFaction(markerOwnerFaction);
 				}
