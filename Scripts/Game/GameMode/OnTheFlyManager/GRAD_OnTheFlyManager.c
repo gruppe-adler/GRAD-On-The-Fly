@@ -137,7 +137,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 			Print(string.Format("Both sides eliminated"), LogLevel.NORMAL);
 		}
 		
-		showGameOver(m_winnerSide);
+		if (m_winConditionActive) {
+			showGameOver(m_winnerSide);
+		}
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -178,11 +180,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		SCR_GameModeEndData endData = SCR_GameModeEndData.CreateSimple(gameOverType, -1, winFactionId);
 		gameMode.EndGameMode(endData);
-	}
-	
-	//------------------------------------------------------------------------------------------------
-	void checkCapturing() {
-	
 	}
 		
 	//------------------------------------------------------------------------------------------------
