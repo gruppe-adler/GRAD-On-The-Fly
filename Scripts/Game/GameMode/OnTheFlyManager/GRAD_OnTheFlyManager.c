@@ -5,10 +5,11 @@ class GRAD_OnTheFlyManagerClass : GenericEntityClass
 
 class GRAD_OnTheFlyManager : GenericEntity
 {
+	//---------------------------------------- Post Init ----------------------------------------\\
 	override void EOnInit(IEntity owner)
-    {
+	{
 		// check win conditions every second
-        GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true, owner);
+        GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true);
     }
 	
 	protected static int s_maxCaptureTime = 20;
@@ -94,10 +95,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 	void CheckWinConditions()
 	{
 		// kill loop if win is achieved already
-		if (m_winConditionActive) 
+		if (m_winConditionActive) {
 			GetGame().GetCallqueue().Remove(CheckWinConditions);
 			Print(string.Format("Win Condition Active"), LogLevel.NORMAL);
 			return;
+		}
 		
 		Print(string.Format("Checking Win Conditions..."), LogLevel.NORMAL);
 		
