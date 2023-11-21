@@ -64,8 +64,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		if (factionName == "USSR" || isdebug) {
 			m_bOpforSpawnDone = true;
-			vector worldPos = {mapPos[0], 0, mapPos[1]};
-			spawnBarrel(worldPos);
+			vector worldPos = {mapPos[0], 100, mapPos[1]};
+			GetInstance().spawnBarrel(worldPos);
+			Print(string.Format("Opfor spawn is done, barrel created"), LogLevel.NORMAL);
 		}
 	}
 	
@@ -178,9 +179,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 		protected ref RandomGenerator m_pRandomGenerator = new RandomGenerator();
 		EntitySpawnParams params = new EntitySpawnParams();
 		params.Transform[3] = spawnPosition;
-		Resource resource = Resource.Load("{5EE0938694A39CFB}Worlds/Enviroment/ScenarioFramework/CustomPrefabs/otfBarrel.et");
+		
+		Resource resource = Resource.Load("{832EFDAE1C4B9B65}Prefabs/otfBarrel.et");
 		IEntity barrel = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
 		
+		Print("SpawnBarrel executed", LogLevel.VERBOSE);
 	}
 	
 	//------------------------------------------------------------------------------------------------
