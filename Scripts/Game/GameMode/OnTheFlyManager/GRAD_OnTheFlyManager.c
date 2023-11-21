@@ -124,9 +124,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 		SCR_GameOverScreenManagerComponent gameOverScreen = SCR_GameOverScreenManagerComponent.Cast(gameMode.FindComponent(SCR_GameOverScreenManagerComponent));
 		if (!gameOverScreen)
 			return;
-		
-		gameOverScreen.StartEndGameFade();
-
 	}
 	
 	//------------------------------------------------------------------------------------------------
