@@ -11,7 +11,7 @@ class GRAD_OnTheFlyManager : GenericEntity
         GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true, owner);
     }
 	
-	protected static int s_maxCaptureTime = 120;
+	protected static int s_maxCaptureTime = 20;
 	
 	protected static GRAD_OnTheFlyManager s_Instance;
 	protected bool m_bOpforSpawnDone;
@@ -20,6 +20,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected bool m_bluforCaptured;
 	protected int m_bluforCapturingProgress;
 	protected bool m_winConditionActive;
+	protected bool m_debug;
 	protected string m_winnerSide;
 	protected IEntity m_otfBarrel;
 	protected GRAD_BarrelSmokeComponent m_smokeComponent;
@@ -76,10 +77,16 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		if (m_bluforCapturing) {
 			m_bluforCapturingProgress = m_bluforCapturingProgress + 1;
+			Print(string.Format("Capture progress: %1 %", m_bluforCapturingProgress), LogLevel.NORMAL);
 		}
 		
 		if (m_bluforCapturingProgress >= s_maxCaptureTime) {
 			m_bluforCaptured = true;
+		}
+		
+		if (!m_bluforCapturing) {
+			m_bluforCapturingProgress = 0;
+			Print(string.Format("Not capturing: Progress %1 %", m_bluforCapturingProgress), LogLevel.NORMAL);
 		}
 	}
 	
@@ -89,41 +96,77 @@ class GRAD_OnTheFlyManager : GenericEntity
 		// kill loop if win is achieved already
 		if (m_winConditionActive) 
 			GetGame().GetCallqueue().Remove(CheckWinConditions);
+			Print(string.Format("Win Condition Active"), LogLevel.NORMAL);
 			return;
 		
-		bool bluforEliminated = factionEliminated("US");
-		bool opforEliminated = factionEliminated("USSR");
+		Print(string.Format("Checking Win Conditions..."), LogLevel.NORMAL);
+		
+		// in debug mode we want to test alone without ending the game
+		bool bluforEliminated = factionEliminated("US") && !m_debug;
+		bool opforEliminated = factionEliminated("USSR") && !m_debug;
 		
 		checkBarrelState();		
-		
-		if (bluforEliminated && opforEliminated) {
-			m_winConditionActive = true;
-			m_winnerSide = "draw";
-			return;
-		}
 		
 		if (bluforEliminated) {
 			m_winConditionActive = true;
 			m_winnerSide = "opfor";
-			return;
+			Print(string.Format("Blufor eliminated"), LogLevel.NORMAL);
 		}
 		
 		if (opforEliminated || m_bluforCaptured) {
 			m_winConditionActive = true;
 			m_winnerSide = "blufor";
-			return;
+			Print(string.Format("Opfor eiminated"), LogLevel.NORMAL);
 		}
+		
+		// needs to be on last position as would risk to be overwritten
+		if (bluforEliminated && opforEliminated) {
+			m_winConditionActive = true;
+			m_winnerSide = "draw";
+			Print(string.Format("Both sides eliminated"), LogLevel.NORMAL);
+		}
+		
+		showGameOver(m_winnerSide);
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void showGameOver() {
-		BaseGameMode gameMode = BaseGameMode.Cast(GetGame().GetGameMode());
-		if (!gameMode)
-			return;
+	void showGameOver(string endType) {
+		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
+		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetGameMode().FindComponent(SCR_FactionManager));
 		
-		SCR_GameOverScreenManagerComponent gameOverScreen = SCR_GameOverScreenManagerComponent.Cast(gameMode.FindComponent(SCR_GameOverScreenManagerComponent));
-		if (!gameOverScreen)
+		if (!gameMode) {
+			Print(string.Format("Gamemode not found in showGameOver"), LogLevel.NORMAL);
 			return;
+		}
+			
+		
+		if (!factionManager) {
+			Print(string.Format("factionManager not found in showGameOver"), LogLevel.NORMAL);
+			return;
+		}
+		
+		EGameOverTypes gameOverType;
+		int winFactionId;
+		
+		if (endType == "draw")
+		{
+			gameOverType = EGameOverTypes.FACTION_DRAW;
+		}
+		
+		if (endType == "opfor")
+		{
+			gameOverType = EGameOverTypes.EDITOR_FACTION_VICTORY;
+			winFactionId = 1;
+		}
+		
+		if (endType == "blufor")
+		{
+			gameOverType = EGameOverTypes.EDITOR_FACTION_VICTORY;
+			winFactionId = 0;
+		}
+		
+		SCR_GameModeEndData endData = SCR_GameModeEndData.CreateSimple(gameOverType, -1, winFactionId);
+		gameMode.EndGameMode(endData);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -165,6 +208,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 			m_bOpforSpawnDone = true;
 			SpawnBarrel(mapPos);
 			Print(string.Format("Opfor spawn is done, barrel created"), LogLevel.NORMAL);
+			if (isdebug) {
+				m_debug = true;
+			}
 		}
 		
 		array<int> playerIds = {};
