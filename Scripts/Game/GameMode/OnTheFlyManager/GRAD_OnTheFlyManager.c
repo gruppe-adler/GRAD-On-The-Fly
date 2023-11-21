@@ -43,6 +43,13 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void TeleportFactionToMapPos(Faction faction, string factionName, int mapPos[2], bool isdebug)
 	{
+		if (factionName == "USSR" || isdebug)
+		{
+			m_bOpforSpawnDone = true;
+			SpawnBarrel(mapPos);
+			Print(string.Format("Opfor spawn is done, barrel created"), LogLevel.NORMAL);
+		}
+		
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
 		
@@ -62,12 +69,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			}
 		} 
 		
-		if (factionName == "USSR" || isdebug) {
-			m_bOpforSpawnDone = true;
-			vector worldPos = {mapPos[0], 100, mapPos[1]};
-			GetInstance().spawnBarrel(worldPos);
-			Print(string.Format("Opfor spawn is done, barrel created"), LogLevel.NORMAL);
-		}
+
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -119,8 +121,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 			}
 		}
 	}
-	
-	
 	
 	//------------------------------------------------------------------------------------------------
 	void NotifyCantTeleportThisFaction(Faction faction)
@@ -174,16 +174,42 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void spawnBarrel(vector spawnPosition)
+	void SpawnBarrel(int spawnPosMap[2])
 	{
-		protected ref RandomGenerator m_pRandomGenerator = new RandomGenerator();
+		vector spawnPosition = MapPosToWorldPos(spawnPosMap);
+		
+		//protected ref RandomGenerator m_pRandomGenerator = new RandomGenerator();
 		EntitySpawnParams params = new EntitySpawnParams();
 		params.Transform[3] = spawnPosition;
 		
 		Resource resource = Resource.Load("{832EFDAE1C4B9B65}Prefabs/otfBarrel.et");
 		IEntity barrel = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
 		
+		//Why this line is not printed?
 		Print("SpawnBarrel executed", LogLevel.VERBOSE);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	vector MapPosToWorldPos(int mapPos[2])
+	{
+		BaseWorld world = GetGame().GetWorld();
+		
+		vector worldPos = {mapPos[0], 500, mapPos[1]}; // start tracing in 500m height
+				
+		vector outDir = {0, -1, 0}; // downward direction
+		outDir *= 1000; // trace for 1000 meters
+			
+		autoptr TraceParam trace = new TraceParam();
+		trace.Start = worldPos;
+		trace.End = worldPos + outDir;
+		trace.Flags = TraceFlags.WORLD | TraceFlags.OCEAN | TraceFlags.ENTS;
+		trace.LayerMask = TRACE_LAYER_CAMERA;
+		
+		float traceDis = world.TraceMove(trace, null);
+	        
+		vector newWorldPos = worldPos + outDir * traceDis;
+		
+		return newWorldPos;
 	}
 	
 	//------------------------------------------------------------------------------------------------

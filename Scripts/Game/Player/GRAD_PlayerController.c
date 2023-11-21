@@ -67,7 +67,6 @@ modded class SCR_PlayerController : PlayerController
 		if (otfTeleported)
 			return;
 		
-		BaseWorld world = GetGame().GetWorld();
 		IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
 		
 		if (!playerEntity)
@@ -77,27 +76,16 @@ modded class SCR_PlayerController : PlayerController
 		
 		bool teleportSuccessful = false;
 		
-		vector worldPos = {mapPos[0], 500, mapPos[1]}; // start tracing in 500m height
+		GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
 		
 		vector newWorldPos;
 		
 		while (!teleportSuccessful)
 		{
-			worldPos[0] = worldPos[0] + Math.RandomFloat(-3, 3);
-			worldPos[2] = worldPos[2] + Math.RandomFloat(-3, 3);
-				
-			vector outDir = {0, -1, 0}; // downward direction
-			outDir *= 1000; // trace for 1000 meters
+			mapPos[0] = mapPos[0] + Math.RandomFloat(-3, 3);
+			mapPos[1] = mapPos[1] + Math.RandomFloat(-3, 3);
 			
-	        autoptr TraceParam trace = new TraceParam();
-	        trace.Start = worldPos;
-	        trace.End = worldPos + outDir;
-	        trace.Flags = TraceFlags.WORLD | TraceFlags.OCEAN | TraceFlags.ENTS;
-	        trace.LayerMask = TRACE_LAYER_CAMERA;
-  
-	        float traceDis = world.TraceMove(trace, null);
-	        
-			newWorldPos = worldPos + outDir * traceDis;
+			newWorldPos = otfManager.MapPosToWorldPos(mapPos);
 			
 			teleportSuccessful = SCR_Global.TeleportLocalPlayer(newWorldPos, SCR_EPlayerTeleportedReason.DEFAULT);
 		}
