@@ -5,6 +5,12 @@ class GRAD_OnTheFlyManagerClass : GenericEntityClass
 
 class GRAD_OnTheFlyManager : GenericEntity
 {
+	override void EOnInit(IEntity owner)
+    {
+		// check win conditions every second
+        GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true, owner);
+    }
+	
 	protected static GRAD_OnTheFlyManager s_Instance;
 	protected bool m_bOpforSpawnDone;
 	protected bool m_bBluforSpawnDone;
@@ -38,7 +44,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 		return m_bluforCapturingProgress;
 	}
 	
-
+	//------------------------------------------------------------------------------------------------
+	void CheckWinConditions()
+	{
+		
+	}
 	
 	//------------------------------------------------------------------------------------------------
 	void TeleportFactionToMapPos(Faction faction, string factionName, int mapPos[2], bool isdebug)
@@ -186,7 +196,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		IEntity barrel = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
 		
 		//Why this line is not printed?
-		Print("SpawnBarrel executed", LogLevel.VERBOSE);
+		Print("SpawnBarrel executed", LogLevel.NORMAL);
 	}
 	
 	//------------------------------------------------------------------------------------------------
