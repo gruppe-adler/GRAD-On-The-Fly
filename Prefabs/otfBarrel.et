@@ -1,6 +1,9 @@
 GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_BarrelFuel_01_closed.et" {
  ID "52F07DE17573BB0C"
  components {
+  GRAD_BarrelSmokeComponent "{5EEAE5A211E50B77}" {
+   m_sSmokeParticle "{1B6FD597FAE8C349}Particles/barrelSmoke.ptc"
+  }
   InventoryItemComponent "{5EE96A2B1D3A8161}" {
    Attributes SCR_ItemAttributeCollection "{5EE96A2B1D3A8179}" {
     ItemDisplayName UIInfo "{5EE96A2B1D3A817F}" {
@@ -28,6 +31,24 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
    CanBeGarbaged 0
   }
   ScriptComponent "{5EE96BE82A130E2C}" {
+  }
+  ActionsManagerComponent "{5EEAE5A88BC0BB03}" {
+   ActionContexts {
+    UserActionContext "{5EEAE5A974923724}" {
+     ContextName "main"
+     Position PointInfo "{5EEAE5A97CDF9B52}" {
+      Offset 0 1 0
+     }
+    }
+   }
+   additionalActions {
+    GRAD_ToggleSmokeUserAction "{5EEAE5AAFEB8E578}" {
+     ParentContextList {
+      "main"
+     }
+     Duration 3
+    }
+   }
   }
  }
  coords 40.511 22.929 -10.1
