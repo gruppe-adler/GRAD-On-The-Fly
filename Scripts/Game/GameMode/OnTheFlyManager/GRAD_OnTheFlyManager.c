@@ -63,7 +63,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		if (!m_otfBarrel)
 			return;
 		
-		m_smokeComponent = m_otfBarrel.FindComponent(GRAD_BarrelSmokeComponent);
+		m_smokeComponent = GRAD_BarrelSmokeComponent.Cast(m_otfBarrel.FindComponent(GRAD_BarrelSmokeComponent));
 		
 		if (!m_smokeComponent) 
 			return;
@@ -113,6 +113,20 @@ class GRAD_OnTheFlyManager : GenericEntity
 			m_winnerSide = "blufor";
 			return;
 		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void showGameOver() {
+		BaseGameMode gameMode = BaseGameMode.Cast(GetGame().GetGameMode());
+		if (!gameMode)
+			return;
+		
+		SCR_GameOverScreenManagerComponent gameOverScreen = SCR_GameOverScreenManagerComponent.Cast(gameMode.FindComponent(SCR_GameOverScreenManagerComponent));
+		if (!gameOverScreen)
+			return;
+		
+		gameOverScreen.StartEndGameFade();
+
 	}
 	
 	//------------------------------------------------------------------------------------------------
