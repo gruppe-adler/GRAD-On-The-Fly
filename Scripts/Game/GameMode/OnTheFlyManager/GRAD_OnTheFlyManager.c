@@ -5,7 +5,7 @@ class GRAD_OnTheFlyManagerClass : GenericEntityClass
 
 class GRAD_OnTheFlyManager : GenericEntity
 {
-	//---------------------------------------- Post Init ----------------------------------------\\
+	//------------------------------------------------------------------------------------------------
 	override void EOnInit(IEntity owner)
 	{
 		// check win conditions every second
@@ -15,14 +15,18 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected static int s_maxCaptureTime = 20;
 	
 	protected static GRAD_OnTheFlyManager s_Instance;
+	
 	protected bool m_bOpforSpawnDone;
 	protected bool m_bBluforSpawnDone;
 	protected bool m_bluforCapturing;
 	protected bool m_bluforCaptured;
-	protected int m_bluforCapturingProgress;
 	protected bool m_winConditionActive;
 	protected bool m_debug;
+	
+	protected int m_bluforCapturingProgress;
+	
 	protected string m_winnerSide;
+	
 	protected IEntity m_otfBarrel;
 	protected GRAD_BarrelSmokeComponent m_smokeComponent;
 	
