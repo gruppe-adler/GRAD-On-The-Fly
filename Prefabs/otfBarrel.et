@@ -29,7 +29,20 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
   }
   ScriptComponent "{5EE96BE82A130E2C}" {
   }
+  Hierarchy "{5EEAF497754F13AE}" {
+  }
  }
  coords 40.511 22.929 -10.1
  Flags 3
+ {
+  ParticleEffectEntity {
+   ID "5EEAF49522C99AE5"
+   components {
+    Hierarchy "{5EEAF4978DD6044E}" {
+    }
+   }
+   coords 0.026 0.955 0.278
+   EffectPath "{1B6FD597FAE8C349}Particles/barrelSmoke.ptc"
+  }
+ }
 }

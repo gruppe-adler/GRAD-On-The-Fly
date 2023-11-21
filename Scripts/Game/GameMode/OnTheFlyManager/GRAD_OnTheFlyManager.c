@@ -11,6 +11,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected bool m_bluforCapturing;
 	protected int m_bluforCapturingProgress;
 	
+	protected ParticleEffectEntity m_barrelParticleEffect;
+	
 	[Attribute("", "Barrel to conquer.", params: "et")]
 	protected ResourceName m_sRuinsPrefab;
 	
@@ -186,7 +188,12 @@ class GRAD_OnTheFlyManager : GenericEntity
 		IEntity barrel = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
 		
 		//Why this line is not printed?
-		Print("SpawnBarrel executed", LogLevel.VERBOSE);
+		Print("SpawnBarrel executed", LogLevel.NORMAL);
+		
+		// we have only one child so should be fine
+		m_barrelParticleEffect = ParticleEffectEntity.Cast(barrel.GetChildren());
+		m_barrelParticleEffect.SetDeleteWhenStopped(false);
+		m_barrelParticleEffect.Stop;
 	}
 	
 	//------------------------------------------------------------------------------------------------
