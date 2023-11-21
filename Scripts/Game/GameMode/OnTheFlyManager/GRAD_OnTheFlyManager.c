@@ -11,14 +11,18 @@ class GRAD_OnTheFlyManager : GenericEntity
         GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true, owner);
     }
 	
+	protected static int s_maxCaptureTime = 120;
+	
 	protected static GRAD_OnTheFlyManager s_Instance;
 	protected bool m_bOpforSpawnDone;
 	protected bool m_bBluforSpawnDone;
 	protected bool m_bluforCapturing;
+	protected bool m_bluforCaptured;
 	protected int m_bluforCapturingProgress;
 	protected bool m_winConditionActive;
 	protected string m_winnerSide;
 	protected IEntity m_otfBarrel;
+	protected GRAD_BarrelSmokeComponent m_smokeComponent;
 	
 	//------------------------------------------------------------------------------------------------
 	bool OpforSpawnDone()
@@ -33,6 +37,12 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	bool BluforCaptured()
+	{
+		return m_bluforCaptured;
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	bool BluforCapturing()
 	{
 		return m_bluforCapturing;
@@ -44,15 +54,47 @@ class GRAD_OnTheFlyManager : GenericEntity
 		return m_bluforCapturingProgress;
 	}
 	
+	//---------------------------
+	void checkBarrelState()
+	{
+		if (m_bluforCaptured)
+			return;
+		
+		if (!m_otfBarrel)
+			return;
+		
+		m_smokeComponent = m_otfBarrel.FindComponent(GRAD_BarrelSmokeComponent);
+		
+		if (!m_smokeComponent) 
+			return;
+		
+		if (m_smokeComponent.IsSmoking()) {
+			m_bluforCapturing = true;
+		} else {
+			m_bluforCapturing = false;
+		}
+		
+		if (m_bluforCapturing) {
+			m_bluforCapturingProgress = m_bluforCapturingProgress + 1;
+		}
+		
+		if (m_bluforCapturingProgress >= s_maxCaptureTime) {
+			m_bluforCaptured = true;
+		}
+	}
+	
 	//------------------------------------------------------------------------------------------------
 	void CheckWinConditions()
 	{
+		// kill loop if win is achieved already
 		if (m_winConditionActive) 
+			GetGame().GetCallqueue().Remove(CheckWinConditions);
 			return;
 		
 		bool bluforEliminated = factionEliminated("US");
 		bool opforEliminated = factionEliminated("USSR");
 		
+		checkBarrelState();		
 		
 		if (bluforEliminated && opforEliminated) {
 			m_winConditionActive = true;
@@ -66,7 +108,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			return;
 		}
 		
-		if (opforEliminated) {
+		if (opforEliminated || m_bluforCaptured) {
 			m_winConditionActive = true;
 			m_winnerSide = "blufor";
 			return;
