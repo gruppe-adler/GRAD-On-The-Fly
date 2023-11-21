@@ -16,9 +16,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected bool m_bBluforSpawnDone;
 	protected bool m_bluforCapturing;
 	protected int m_bluforCapturingProgress;
-	
-	[Attribute("", "Barrel to conquer.", params: "et")]
-	protected ResourceName m_sRuinsPrefab;
+	protected bool m_winConditionActive;
+	protected string m_winnerSide;
+	protected IEntity m_otfBarrel;
 	
 	//------------------------------------------------------------------------------------------------
 	bool OpforSpawnDone()
@@ -47,7 +47,61 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void CheckWinConditions()
 	{
+		if (m_winConditionActive) 
+			return;
 		
+		bool bluforEliminated = factionEliminated("US");
+		bool opforEliminated = factionEliminated("USSR");
+		
+		
+		if (bluforEliminated && opforEliminated) {
+			m_winConditionActive = true;
+			m_winnerSide = "draw";
+			return;
+		}
+		
+		if (bluforEliminated) {
+			m_winConditionActive = true;
+			m_winnerSide = "opfor";
+			return;
+		}
+		
+		if (opforEliminated) {
+			m_winConditionActive = true;
+			m_winnerSide = "blufor";
+			return;
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void checkCapturing() {
+	
+	}
+		
+	//------------------------------------------------------------------------------------------------
+	bool factionEliminated(string factionName)
+	{
+		return (GetAlivePlayersOfSide(factionName) == 0);
+	}	
+	
+	//------------------------------------------------------------------------------------------------
+	int GetAlivePlayersOfSide(string factionName)
+	{
+		int aliveCount = 0;
+		
+		array<int> allPlayers = {};
+		GetGame().GetPlayerManager().GetPlayers(allPlayers);
+		foreach(int playerId : allPlayers)
+		{
+		  PlayerController pc = GetGame().GetPlayerManager().GetPlayerController(playerId);
+		  IEntity controlled = pc.GetControlledEntity();
+		  SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(controlled);
+		  CharacterControllerComponent ccc = ch.GetCharacterController();
+		  if (factionName != ch.GetFactionKey() || ccc.IsDead()) allPlayers.RemoveItem(playerId);
+		}
+		aliveCount = allPlayers.Count();
+		
+		return aliveCount;
 	}
 	
 	//------------------------------------------------------------------------------------------------
