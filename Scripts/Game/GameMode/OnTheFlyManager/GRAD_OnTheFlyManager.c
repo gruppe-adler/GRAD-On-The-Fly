@@ -47,6 +47,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	bool BluforCapturing()
 	{
+
 		return m_bluforCapturing;
 	}
 	
@@ -59,16 +60,24 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//---------------------------
 	void checkBarrelState()
 	{
-		if (m_bluforCaptured)
+		if (m_bluforCaptured) {
+			Print(string.Format("Skipping CheckBarrelState: Blufor captured!"), LogLevel.NORMAL);
 			return;
+		}
+			
 		
-		if (!m_otfBarrel)
+		if (!m_otfBarrel) {
+			Print(string.Format("Skipping CheckBarrelState: No barrel yet"), LogLevel.NORMAL);
 			return;
+		}
+			
 		
 		m_smokeComponent = GRAD_BarrelSmokeComponent.Cast(m_otfBarrel.FindComponent(GRAD_BarrelSmokeComponent));
 		
-		if (!m_smokeComponent) 
+		if (!m_smokeComponent) {
+			Print(string.Format("Skipping CheckBarrelState: No smoke yet"), LogLevel.NORMAL);
 			return;
+		}
 		
 		if (m_smokeComponent.IsSmoking()) {
 			m_bluforCapturing = true;
@@ -350,8 +359,10 @@ class GRAD_OnTheFlyManager : GenericEntity
 		Resource resource = Resource.Load("{832EFDAE1C4B9B65}Prefabs/otfBarrel.et");
 		IEntity barrel = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
 		
+		m_otfBarrel = barrel;
+		
 		//Why this line is not printed?
-		Print("SpawnBarrel executed", LogLevel.NORMAL);
+		Print(string.Format("SpawnBarrel executed: %1", m_otfBarrel), LogLevel.NORMAL);
 	}
 	
 	//------------------------------------------------------------------------------------------------
