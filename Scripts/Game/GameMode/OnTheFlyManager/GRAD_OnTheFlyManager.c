@@ -5,13 +5,6 @@ class GRAD_OnTheFlyManagerClass : GenericEntityClass
 
 class GRAD_OnTheFlyManager : GenericEntity
 {
-	//------------------------------------------------------------------------------------------------
-	override void EOnInit(IEntity owner)
-	{
-		// check win conditions every second
-        GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true);
-    }
-	
 	protected static int s_maxCaptureTime = 20;
 	
 	protected static GRAD_OnTheFlyManager s_Instance;
@@ -29,6 +22,13 @@ class GRAD_OnTheFlyManager : GenericEntity
 	
 	protected IEntity m_otfBarrel;
 	protected GRAD_BarrelSmokeComponent m_smokeComponent;
+	
+	//------------------------------------------------------------------------------------------------
+	override void EOnInit(IEntity owner)
+	{
+		// check win conditions every second
+        GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true);
+    }
 	
 	//------------------------------------------------------------------------------------------------
 	bool OpforSpawnDone()
@@ -107,14 +107,14 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void CheckWinConditions()
 	{
+		Print(string.Format("Checking Win Conditions..."), LogLevel.NORMAL);
+
 		// kill loop if win is achieved already
 		if (m_winConditionActive) {
 			GetGame().GetCallqueue().Remove(CheckWinConditions);
 			Print(string.Format("Win Condition Active"), LogLevel.NORMAL);
 			return;
 		}
-		
-		Print(string.Format("Checking Win Conditions..."), LogLevel.NORMAL);
 		
 		// in debug mode we want to test alone without ending the game
 		bool bluforEliminated = factionEliminated("US") && !m_debug;
@@ -201,11 +201,17 @@ class GRAD_OnTheFlyManager : GenericEntity
 		GetGame().GetPlayerManager().GetPlayers(allPlayers);
 		foreach(int playerId : allPlayers)
 		{
-		  PlayerController pc = GetGame().GetPlayerManager().GetPlayerController(playerId);
-		  IEntity controlled = pc.GetControlledEntity();
-		  SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(controlled);
-		  CharacterControllerComponent ccc = ch.GetCharacterController();
-		  if (factionName != ch.GetFactionKey() || ccc.IsDead()) allPlayers.RemoveItem(playerId);
+			PlayerController pc = GetGame().GetPlayerManager().GetPlayerController(playerId);
+			IEntity controlled = pc.GetControlledEntity();
+			if (!controlled)
+			{
+				// Game Master is also a player but perhaps with no controlled entity
+				allPlayers.RemoveItem(playerId);
+				continue;
+			}
+			SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(controlled);
+			CharacterControllerComponent ccc = ch.GetCharacterController();
+			if (factionName != ch.GetFactionKey() || ccc.IsDead()) allPlayers.RemoveItem(playerId);
 		}
 		aliveCount = allPlayers.Count();
 		
@@ -408,5 +414,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		s_Instance = this;
 
 		// rest of the init code
+		
+		SetEventMask(EntityEvent.INIT);
 	}
 }
