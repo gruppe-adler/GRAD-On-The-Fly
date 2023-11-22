@@ -150,7 +150,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		if (opforEliminated || m_bluforCaptured) {
 			m_winConditionActive = true;
 			m_winnerSide = "blufor";
-			Print(string.Format("Opfor eiminated"), LogLevel.NORMAL);
+			Print(string.Format("Opfor eliminated"), LogLevel.NORMAL);
 		}
 		
 		// needs to be on last position as would risk to be overwritten
@@ -168,16 +168,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void showGameOver(string endType) {
 		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
-		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetGameMode().FindComponent(SCR_FactionManager));
 		
 		if (!gameMode) {
 			Print(string.Format("Gamemode not found in showGameOver"), LogLevel.NORMAL);
-			return;
-		}
-			
-		
-		if (!factionManager) {
-			Print(string.Format("factionManager not found in showGameOver"), LogLevel.NORMAL);
 			return;
 		}
 		
