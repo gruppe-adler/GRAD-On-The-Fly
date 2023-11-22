@@ -1,3 +1,11 @@
+enum EOnTheFlyPhase
+{
+	GAMEMASTER,
+	OPFOR,
+	BLUFOR,
+	GAME,
+}
+
 [EntityEditorProps(category: "Gruppe Adler", description: "On The Fly Gamemode Manager")]
 class GRAD_OnTheFlyManagerClass : GenericEntityClass
 {
@@ -23,9 +31,15 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected IEntity m_otfBarrel;
 	protected GRAD_BarrelSmokeComponent m_smokeComponent;
 	
+	protected int m_iOnTheFlyPhase;
+	
 	//------------------------------------------------------------------------------------------------
 	override void EOnInit(IEntity owner)
 	{
+		// execute only on the server
+		if (!Replication.IsServer())
+			return;
+		
 		// check win conditions every second
         GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true);
     }
@@ -393,6 +407,65 @@ class GRAD_OnTheFlyManager : GenericEntity
 		vector newWorldPos = worldPos + outDir * traceDis;
 		
 		return newWorldPos;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	int GetOnTheFlyPhase()
+	{
+		return m_iOnTheFlyPhase;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void SetOnTheFlyPhase(int onTheFlyPhase)
+	{
+		m_iOnTheFlyPhase = onTheFlyPhase;
+		
+		switch (m_iOnTheFlyPhase)
+		{
+			case EOnTheFlyPhase.GAMEMASTER:
+				PhaseGameMasterEntered();
+				break;
+	
+			case EOnTheFlyPhase.OPFOR:
+				PhaseOpforEntered();
+				break;
+			
+			case EOnTheFlyPhase.BLUFOR:
+				PhaseBluforEntered();
+				break;
+			
+			case EOnTheFlyPhase.GAME:
+				PhaseGameEntered();
+				break;
+	
+			default:
+				Print("OTF - Unknown Phase");
+				break;
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------
+	protected void PhaseGameMasterEntered()
+	{
+		Print("OTF - Phase 'Game Master' entered", LogLevel.NORMAL)
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected void PhaseOpforEntered()
+	{
+		Print("OTF - Phase 'Opfor' entered", LogLevel.NORMAL)
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected void PhaseBluforEntered()
+	{
+		Print("OTF - Phase 'Blufor' entered", LogLevel.NORMAL)
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected void PhaseGameEntered()
+	{
+		Print("OTF - Phase 'Game' entered", LogLevel.NORMAL)
 	}
 	
 	//------------------------------------------------------------------------------------------------
