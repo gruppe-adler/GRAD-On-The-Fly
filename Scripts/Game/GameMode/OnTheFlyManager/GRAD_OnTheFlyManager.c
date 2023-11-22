@@ -121,6 +121,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void CheckWinConditions()
 	{
+		if (GetOnTheFlyPhase() != EOnTheFlyPhase.GAME) {
+			Print(string.Format("Game not started yet"), LogLevel.NORMAL);
+			return;
+		}
+		
 		Print(string.Format("Checking Win Conditions..."), LogLevel.NORMAL);
 
 		// kill loop if win is achieved already
@@ -240,9 +245,15 @@ class GRAD_OnTheFlyManager : GenericEntity
 			m_bOpforSpawnDone = true;
 			SpawnBarrel(mapPos);
 			Print(string.Format("Opfor spawn is done, barrel created"), LogLevel.NORMAL);
+						
+			PhaseBluforEntered();
+			
+			// enter debug mode
 			if (isdebug) {
 				m_debug = true;
-			}
+			}			
+		} else {
+			PhaseGameEntered();
 		}
 		
 		array<int> playerIds = {};
