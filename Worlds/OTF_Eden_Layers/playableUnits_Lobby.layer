@@ -2,7 +2,7 @@ PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_Game
  coords 6628.146 157.608 6465.25
  m_bMarkersOnlyOnBriefing 0
  {
-  SCR_FactionManager {
+  SCR_FactionManager "5EF5512A533A11FE" {
    ID "5ED9088735FF2D8B"
    Factions {
     SCR_Faction "{56DEAC40D2DBC8B1}" {
@@ -56,4 +56,7 @@ $grp SCR_AIGroup : "{E3545CFEDD312D54}Prefabs/Groups/OPFOR/Group_USSR_RifleSquad
   m_iMaxMembers 9
   m_bPlayable 1
  }
+}
+Vehicle bluforSpawnVehicle : "{F6B23D17D5067C11}Prefabs/Vehicles/Wheeled/M151A2/M151A2_M2HB.et" {
+ coords 4712.18 27.854 11148.564
 }

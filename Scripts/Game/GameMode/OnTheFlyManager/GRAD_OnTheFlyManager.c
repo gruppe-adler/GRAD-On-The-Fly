@@ -29,6 +29,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected string m_winnerSide;
 	
 	protected IEntity m_otfBarrel;
+	protected IEntity m_otfBluforSpawnVehicle;
 	protected GRAD_BarrelSmokeComponent m_smokeComponent;
 	
 	protected int m_iOnTheFlyPhase;
@@ -258,6 +259,10 @@ class GRAD_OnTheFlyManager : GenericEntity
 				m_debug = true;
 			}			
 		} else {
+			m_bBluforSpawnDone = true;
+			SpawnBluforVehicle(mapPos);
+			Print(string.Format("Blufor spawn is done, vehicle created"), LogLevel.NORMAL);
+			
 			SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
 		}
 		
@@ -400,6 +405,26 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		//Why this line is not printed?
 		Print(string.Format("SpawnBarrel executed: %1", m_otfBarrel), LogLevel.NORMAL);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void SpawnBluforVehicle(int spawnPosMap[2])
+	{
+		vector spawnPosition = MapPosToWorldPos(spawnPosMap);
+		
+		//protected ref RandomGenerator m_pRandomGenerator = new RandomGenerator();
+		EntitySpawnParams params = new EntitySpawnParams();
+		params.Transform[3] = spawnPosition;
+		
+		IEntity vehicle = GetGame().GetWorld().FindEntityByName("bluforSpawnVehicle");
+		if (!vehicle)
+			return;
+		
+		m_otfBluforSpawnVehicle = vehicle;
+		vehicle.SetOrigin(spawnPosition);		
+		
+		//Why this line is not printed?
+		Print(string.Format("Blufor Spawn Vehicle executed: %1", m_otfBluforSpawnVehicle), LogLevel.NORMAL);
 	}
 	
 	//------------------------------------------------------------------------------------------------
