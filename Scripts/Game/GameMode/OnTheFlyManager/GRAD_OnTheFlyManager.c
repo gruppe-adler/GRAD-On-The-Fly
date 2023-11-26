@@ -19,6 +19,10 @@ class GRAD_OnTheFlyManager : GenericEntity
 	
 	protected bool m_bOpforSpawnDone;
 	protected bool m_bBluforSpawnDone;
+	
+	protected vector m_OpforSpawnPos;
+	protected vector m_BluforSpawnPos;
+	
 	protected bool m_bluforCapturing;
 	protected bool m_bluforCaptured;
 	protected bool m_winConditionActive;
@@ -248,7 +252,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 	{
 		if (factionName == "USSR" || isdebug)
 		{
+			vector worldPos = {mapPos[0], 0, mapPos[1]}; 		
 			m_bOpforSpawnDone = true;
+			m_OpforSpawnPos = worldPos;
 			SpawnBarrel(mapPos);
 			Print(string.Format("Opfor spawn is done, barrel created"), LogLevel.NORMAL);
 						
@@ -259,9 +265,16 @@ class GRAD_OnTheFlyManager : GenericEntity
 				m_debug = true;
 			}			
 		} else {
+			vector worldPos = {mapPos[0], 0, mapPos[1]}; 			
+			if (worldPos.Distance(worldPos,m_OpforSpawnPos) < 1000) {
+				NotifySpawnTooClose(faction);
+				return;
+			}				
+			
 			m_bBluforSpawnDone = true;
+			
 			SpawnBluforVehicle(mapPos);
-			Print(string.Format("Blufor spawn is done, vehicle created"), LogLevel.NORMAL);
+			Print(string.Format("Blufor spawn is done, spawn vehicle moved"), LogLevel.NORMAL);
 			
 			SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
 		}
@@ -321,6 +334,31 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 		string title = "On The Fly";
 		string message = "You can only teleport once. Deal with it.";
+		int duration = 10;
+		bool isSilent = false;
+		
+		foreach (int playerId : playerIds)
+		{
+			if (SCR_FactionManager.SGetPlayerFaction(playerId) == faction)
+			{
+				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
+			
+				playerController.ShowHint(message, title, duration, isSilent);
+			}
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void NotifySpawnTooClose(Faction faction)
+	{
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+
+		string title = "On The Fly";
+		string message = "You need to be at least 1000m away from enemy to spawn.";
 		int duration = 10;
 		bool isSilent = false;
 		
@@ -421,7 +459,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			return;
 		
 		m_otfBluforSpawnVehicle = vehicle;
-		vehicle.SetOrigin(spawnPosition);		
+		vehicle.SetOrigin(spawnPosition); // just move for now, later might be created dynamically
 		
 		//Why this line is not printed?
 		Print(string.Format("Blufor Spawn Vehicle executed: %1", m_otfBluforSpawnVehicle), LogLevel.NORMAL);
