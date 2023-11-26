@@ -214,6 +214,12 @@ class GRAD_OnTheFlyManager : GenericEntity
 		foreach(int playerId : allPlayers)
 		{
 			PlayerController pc = GetGame().GetPlayerManager().GetPlayerController(playerId);
+			if (!pc)
+			{
+				// null check bc of null pointer crash
+				allPlayers.RemoveItem(playerId);
+				continue;
+			}
 			IEntity controlled = pc.GetControlledEntity();
 			if (!controlled)
 			{
@@ -222,6 +228,12 @@ class GRAD_OnTheFlyManager : GenericEntity
 				continue;
 			}
 			SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(controlled);
+			if (!ch)
+			{
+				// null check bc of null pointer crash
+				allPlayers.RemoveItem(playerId);
+				continue;
+			}
 			CharacterControllerComponent ccc = ch.GetCharacterController();
 			if (factionName != ch.GetFactionKey() || ccc.IsDead()) allPlayers.RemoveItem(playerId);
 		}
@@ -239,14 +251,14 @@ class GRAD_OnTheFlyManager : GenericEntity
 			SpawnBarrel(mapPos);
 			Print(string.Format("Opfor spawn is done, barrel created"), LogLevel.NORMAL);
 						
-			PhaseBluforEntered();
+			SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR);
 			
 			// enter debug mode
 			if (isdebug) {
 				m_debug = true;
 			}			
 		} else {
-			PhaseGameEntered();
+			SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
 		}
 		
 		array<int> playerIds = {};
