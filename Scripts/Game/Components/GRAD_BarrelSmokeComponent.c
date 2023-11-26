@@ -22,7 +22,7 @@ class GRAD_BarrelSmokeComponent : ScriptComponent
 			spawnParams.TargetWorld = GetOwner().GetWorld();
 			spawnParams.Parent = GetOwner();
 			Math3D.MatrixIdentity4(spawnParams.Transform);
-			spawnParams.Transform[3] = "0.0 1.0 0.0";
+			spawnParams.Transform[3] = "0.0 0.7 0.0";
 			m_pSmokeParticle = ParticleEffectEntity.SpawnParticleEffect(m_sSmokeParticle, spawnParams);
 		}
 		else
