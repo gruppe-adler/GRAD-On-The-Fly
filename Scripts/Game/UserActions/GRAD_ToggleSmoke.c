@@ -13,7 +13,7 @@ class GRAD_ToggleSmokeUserAction : ScriptedUserAction
 	{	
 		if (!m_BarrelSmokeComponent) // Do nothing if there is no barrel smoke component
 		{
-			Print("GRAD OTF: No Barrel Smoke Component", LogLevel.ERROR);
+			Print("OTF - No Barrel Smoke Component", LogLevel.ERROR);
 			
 			return false;
 		}

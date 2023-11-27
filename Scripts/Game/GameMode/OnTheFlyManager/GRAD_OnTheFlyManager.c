@@ -84,13 +84,13 @@ class GRAD_OnTheFlyManager : GenericEntity
 	void checkBarrelState()
 	{
 		if (m_bluforCaptured) {
-			Print(string.Format("Skipping CheckBarrelState: Blufor captured!"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Skipping CheckBarrelState: Blufor captured!"), LogLevel.NORMAL);
 			return;
 		}
 			
 		
 		if (!m_otfBarrel) {
-			Print(string.Format("Skipping CheckBarrelState: No barrel yet"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Skipping CheckBarrelState: No barrel yet"), LogLevel.NORMAL);
 			return;
 		}
 			
@@ -98,7 +98,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		m_smokeComponent = GRAD_BarrelSmokeComponent.Cast(m_otfBarrel.FindComponent(GRAD_BarrelSmokeComponent));
 		
 		if (!m_smokeComponent) {
-			Print(string.Format("Skipping CheckBarrelState: No smoke yet"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Skipping CheckBarrelState: No smoke yet"), LogLevel.NORMAL);
 			return;
 		}
 		
@@ -110,7 +110,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		if (m_bluforCapturing) {
 			m_bluforCapturingProgress = m_bluforCapturingProgress + 1;
-			Print(string.Format("Capture progress: %1 %", m_bluforCapturingProgress), LogLevel.NORMAL);
+			Print(string.Format("OTF - Capture progress: %1 %", m_bluforCapturingProgress), LogLevel.NORMAL);
 		}
 		
 		if (m_bluforCapturingProgress >= s_maxCaptureTime) {
@@ -119,7 +119,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		if (!m_bluforCapturing) {
 			m_bluforCapturingProgress = 0;
-			Print(string.Format("Not capturing: Progress %1 %", m_bluforCapturingProgress), LogLevel.NORMAL);
+			Print(string.Format("OTF - Not capturing: Progress %1 %", m_bluforCapturingProgress), LogLevel.NORMAL);
 		}
 	}
 	
@@ -127,16 +127,16 @@ class GRAD_OnTheFlyManager : GenericEntity
 	void CheckWinConditions()
 	{
 		if (GetOnTheFlyPhase() != EOnTheFlyPhase.GAME) {
-			Print(string.Format("Game not started yet"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Game not started yet"), LogLevel.NORMAL);
 			return;
 		}
 		
-		Print(string.Format("Checking Win Conditions..."), LogLevel.NORMAL);
+		Print(string.Format("OTF - Checking Win Conditions..."), LogLevel.NORMAL);
 
 		// kill loop if win is achieved already
 		if (m_winConditionActive) {
 			GetGame().GetCallqueue().Remove(CheckWinConditions);
-			Print(string.Format("Win Condition Active"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Win Condition Active"), LogLevel.NORMAL);
 			return;
 		}
 		
@@ -149,20 +149,20 @@ class GRAD_OnTheFlyManager : GenericEntity
 		if (bluforEliminated) {
 			m_winConditionActive = true;
 			m_winnerSide = "opfor";
-			Print(string.Format("Blufor eliminated"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Blufor eliminated"), LogLevel.NORMAL);
 		}
 		
 		if (opforEliminated || m_bluforCaptured) {
 			m_winConditionActive = true;
 			m_winnerSide = "blufor";
-			Print(string.Format("Opfor eliminated"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Opfor eliminated"), LogLevel.NORMAL);
 		}
 		
 		// needs to be on last position as would risk to be overwritten
 		if (bluforEliminated && opforEliminated) {
 			m_winConditionActive = true;
 			m_winnerSide = "draw";
-			Print(string.Format("Both sides eliminated"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Both sides eliminated"), LogLevel.NORMAL);
 		}
 		
 		if (m_winConditionActive) {
@@ -175,7 +175,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		SCR_BaseGameMode gameMode = SCR_BaseGameMode.Cast(GetGame().GetGameMode());
 		
 		if (!gameMode) {
-			Print(string.Format("Gamemode not found in showGameOver"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Gamemode not found in showGameOver"), LogLevel.NORMAL);
 			return;
 		}
 		
@@ -256,7 +256,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			m_bOpforSpawnDone = true;
 			m_OpforSpawnPos = worldPos;
 			SpawnBarrel(mapPos);
-			Print(string.Format("Opfor spawn is done, barrel created"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Opfor spawn is done, barrel created"), LogLevel.NORMAL);
 						
 			SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR);
 			
@@ -274,7 +274,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			m_bBluforSpawnDone = true;
 			
 			SpawnBluforVehicle(mapPos);
-			Print(string.Format("Blufor spawn is done, spawn vehicle moved"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Blufor spawn is done, spawn vehicle moved"), LogLevel.NORMAL);
 			
 			SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
 		}
@@ -293,7 +293,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			
 			if (playerFaction == faction)
 			{
-				Print(string.Format("Player with ID %1 is Member of Faction %2 and will be teleported to %3", playerId, playerFaction.GetFactionKey(), mapPos), LogLevel.NORMAL);
+				Print(string.Format("OTF - Player with ID %1 is Member of Faction %2 and will be teleported to %3", playerId, playerFaction.GetFactionKey(), mapPos), LogLevel.NORMAL);
 				playerController.TeleportPlayerToMapPos(playerId, mapPos);
 			}
 		} 
@@ -442,7 +442,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		m_otfBarrel = barrel;
 		
 		//Why this line is not printed?
-		Print(string.Format("SpawnBarrel executed: %1", m_otfBarrel), LogLevel.NORMAL);
+		Print(string.Format("OTF - SpawnBarrel executed: %1", m_otfBarrel), LogLevel.NORMAL);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -462,7 +462,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		vehicle.SetOrigin(spawnPosition); // just move for now, later might be created dynamically
 		
 		//Why this line is not printed?
-		Print(string.Format("Blufor Spawn Vehicle executed: %1", m_otfBluforSpawnVehicle), LogLevel.NORMAL);
+		Print(string.Format("OTF - Blufor Spawn Vehicle executed: %1", m_otfBluforSpawnVehicle), LogLevel.NORMAL);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -558,7 +558,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	{
 		if (s_Instance)
 		{
-			Print("Only one instance of GRAD_OnTheFlyManager is allowed in the world!", LogLevel.WARNING);
+			Print("OTF - Only one instance of GRAD_OnTheFlyManager is allowed in the world!", LogLevel.WARNING);
 			delete this;
 			return;
 		}

@@ -27,7 +27,7 @@ modded class SCR_MapMarkerManagerComponent : SCR_BaseGameModeComponent
 		marker.GetWorldPos(markerPos);
 		
 		string markerText = marker.GetCustomText();
-		Print(string.Format("Custom Marker '%1' placed at pos %2 by faction %3", markerText, markerPos, markerOwnerFactionName), LogLevel.NORMAL);
+		Print(string.Format("OTF - Custom Marker '%1' placed at pos %2 by faction %3", markerText, markerPos, markerOwnerFactionName), LogLevel.NORMAL);
 		
 		GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
 		

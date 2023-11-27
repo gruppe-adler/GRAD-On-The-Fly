@@ -47,9 +47,9 @@ modded class SCR_PlayerController : PlayerController
 		// executed locally on players machine
 		
 		if(SCR_Global.TeleportLocalPlayer(pos, SCR_EPlayerTeleportedReason.DEFAULT))
-			Print(string.Format("Player with ID %1 successfully teleported to position %2", GetPlayerId(), pos), LogLevel.NORMAL);
+			Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2", GetPlayerId(), pos), LogLevel.NORMAL);
 		else
-			Print(string.Format("Player with ID %1 NOT successfully teleported to position %2", GetPlayerId(), pos), LogLevel.WARNING);
+			Print(string.Format("OTF - Player with ID %1 NOT successfully teleported to position %2", GetPlayerId(), pos), LogLevel.WARNING);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -72,7 +72,7 @@ modded class SCR_PlayerController : PlayerController
 		if (!playerEntity)
 			return;
 		
-		Print(string.Format("Player with ID %1 has position %2", playerId, playerEntity.GetOrigin()), LogLevel.NORMAL);
+		Print(string.Format("OTF - Player with ID %1 has position %2", playerId, playerEntity.GetOrigin()), LogLevel.NORMAL);
 		
 		bool teleportSuccessful = false;
 		
@@ -92,6 +92,6 @@ modded class SCR_PlayerController : PlayerController
 		
 		otfTeleported = true;
 		
-		Print(string.Format("Player with ID %1 successfully teleported to position %2", GetPlayerId(), newWorldPos), LogLevel.NORMAL);
+		Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2", GetPlayerId(), newWorldPos), LogLevel.NORMAL);
 	}
 };
