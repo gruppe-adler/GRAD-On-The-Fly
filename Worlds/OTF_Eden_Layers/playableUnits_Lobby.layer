@@ -1,21 +1,5 @@
-PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_GameMode_Lobby.et" {
- coords 6628.146 157.608 6465.25
- m_bMarkersOnlyOnBriefing 0
- {
-  SCR_FactionManager "5EF5512A533A11FE" {
-   ID "5ED9088735FF2D8B"
-   Factions {
-    SCR_Faction "{56DEAC40D2DBC8B1}" {
-    }
-    SCR_Faction "{56DEAC40D3C2E623}" {
-     m_bIsPlayable 1
-    }
-   }
-  }
- }
-}
 SCR_AIGroup : "{1E91FCDB0DA40A55}Prefabs/Groups/BLUFOR/Group_US_SentryTeam_p.et" {
- coords 4653.486 27.453 11124.054
+ coords 4653.486 27.454 11124.054
  m_aUnitPrefabSlots {
   "{DBC177C261C93B9D}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_SL_P.et" "{EC7EDB04B4C7B73A}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_RTO_P.et"
  }
@@ -24,20 +8,20 @@ SCR_AIGroup : "{1E91FCDB0DA40A55}Prefabs/Groups/BLUFOR/Group_US_SentryTeam_p.et"
  m_bPlayable 1
 }
 SCR_AIGroup : "{41F0D95175F5D179}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam_p.et" {
- coords 4935.035 34.837 11917.367
+ coords 4935.035 30.315 11917.366
  m_bDeleteWhenEmpty 0
  m_iMaxMembers 2
  m_bPlayable 1
 }
 $grp SCR_AIGroup : "{BC357974A560F678}Prefabs/Groups/BLUFOR/Group_US_RifleSquad_p.et" {
  {
-  coords 4648.469 27.759 11137.53
+  coords 4648.469 0 11137.53
   m_bDeleteWhenEmpty 0
   m_iMaxMembers 9
   m_bPlayable 1
  }
  {
-  coords 4647.121 27.863 11145.022
+  coords 4647.121 0 11145.022
   m_bDeleteWhenEmpty 0
   m_iMaxMembers 9
   m_bPlayable 1
@@ -45,13 +29,13 @@ $grp SCR_AIGroup : "{BC357974A560F678}Prefabs/Groups/BLUFOR/Group_US_RifleSquad_
 }
 $grp SCR_AIGroup : "{E3545CFEDD312D54}Prefabs/Groups/OPFOR/Group_USSR_RifleSquad_p.et" {
  {
-  coords 4935.77 42.229 11928.219
+  coords 4935.77 30.355 11928.219
   m_bDeleteWhenEmpty 0
   m_iMaxMembers 9
   m_bPlayable 1
  }
  {
-  coords 4937.957 42.294 11935.604
+  coords 4937.957 30.353 11935.604
   m_bDeleteWhenEmpty 0
   m_iMaxMembers 9
   m_bPlayable 1

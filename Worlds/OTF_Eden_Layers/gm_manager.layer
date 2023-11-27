@@ -22,6 +22,22 @@ PerceptionManager PerceptionManager1 : "{028DAEAD63E056BE}Prefabs/World/Game/Per
 TagManager : "{2FA9E172CAB1857A}Prefabs/MP/Managers/TagManager.et" {
  coords 6402.955 158.197 6431.696
 }
+PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_GameMode_Lobby.et" {
+ coords 6628.146 157.608 6465.25
+ m_bMarkersOnlyOnBriefing 0
+ {
+  SCR_FactionManager "5EF5512A533A11FE" {
+   ID "5ED9088735FF2D8B"
+   Factions {
+    SCR_Faction "{56DEAC40D2DBC8B1}" {
+    }
+    SCR_Faction "{56DEAC40D3C2E623}" {
+     m_bIsPlayable 1
+    }
+   }
+  }
+ }
+}
 SCR_MapLocator {
  coords 6403.255 158.197 6411.668
  m_WorldDirections SCR_MapLocationQuadHint "{5AAA92CD91D1D8F5}" : "{ABA21F381437DFE8}Configs/Map/MapLocatorHints/LocationHintsEveron.conf" {
@@ -29,7 +45,4 @@ SCR_MapLocator {
 }
 HitRegistrationManager HitRegManager1 : "{0EDA3D48791120DD}Prefabs/MP/HitRegManager.et" {
  coords 6402.14 158.197 6430.692
-}
-SCR_LoadoutManager : "{B54D08AEA74A5354}Prefabs/MP/Managers/Loadouts/LoadoutManager_Editor.et" {
- coords 6403.255 158.197 6411.668
 }
