@@ -30,9 +30,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long should the tracing distance be to convert map in world coordinates", category: "On The Fly - Parameters", params: "1.0 5000.0 1.0")]
 	protected float m_iTracingDistance;
 	
-	protected bool m_bOpforSpawnDone;
-	protected bool m_bBluforSpawnDone;
-	
 	protected vector m_OpforSpawnPos;
 	protected vector m_BluforSpawnPos;
 	
@@ -63,18 +60,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 		// check win conditions every second
         GetGame().GetCallqueue().CallLater(CheckWinConditions, m_iCheckInterval, true);
     }
-	
-	//------------------------------------------------------------------------------------------------
-	bool OpforSpawnDone()
-	{
-		return m_bOpforSpawnDone;
-	}
-	
-	//------------------------------------------------------------------------------------------------
-	bool BluforSpawnDone()
-	{
-		return m_bBluforSpawnDone;
-	}
 	
 	//------------------------------------------------------------------------------------------------
 	bool BluforCaptured()
@@ -260,7 +245,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 		if (factionName == "USSR" || isdebug)
 		{
 			vector worldPos = {mapPos[0], 0, mapPos[1]}; 		
-			m_bOpforSpawnDone = true;
 			m_OpforSpawnPos = worldPos;
 			SpawnBarrel(mapPos);
 			Print(string.Format("OTF - Opfor spawn is done, barrel created"), LogLevel.NORMAL);
@@ -272,8 +256,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 				m_debug = true;
 			}			
 		} else {
-			m_bBluforSpawnDone = true;
-			
 			SpawnBluforVehicle(mapPos);
 			Print(string.Format("OTF - Blufor spawn is done, spawn vehicle moved"), LogLevel.NORMAL);
 			
@@ -488,36 +470,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void NotifyAllOnPhaseChange(int phase)
 	{
-		string phaseString;
-
-		switch (m_iOnTheFlyPhase)
-		{
-			case EOnTheFlyPhase.GAMEMASTER:
-				phaseString = "Game Master";
-				break;
-	
-			case EOnTheFlyPhase.OPFOR:
-				phaseString = "OPFOR";
-				break;
-			
-			case EOnTheFlyPhase.BLUFOR:
-				phaseString = "BLUFOR";
-				break;
-			
-			case EOnTheFlyPhase.GAME:
-				phaseString = "Game";
-				break;
-	
-			default:
-				Print("Unknown Phase");
-				break;
-		}
-		
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
 
 		string title = "On The Fly";
-		string message = string.Format("New phase '%1' entered.", phaseString);
+		string message = string.Format("New phase '%1' entered.", PhaseEnumToString(phase));
 		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
@@ -626,54 +583,40 @@ class GRAD_OnTheFlyManager : GenericEntity
 	{
 		m_iOnTheFlyPhase = onTheFlyPhase;
 		
-		switch (m_iOnTheFlyPhase)
-		{
-			case EOnTheFlyPhase.GAMEMASTER:
-				PhaseGameMasterEntered();
-				break;
-	
-			case EOnTheFlyPhase.OPFOR:
-				PhaseOpforEntered();
-				break;
-			
-			case EOnTheFlyPhase.BLUFOR:
-				PhaseBluforEntered();
-				break;
-			
-			case EOnTheFlyPhase.GAME:
-				PhaseGameEntered();
-				break;
-	
-			default:
-				Print("OTF - Unknown Phase");
-				break;
-		}
-		
 		NotifyAllOnPhaseChange(onTheFlyPhase);
+		
+		Print(string.Format("OTF - Phase 'Game Master' entered", PhaseEnumToString(onTheFlyPhase)), LogLevel.NORMAL);
 	}
 
 	//------------------------------------------------------------------------------------------------
-	protected void PhaseGameMasterEntered()
+	protected string PhaseEnumToString(int phase)
 	{
-		Print("OTF - Phase 'Game Master' entered", LogLevel.NORMAL)
-	}
+		string phaseString;
+		
+		switch (phase)
+		{
+			case EOnTheFlyPhase.GAMEMASTER:
+				phaseString = "Game Master";
+				break;
 	
-	//------------------------------------------------------------------------------------------------
-	protected void PhaseOpforEntered()
-	{
-		Print("OTF - Phase 'Opfor' entered", LogLevel.NORMAL)
-	}
+			case EOnTheFlyPhase.OPFOR:
+				phaseString = "OPFOR";
+				break;
+			
+			case EOnTheFlyPhase.BLUFOR:
+				phaseString = "BLUFOR";
+				break;
+			
+			case EOnTheFlyPhase.GAME:
+				phaseString = "Game";
+				break;
 	
-	//------------------------------------------------------------------------------------------------
-	protected void PhaseBluforEntered()
-	{
-		Print("OTF - Phase 'Blufor' entered", LogLevel.NORMAL)
-	}
-	
-	//------------------------------------------------------------------------------------------------
-	protected void PhaseGameEntered()
-	{
-		Print("OTF - Phase 'Game' entered", LogLevel.NORMAL)
+			default:
+				Print("Unknown Phase");
+				break;
+		}
+		
+		return phaseString;
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -681,9 +624,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	{
 		// allow debug spawn without peer tool
 		TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, true);
-		NotifyOpposingFactionAfterOpforPhase(markerOwnerFaction);
 		AddMarkerToOpposingFaction(markerOwnerFaction, marker);
-		SetOnTheFlyPhase(EOnTheFlyPhase.GAME)
+		SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -695,16 +637,12 @@ class GRAD_OnTheFlyManager : GenericEntity
 			return;
 		}
 			
-		if (OpforSpawnDone()) {
-			NotifyCantTeleportTwice(markerOwnerFaction);
-			return;
-		}
-		
 		if (markerOwnerFaction.GetFactionKey() == "USSR") {	
 			TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, false);
-			NotifyOpposingFactionAfterOpforPhase(markerOwnerFaction);
+			SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR);
+			
 			AddMarkerToOpposingFaction(markerOwnerFaction, marker);
-			SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR)
+			GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterOpforPhase, m_iNotificationDuration, false, markerOwnerFaction);
 		} else {
 			NotifyCantTeleportThisFaction(markerOwnerFaction);
 		}
@@ -719,11 +657,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 			return;
 		}
 		
-		if (BluforSpawnDone()) {
-			NotifyCantTeleportTwice(markerOwnerFaction);
-			return;
-		}
-		
 		if (IsBluforSpawnDistanceToShort(markerPos)) {
 			NotifySpawnTooClose(markerOwnerFaction);
 			return;
@@ -731,8 +664,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 			
 		if (markerOwnerFaction.GetFactionKey() == "US") {
 			TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, false);
-			NotifyOpposingFactionAfterBluforPhase(markerOwnerFaction);
-			SetOnTheFlyPhase(EOnTheFlyPhase.GAME)
+			SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
+			
+        	GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterBluforPhase, m_iNotificationDuration, false, markerOwnerFaction);
 		} else {
 			NotifyCantTeleportThisFaction(markerOwnerFaction);
 		}
