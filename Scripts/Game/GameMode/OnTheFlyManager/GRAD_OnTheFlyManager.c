@@ -80,7 +80,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		return m_bluforCapturingProgress;
 	}
 	
-	//---------------------------
+	//------------------------------------------------------------------------------------------------
 	void checkBarrelState()
 	{
 		if (m_bluforCaptured) {
@@ -98,7 +98,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		m_smokeComponent = GRAD_BarrelSmokeComponent.Cast(m_otfBarrel.FindComponent(GRAD_BarrelSmokeComponent));
 		
 		if (!m_smokeComponent) {
-			Print(string.Format("OTF - Skipping CheckBarrelState: No smoke yet"), LogLevel.NORMAL);
+			Print(string.Format("OTF - Skipping CheckBarrelState: smoke component missing"), LogLevel.NORMAL);
 			return;
 		}
 		
@@ -212,39 +212,31 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	int GetAlivePlayersOfSide(string factionName)
 	{
-		int aliveCount = 0;
+		array<int> alivePlayersOfSide = {};
 		
 		array<int> allPlayers = {};
 		GetGame().GetPlayerManager().GetPlayers(allPlayers);
 		foreach(int playerId : allPlayers)
 		{
+			// null check bc of null pointer crash
 			PlayerController pc = GetGame().GetPlayerManager().GetPlayerController(playerId);
-			if (!pc)
-			{
-				// null check bc of null pointer crash
-				allPlayers.RemoveItem(playerId);
-				continue;
-			}
+			if (!pc) continue;
+			
+			// Game Master is also a player but perhaps with no controlled entity
 			IEntity controlled = pc.GetControlledEntity();
-			if (!controlled)
-			{
-				// Game Master is also a player but perhaps with no controlled entity
-				allPlayers.RemoveItem(playerId);
-				continue;
-			}
+			if (!controlled) continue;
+			
+			// null check bc of null pointer crash
 			SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(controlled);
-			if (!ch)
-			{
-				// null check bc of null pointer crash
-				allPlayers.RemoveItem(playerId);
-				continue;
-			}
+			if (!ch) continue;
+			
 			CharacterControllerComponent ccc = ch.GetCharacterController();
-			if (factionName != ch.GetFactionKey() || ccc.IsDead()) allPlayers.RemoveItem(playerId);
+			if (factionName != ch.GetFactionKey() || ccc.IsDead()) continue;
+			
+			alivePlayersOfSide.Insert(playerId);
 		}
-		aliveCount = allPlayers.Count();
 		
-		return aliveCount;
+		return alivePlayersOfSide.Count();
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -265,12 +257,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 				m_debug = true;
 			}			
 		} else {
-			vector worldPos = {mapPos[0], 0, mapPos[1]}; 			
-			if (worldPos.Distance(worldPos,m_OpforSpawnPos) < 1000) {
-				NotifySpawnTooClose(faction);
-				return;
-			}				
-			
 			m_bBluforSpawnDone = true;
 			
 			SpawnBluforVehicle(mapPos);
@@ -297,8 +283,16 @@ class GRAD_OnTheFlyManager : GenericEntity
 				playerController.TeleportPlayerToMapPos(playerId, mapPos);
 			}
 		} 
-		
-
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected bool IsBluforSpawnDistanceToShort(int mapPos[2])
+	{
+		vector worldPos = {mapPos[0], 0, mapPos[1]};
+		if (worldPos.Distance(worldPos,m_OpforSpawnPos) < 1000)
+			return true;
+		else
+			return false;
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -402,13 +396,38 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void NotifyOpposingFaction(Faction faction, SCR_MapMarkerBase marker)
+	void NotifyWrongPhaseForMarker(Faction faction)
 	{
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
 
 		string title = "On The Fly";
-		string message = "Opposing faction was teleported. Open your map and choose a spawn point.";
+		string message = "You can't create the marker in this phase.";
+		int duration = 10;
+		bool isSilent = false;
+		
+		foreach (int playerId : playerIds)
+		{
+			if (SCR_FactionManager.SGetPlayerFaction(playerId) == faction)
+			{
+				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
+			
+				playerController.ShowHint(message, title, duration, isSilent);
+			}
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void NotifyOpposingFactionAfterOpforPhase(Faction faction)
+	{
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+
+		string title = "On The Fly";
+		string message = "OPFOR was teleported. Open your map and choose a spawn point.";
 		int duration = 10;
 		bool isSilent = false;
 		
@@ -422,6 +441,50 @@ class GRAD_OnTheFlyManager : GenericEntity
 					return;
 			
 				playerController.ShowHint(message, title, duration, isSilent);
+			}
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void NotifyOpposingFactionAfterBluforPhase(Faction faction)
+	{
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+
+		string title = "On The Fly";
+		string message = "BLUFOR was teleported. The Battle begins.";
+		int duration = 10;
+		bool isSilent = false;
+		
+		foreach (int playerId : playerIds)
+		{
+			if (SCR_FactionManager.SGetPlayerFaction(playerId) != faction)
+			{
+				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
+			
+				playerController.ShowHint(message, title, duration, isSilent);
+			}
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void AddMarkerToOpposingFaction(Faction faction, SCR_MapMarkerBase marker)
+	{
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+		
+		foreach (int playerId : playerIds)
+		{
+			if (SCR_FactionManager.SGetPlayerFaction(playerId) != faction)
+			{
+				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
+			
 				playerController.InsertLocalMarker(marker);
 			}
 		}
@@ -460,6 +523,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		m_otfBluforSpawnVehicle = vehicle;
 		vehicle.SetOrigin(spawnPosition); // just move for now, later might be created dynamically
+		// TODO: Changing the position of the vehicle on the server is not synced to the clients
+		// If GM moves the vehicle by hand the position is synced
 		
 		//Why this line is not printed?
 		Print(string.Format("OTF - Blufor Spawn Vehicle executed: %1", m_otfBluforSpawnVehicle), LogLevel.NORMAL);
@@ -545,6 +610,68 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected void PhaseGameEntered()
 	{
 		Print("OTF - Phase 'Game' entered", LogLevel.NORMAL)
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void DebugMarkerCreated(SCR_MapMarkerBase marker, int markerPos[2], Faction markerOwnerFaction)
+	{
+		// allow debug spawn without peer tool
+		TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, true);
+		NotifyOpposingFactionAfterOpforPhase(markerOwnerFaction);
+		AddMarkerToOpposingFaction(markerOwnerFaction, marker);
+		SetOnTheFlyPhase(EOnTheFlyPhase.GAME)
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void OpforMarkerCreated(SCR_MapMarkerBase marker, int markerPos[2], Faction markerOwnerFaction)
+	{
+		// manage opfor marker placement
+		if (m_iOnTheFlyPhase != EOnTheFlyPhase.OPFOR) {
+			NotifyWrongPhaseForMarker(markerOwnerFaction);
+			return;
+		}
+			
+		if (OpforSpawnDone()) {
+			NotifyCantTeleportTwice(markerOwnerFaction);
+			return;
+		}
+		
+		if (markerOwnerFaction.GetFactionKey() == "USSR") {	
+			TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, false);
+			NotifyOpposingFactionAfterOpforPhase(markerOwnerFaction);
+			AddMarkerToOpposingFaction(markerOwnerFaction, marker);
+			SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR)
+		} else {
+			NotifyCantTeleportThisFaction(markerOwnerFaction);
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void BluforMarkerCreated(SCR_MapMarkerBase marker, int markerPos[2], Faction markerOwnerFaction)
+	{
+		// manage blufor marker placement
+		if (m_iOnTheFlyPhase != EOnTheFlyPhase.BLUFOR) {
+			NotifyWrongPhaseForMarker(markerOwnerFaction);
+			return;
+		}
+		
+		if (BluforSpawnDone()) {
+			NotifyCantTeleportTwice(markerOwnerFaction);
+			return;
+		}
+		
+		if (IsBluforSpawnDistanceToShort(markerPos)) {
+			NotifySpawnTooClose(markerOwnerFaction);
+			return;
+		}
+			
+		if (markerOwnerFaction.GetFactionKey() == "US") {
+			TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, false);
+			NotifyOpposingFactionAfterBluforPhase(markerOwnerFaction);
+			SetOnTheFlyPhase(EOnTheFlyPhase.GAME)
+		} else {
+			NotifyCantTeleportThisFaction(markerOwnerFaction);
+		}
 	}
 	
 	//------------------------------------------------------------------------------------------------
