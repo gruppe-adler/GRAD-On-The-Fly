@@ -11,6 +11,8 @@ class GRAD_OnTheFlyManagerClass : GenericEntityClass
 {
 }
 
+// This class is server-only code
+
 class GRAD_OnTheFlyManager : GenericEntity
 {
 	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long in milliseconds is the win conditions check interval.", category: "On The Fly - Parameters", params: "1000 60000 1000")]
@@ -25,8 +27,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	[Attribute(defvalue: "10", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long in seconds the notifications should be displayed", category: "On The Fly - Parameters", params: "1 30 1")]
 	protected int m_iNotificationDuration;
 	
-	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long should the tracing distance be to convert map in world coordinates", category: "On The Fly - Parameters", params: "1 5000 1")]
-	protected int m_iTracingDistance;
+	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long should the tracing distance be to convert map in world coordinates", category: "On The Fly - Parameters", params: "1.0 5000.0 1.0")]
+	protected float m_iTracingDistance;
 	
 	protected bool m_bOpforSpawnDone;
 	protected bool m_bBluforSpawnDone;
@@ -484,6 +486,53 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	void NotifyAllOnPhaseChange(int phase)
+	{
+		string phaseString;
+
+		switch (m_iOnTheFlyPhase)
+		{
+			case EOnTheFlyPhase.GAMEMASTER:
+				phaseString = "Game Master";
+				break;
+	
+			case EOnTheFlyPhase.OPFOR:
+				phaseString = "OPFOR";
+				break;
+			
+			case EOnTheFlyPhase.BLUFOR:
+				phaseString = "BLUFOR";
+				break;
+			
+			case EOnTheFlyPhase.GAME:
+				phaseString = "Game";
+				break;
+	
+			default:
+				Print("Unknown Phase");
+				break;
+		}
+		
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+
+		string title = "On The Fly";
+		string message = string.Format("New phase '%1' entered.", phaseString);
+		int duration = m_iNotificationDuration;
+		bool isSilent = false;
+		
+		foreach (int playerId : playerIds)
+		{
+			SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+			
+			if (!playerController)
+				return;
+		
+			playerController.ShowHint(message, title, duration, isSilent);
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	void AddMarkerToOpposingFaction(Faction faction, SCR_MapMarkerBase marker)
 	{
 		array<int> playerIds = {};
@@ -599,6 +648,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 				Print("OTF - Unknown Phase");
 				break;
 		}
+		
+		NotifyAllOnPhaseChange(onTheFlyPhase);
 	}
 
 	//------------------------------------------------------------------------------------------------
