@@ -474,7 +474,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
 
 		string title = "On The Fly";
-		string message = string.Format("New phase '%1' entered.", PhaseEnumToString(phase));
+		string message = string.Format("New phase '%1' entered.", SCR_Enum.GetEnumName(EOnTheFlyPhase, phase));
 		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
@@ -579,46 +579,15 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void SetOnTheFlyPhase(int onTheFlyPhase)
+	void SetOnTheFlyPhase(int phase)
 	{
-		m_iOnTheFlyPhase = onTheFlyPhase;
+		m_iOnTheFlyPhase = phase;
 		
-		NotifyAllOnPhaseChange(onTheFlyPhase);
+		NotifyAllOnPhaseChange(phase);
 		
-		Print(string.Format("OTF - Phase 'Game Master' entered", PhaseEnumToString(onTheFlyPhase)), LogLevel.NORMAL);
+		Print(string.Format("OTF - Phase 'Game Master' entered", SCR_Enum.GetEnumName(EOnTheFlyPhase, phase)), LogLevel.NORMAL);
 	}
 
-	//------------------------------------------------------------------------------------------------
-	protected string PhaseEnumToString(int phase)
-	{
-		string phaseString;
-		
-		switch (phase)
-		{
-			case EOnTheFlyPhase.GAMEMASTER:
-				phaseString = "Game Master";
-				break;
-	
-			case EOnTheFlyPhase.OPFOR:
-				phaseString = "OPFOR";
-				break;
-			
-			case EOnTheFlyPhase.BLUFOR:
-				phaseString = "BLUFOR";
-				break;
-			
-			case EOnTheFlyPhase.GAME:
-				phaseString = "Game";
-				break;
-	
-			default:
-				Print("Unknown Phase");
-				break;
-		}
-		
-		return phaseString;
-	}
-	
 	//------------------------------------------------------------------------------------------------
 	void DebugMarkerCreated(SCR_MapMarkerBase marker, int markerPos[2], Faction markerOwnerFaction)
 	{
