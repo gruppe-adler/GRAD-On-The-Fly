@@ -15,9 +15,34 @@ modded class SCR_PlayerController : PlayerController
 		
 		SCR_MapMarkerManagerComponent mapMarkerManager = SCR_MapMarkerManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_MapMarkerManagerComponent));
 		
+		// Open Map before creating marker to avoid script error
+		// No luck with opening the map
+		/*
+		BaseGameMode gameMode = GetGame().GetGameMode();
+		if (!gameMode)
+			return;
+		SCR_MapConfigComponent configComp = SCR_MapConfigComponent.Cast(gameMode.FindComponent(SCR_MapConfigComponent));
+		if (!configComp)
+			return;
+		SCR_MapEntity m_MapEntity = SCR_MapEntity.GetMapInstance();
+		MapConfiguration mapConfigFullscreen = m_MapEntity.SetupMapConfig(EMapEntityMode.FULLSCREEN, configComp.GetGadgetMapConfig(), GetRootWidget());
+		m_MapEntity.OpenMap(mapConfigFullscreen);
+		*/
+		
+		/*
+		SCR_MapEditorComponent mapEditorComponent = SCR_MapEditorComponent.Cast(SCR_MapEditorComponent.GetInstance(SCR_MapEditorComponent));
+		if (mapEditorComponent)
+		{
+			mapEditorComponent.ToggleMap();
+		}
+		*/
+		
+		// Creating the marker will trow an error om SCR_MapMarkerBase because it's meant to only create 
+		// markers while the map is open. I think this error can be ignored	
+
 		// duplicating instead of assigning marker because with that the marker would change it's 
 		// faction and becomes invisible for opfor
-		
+			
 		SCR_MapMarkerBase localMarker = new SCR_MapMarkerBase();
 		localMarker.SetType(marker.GetType());
 		int worldPos[2];
