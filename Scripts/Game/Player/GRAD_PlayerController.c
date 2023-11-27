@@ -1,8 +1,6 @@
 //------------------------------------------------------------------------------------------------
 modded class SCR_PlayerController : PlayerController
 {
-	bool otfTeleported = false;
-
 	//------------------------------------------------------------------------------------------------
 	void InsertLocalMarker(SCR_MapMarkerBase marker)
 	{
@@ -64,9 +62,6 @@ modded class SCR_PlayerController : PlayerController
 	{
 		// executed locally on players machine
 		
-		if (otfTeleported)
-			return;
-		
 		IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
 		
 		if (!playerEntity)
@@ -89,8 +84,6 @@ modded class SCR_PlayerController : PlayerController
 			
 			teleportSuccessful = SCR_Global.TeleportLocalPlayer(newWorldPos, SCR_EPlayerTeleportedReason.DEFAULT);
 		}
-		
-		otfTeleported = true;
 		
 		Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2", GetPlayerId(), newWorldPos), LogLevel.NORMAL);
 	}
