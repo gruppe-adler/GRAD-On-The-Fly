@@ -37,6 +37,10 @@ PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_Game
     }
    }
   }
+  SCR_EditorSettingsEntity {
+   coords -2020.472 -132.255 4682.869
+   m_bIsUnlimitedEditorLegal 1
+  }
  }
 }
 GRAD_OnTheFlyManager {
