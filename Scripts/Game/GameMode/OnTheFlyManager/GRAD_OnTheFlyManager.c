@@ -13,9 +13,20 @@ class GRAD_OnTheFlyManagerClass : GenericEntityClass
 
 class GRAD_OnTheFlyManager : GenericEntity
 {
-	protected static int s_maxCaptureTime = 20;
+	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long in milliseconds is the win conditions check interval.", category: "On The Fly - Parameters", params: "1000 60000 1000")]
+	protected int m_iCheckInterval;
 	
-	protected static GRAD_OnTheFlyManager s_Instance;
+	[Attribute(defvalue: "20", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long in check cycles the barrel needs to be captured by BLUFOR to win.", category: "On The Fly - Parameters", params: "1 100 1")]
+	protected int m_iMaxCaptureTime;
+	
+	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How far away BLUFOR needs to spawn from OPFOR barrel.", category: "On The Fly - Parameters", params: "1 5000 1")]
+	protected int m_iBluforSpawnDistance;
+	
+	[Attribute(defvalue: "10", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long in seconds the notifications should be displayed", category: "On The Fly - Parameters", params: "1 30 1")]
+	protected int m_iNotificationDuration;
+	
+	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long should the tracing distance be to convert map in world coordinates", category: "On The Fly - Parameters", params: "1 5000 1")]
+	protected int m_iTracingDistance;
 	
 	protected bool m_bOpforSpawnDone;
 	protected bool m_bBluforSpawnDone;
@@ -38,6 +49,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	
 	protected int m_iOnTheFlyPhase;
 	
+	protected static GRAD_OnTheFlyManager s_Instance;
+	
 	//------------------------------------------------------------------------------------------------
 	override void EOnInit(IEntity owner)
 	{
@@ -46,7 +59,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			return;
 		
 		// check win conditions every second
-        GetGame().GetCallqueue().CallLater(CheckWinConditions, 1000, true);
+        GetGame().GetCallqueue().CallLater(CheckWinConditions, m_iCheckInterval, true);
     }
 	
 	//------------------------------------------------------------------------------------------------
@@ -113,7 +126,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			Print(string.Format("OTF - Capture progress: %1 %", m_bluforCapturingProgress), LogLevel.NORMAL);
 		}
 		
-		if (m_bluforCapturingProgress >= s_maxCaptureTime) {
+		if (m_bluforCapturingProgress >= m_iMaxCaptureTime) {
 			m_bluforCaptured = true;
 		}
 		
@@ -289,7 +302,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected bool IsBluforSpawnDistanceToShort(int mapPos[2])
 	{
 		vector worldPos = {mapPos[0], 0, mapPos[1]};
-		if (worldPos.Distance(worldPos,m_OpforSpawnPos) < 1000)
+		if (worldPos.Distance(worldPos,m_OpforSpawnPos) < m_iBluforSpawnDistance)
 			return true;
 		else
 			return false;
@@ -303,7 +316,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 		string title = "On The Fly";
 		string message = "Opposing faction did not teleport yet. Wait for the signal.";
-		int duration = 10;
+		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
 		foreach (int playerId : playerIds)
@@ -328,7 +341,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 		string title = "On The Fly";
 		string message = "You can only teleport once. Deal with it.";
-		int duration = 10;
+		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
 		foreach (int playerId : playerIds)
@@ -353,7 +366,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 		string title = "On The Fly";
 		string message = "You need to be at least 1000m away from enemy to spawn.";
-		int duration = 10;
+		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
 		foreach (int playerId : playerIds)
@@ -378,7 +391,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 		string title = "On The Fly";
 		string message = "You can only teleport your own faction. Stop trying.";
-		int duration = 10;
+		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
 		foreach (int playerId : playerIds)
@@ -403,7 +416,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 		string title = "On The Fly";
 		string message = "You can't create the marker in this phase.";
-		int duration = 10;
+		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
 		foreach (int playerId : playerIds)
@@ -428,7 +441,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 		string title = "On The Fly";
 		string message = "OPFOR was teleported. Open your map and choose a spawn point.";
-		int duration = 10;
+		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
 		foreach (int playerId : playerIds)
@@ -453,7 +466,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 
 		string title = "On The Fly";
 		string message = "BLUFOR was teleported. The Battle begins.";
-		int duration = 10;
+		int duration = m_iNotificationDuration;
 		bool isSilent = false;
 		
 		foreach (int playerId : playerIds)
@@ -535,10 +548,10 @@ class GRAD_OnTheFlyManager : GenericEntity
 	{
 		BaseWorld world = GetGame().GetWorld();
 		
-		vector worldPos = {mapPos[0], 500, mapPos[1]}; // start tracing in 500m height
+		vector worldPos = {mapPos[0], m_iTracingDistance / 2, mapPos[1]}; // start tracing in half tracing height height
 				
 		vector outDir = {0, -1, 0}; // downward direction
-		outDir *= 1000; // trace for 1000 meters
+		outDir *= m_iTracingDistance; // trace for x meters
 			
 		autoptr TraceParam trace = new TraceParam();
 		trace.Start = worldPos;
