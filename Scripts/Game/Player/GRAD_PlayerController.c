@@ -14,7 +14,19 @@ modded class SCR_PlayerController : PlayerController
 		// executed locally on players machine
 		
 		SCR_MapMarkerManagerComponent mapMarkerManager = SCR_MapMarkerManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_MapMarkerManagerComponent));
-		mapMarkerManager.InsertLocalMarker(marker);
+		
+		// duplicating instead of assigning marker because with that the marker would change it's 
+		// faction and becomes invisible for opfor
+		
+		SCR_MapMarkerBase localMarker = new SCR_MapMarkerBase();
+		localMarker.SetType(marker.GetType());
+		int worldPos[2];
+		marker.GetWorldPos(worldPos);
+		localMarker.SetWorldPos(worldPos[0], worldPos[1]);
+		localMarker.SetMarkerConfigID(marker.GetMarkerConfigID());
+		localMarker.SetCustomText("opfor");
+		
+		mapMarkerManager.InsertLocalMarker(localMarker);
 	}
 	
 	//------------------------------------------------------------------------------------------------
