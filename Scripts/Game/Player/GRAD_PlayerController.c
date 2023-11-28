@@ -59,6 +59,41 @@ modded class SCR_PlayerController : PlayerController
 		else
 			gadgetManager.SetGadgetMode(mapEntity, EGadgetMode.IN_SLOT, false);
 	}
+
+	//------------------------------------------------------------------------------------------------
+	void DrawCircleOnMap()
+	{
+		// DO NOT USE THIS FUNCTION
+		// STILL UNDER DEVELOPMENT
+		// ONLY WORKS IF MAP IS OPEN
+		// NEEDS TO BE REDRAWN ON EVERY CHANGE OF THE MAP
+		// DIMENSIONS ARE NOT PERFECT
+		
+		SCR_MapEntity mapEntity = SCR_MapEntity.GetMapInstance();
+		CanvasWidget mapWidget = mapEntity.GetMapWidget();
+		
+		Widget mapFrame = mapEntity.GetMapMenuRoot().FindAnyWidget(SCR_MapConstants.MAP_FRAME_NAME);
+		
+		Widget line = GetGame().GetWorkspace().CreateWidgets("{4B995CEAA55BBECC}UI/Layouts/Map/MapDrawCircle.layout", mapFrame);
+		ImageWidget lineImage = ImageWidget.Cast(line.FindAnyWidget("DrawCircleImage"));
+		
+		// 4438,8662
+		int mapPosX = 4438;
+		int mapPosY = 8662;
+		int mapRadius = 1000;
+		
+		int screenPosX, screenPosY, screenRadius;
+		
+		mapEntity.WorldToScreen(mapPosX, mapPosY, screenPosX, screenPosY, true);
+		mapEntity.WorldToScreen(0, mapRadius, screenRadius, screenRadius, true);
+		
+		vector circleVector = mapEntity.GetMapWidget().SizeToPixels({ 0, screenRadius * 2});
+		lineImage.SetSize(GetGame().GetWorkspace().DPIUnscale(circleVector.Length()), GetGame().GetWorkspace().DPIUnscale(circleVector.Length()));
+		
+		Print(screenRadius);
+		
+		FrameSlot.SetPos(line, GetGame().GetWorkspace().DPIUnscale(screenPosX - circleVector.Length()), GetGame().GetWorkspace().DPIUnscale(screenPosY));	// needs unscaled coords
+	}
 	
 	//------------------------------------------------------------------------------------------------
 	void ShowHint(string message, string title, int duration, bool isSilent)
