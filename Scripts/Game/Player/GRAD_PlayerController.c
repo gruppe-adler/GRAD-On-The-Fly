@@ -13,36 +13,18 @@ modded class SCR_PlayerController : PlayerController
 	{
 		// executed locally on players machine
 		
+		// Open map before creating marker
+		ToggleMap(true);
+		
+		// create marker
+		GetGame().GetCallqueue().CallLater(SetMarker, 3000, false, marker);
+	}
+
+	//------------------------------------------------------------------------------------------------
+	void SetMarker(SCR_MapMarkerBase marker)
+	{
 		SCR_MapMarkerManagerComponent mapMarkerManager = SCR_MapMarkerManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_MapMarkerManagerComponent));
 		
-		// Open Map before creating marker to avoid script error
-		// No luck with opening the map
-		/*
-		BaseGameMode gameMode = GetGame().GetGameMode();
-		if (!gameMode)
-			return;
-		SCR_MapConfigComponent configComp = SCR_MapConfigComponent.Cast(gameMode.FindComponent(SCR_MapConfigComponent));
-		if (!configComp)
-			return;
-		SCR_MapEntity m_MapEntity = SCR_MapEntity.GetMapInstance();
-		MapConfiguration mapConfigFullscreen = m_MapEntity.SetupMapConfig(EMapEntityMode.FULLSCREEN, configComp.GetGadgetMapConfig(), GetRootWidget());
-		m_MapEntity.OpenMap(mapConfigFullscreen);
-		*/
-		
-		/*
-		SCR_MapEditorComponent mapEditorComponent = SCR_MapEditorComponent.Cast(SCR_MapEditorComponent.GetInstance(SCR_MapEditorComponent));
-		if (mapEditorComponent)
-		{
-			mapEditorComponent.ToggleMap();
-		}
-		*/
-		
-		// Creating the marker will trow an error om SCR_MapMarkerBase because it's meant to only create 
-		// markers while the map is open. I think this error can be ignored	
-
-		// duplicating instead of assigning marker because with that the marker would change it's 
-		// faction and becomes invisible for opfor
-			
 		SCR_MapMarkerBase localMarker = new SCR_MapMarkerBase();
 		localMarker.SetType(marker.GetType());
 		int worldPos[2];
@@ -54,6 +36,28 @@ modded class SCR_PlayerController : PlayerController
 		localMarker.SetIconEntry(marker.GetIconEntry());
 		
 		mapMarkerManager.InsertLocalMarker(localMarker);
+	}
+		
+	//------------------------------------------------------------------------------------------------
+	void ToggleMap(bool open)
+	{
+		SCR_PlayerController pc = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		if (!pc) return;
+		
+		SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(pc.GetControlledEntity());
+		if (!ch) return;
+		
+		SCR_GadgetManagerComponent gadgetManager = SCR_GadgetManagerComponent.Cast(ch.FindComponent(SCR_GadgetManagerComponent));
+		if (!gadgetManager) return;
+		
+		if (!gadgetManager.GetGadgetByType(EGadgetType.MAP)) return;
+		
+		IEntity mapEntity = gadgetManager.GetGadgetByType(EGadgetType.MAP);
+		
+		if (open)
+			gadgetManager.SetGadgetMode(mapEntity, EGadgetMode.IN_HAND, true);
+		else
+			gadgetManager.SetGadgetMode(mapEntity, EGadgetMode.IN_SLOT, false);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -82,6 +86,9 @@ modded class SCR_PlayerController : PlayerController
 	protected void RpcDo_Owner_TeleportPlayer(vector pos)
 	{
 		// executed locally on players machine
+		
+		// Close map before creating marker
+		ToggleMap(false);
 		
 		if(SCR_Global.TeleportLocalPlayer(pos, SCR_EPlayerTeleportedReason.DEFAULT))
 			Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2", GetPlayerId(), pos), LogLevel.NORMAL);
