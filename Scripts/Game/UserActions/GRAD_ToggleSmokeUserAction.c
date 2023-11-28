@@ -18,6 +18,11 @@ class GRAD_ToggleSmokeUserAction : ScriptedUserAction
 			return false;
 		}
 		
+		GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
+		
+		if(!otfManager || (otfManager.GetOnTheFlyPhase() != EOnTheFlyPhase.GAME))
+			return false;
+		
 		return true;
 	}
 	
