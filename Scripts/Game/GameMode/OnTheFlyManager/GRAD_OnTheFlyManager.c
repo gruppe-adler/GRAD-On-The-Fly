@@ -583,10 +583,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 	void SetOnTheFlyPhase(int phase)
 	{
 		Rpc(RpcAsk_Authority_SetOnTheFlyPhase, phase);
-		
-		NotifyAllOnPhaseChange(phase);
-		
-		Print(string.Format("OTF - Phase 'Game Master' entered", SCR_Enum.GetEnumName(EOnTheFlyPhase, phase)), LogLevel.NORMAL);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -596,6 +592,10 @@ class GRAD_OnTheFlyManager : GenericEntity
 		m_iOnTheFlyPhase = phase;
 		
 		Replication.BumpMe();
+		
+		NotifyAllOnPhaseChange(phase);
+		
+		Print(string.Format("OTF - Phase '%1' entered (%2)", SCR_Enum.GetEnumName(EOnTheFlyPhase, phase), phase), LogLevel.NORMAL);
 	}
 
 	//------------------------------------------------------------------------------------------------

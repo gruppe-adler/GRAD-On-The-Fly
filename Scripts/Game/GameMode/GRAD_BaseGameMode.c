@@ -13,9 +13,7 @@ modded class SCR_BaseGameMode
 		{
 			GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
 			
-			Print(string.Format("OTF - Event started in phase 'GAMEMASTER'"), LogLevel.NORMAL);
-			
-			otfManager.NotifyAllOnPhaseChange(EOnTheFlyPhase.GAMEMASTER);
+			otfManager.SetOnTheFlyPhase(EOnTheFlyPhase.GAMEMASTER);
 		}
 	}
 }
