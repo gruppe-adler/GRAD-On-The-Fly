@@ -43,9 +43,6 @@ PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_Game
   }
  }
 }
-GRAD_OnTheFlyManager {
- coords 6431.87 161.35 6438.722
-}
 SCR_MapLocator {
  coords 6403.255 158.197 6411.668
  m_WorldDirections SCR_MapLocationQuadHint "{5AAA92CD91D1D8F5}" : "{ABA21F381437DFE8}Configs/Map/MapLocatorHints/LocationHintsEveron.conf" {
@@ -53,4 +50,7 @@ SCR_MapLocator {
 }
 HitRegistrationManager HitRegManager1 : "{0EDA3D48791120DD}Prefabs/MP/HitRegManager.et" {
  coords 6402.14 158.197 6430.692
+}
+GRAD_OnTheFlyManager : "{7B10C06626B2BEEE}Prefabs/GRAD_OnTheFlyManager.et" {
+ coords 4628.41 27.503 11135.438
 }

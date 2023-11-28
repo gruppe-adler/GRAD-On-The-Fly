@@ -5,7 +5,7 @@ class GRAD_ToggleSmokeUserAction : ScriptedUserAction
 	//------------------------------------------------------------------------------------------------
 	override bool CanBeShownScript(IEntity user)
 	{
-		return CanBePerformedScript(user);
+		return true;
 	}
 
 	//------------------------------------------------------------------------------------------------

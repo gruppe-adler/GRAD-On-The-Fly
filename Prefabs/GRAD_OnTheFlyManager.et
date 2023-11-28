@@ -1,0 +1,8 @@
+GRAD_OnTheFlyManager {
+ ID "5EF8B1A6B60CF282"
+ components {
+  RplComponent "{5EF8B1A6A18F38AB}" {
+  }
+ }
+ coords 6431.87 161.35 6438.722
+}

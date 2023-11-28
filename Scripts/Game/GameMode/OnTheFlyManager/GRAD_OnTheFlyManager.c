@@ -46,6 +46,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected IEntity m_otfBluforSpawnVehicle;
 	protected GRAD_BarrelSmokeComponent m_smokeComponent;
 	
+	[RplProp()]
 	protected int m_iOnTheFlyPhase;
 	
 	protected static GRAD_OnTheFlyManager s_Instance;
@@ -581,11 +582,20 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void SetOnTheFlyPhase(int phase)
 	{
-		m_iOnTheFlyPhase = phase;
+		Rpc(RpcAsk_Authority_SetOnTheFlyPhase, phase);
 		
 		NotifyAllOnPhaseChange(phase);
 		
 		Print(string.Format("OTF - Phase 'Game Master' entered", SCR_Enum.GetEnumName(EOnTheFlyPhase, phase)), LogLevel.NORMAL);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	protected void 	RpcAsk_Authority_SetOnTheFlyPhase(int phase)
+	{
+		m_iOnTheFlyPhase = phase;
+		
+		Replication.BumpMe();
 	}
 
 	//------------------------------------------------------------------------------------------------

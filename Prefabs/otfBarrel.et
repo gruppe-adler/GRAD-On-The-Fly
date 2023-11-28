@@ -56,6 +56,15 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
       Name "#AR-Inventory_PickUp"
      }
     }
+    GRAD_FinishOpforPhaseUserAction "{5EF8B4DFE411DC12}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5EF8B4DFE3D8237B}" {
+      Name "Finish Opfor Phase"
+     }
+     Duration 3
+    }
    }
   }
  }
