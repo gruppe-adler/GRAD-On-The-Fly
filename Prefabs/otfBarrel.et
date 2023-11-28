@@ -11,9 +11,9 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      Description "Barrel with 200l of Oil"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{5EE96A2B1D3A817D}" {
-     Weight 215
-     SizeSetupStrategy Volume
-     ItemVolume 100
+     Weight 0.5
+     SizeSetupStrategy Manual
+     ItemVolume 500
     }
     CustomAttributes {
      PreviewRenderAttributes "{5EE96A2B1D3A8170}" {
@@ -47,6 +47,14 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
       "main"
      }
      Duration 3
+    }
+    SCR_PickUpItemAction "{5EF882171E58A52E}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5EF88215A5B75121}" {
+      Name "#AR-Inventory_PickUp"
+     }
     }
    }
   }
