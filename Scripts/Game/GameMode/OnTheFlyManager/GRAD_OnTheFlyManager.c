@@ -641,10 +641,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 			
 		if (markerOwnerFaction.GetFactionKey() == "USSR") {	
 			TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, false);
-			//This will now be done via barrel action
+			// This will now be done via barrel action
+			// Also the barrel action will add the barrel marker to all players
 			//SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR);
 			
-			AddMarkerToOpposingFaction(markerOwnerFaction, marker);
+			//AddMarkerToOpposingFaction(markerOwnerFaction, marker);
 			//GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterOpforPhase, m_iNotificationDuration, false, markerOwnerFaction);
 		} else {
 			NotifyCantTeleportThisFaction(markerOwnerFaction);
