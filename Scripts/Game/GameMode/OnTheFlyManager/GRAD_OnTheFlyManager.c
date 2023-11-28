@@ -250,8 +250,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 			SpawnBarrel(mapPos);
 			Print(string.Format("OTF - Opfor spawn is done, barrel created"), LogLevel.NORMAL);
 						
-			SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR);
-			
 			// enter debug mode
 			if (isdebug) {
 				m_debug = true;
@@ -259,8 +257,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 		} else {
 			SpawnBluforVehicle(mapPos);
 			Print(string.Format("OTF - Blufor spawn is done, spawn vehicle moved"), LogLevel.NORMAL);
-			
-			SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
 		}
 		
 		array<int> playerIds = {};
@@ -511,6 +507,33 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	void AddBarrelMarkerToAllPlayers()
+	{
+		vector barrelWorldPos = m_otfBarrel.GetOrigin();
+		
+		SCR_MapMarkerBase barrelMarker = new SCR_MapMarkerBase();
+		barrelMarker.SetType(SCR_EMapMarkerType.PLACED_CUSTOM);
+		barrelMarker.SetWorldPos(barrelWorldPos[0], barrelWorldPos[2]);
+		barrelMarker.SetCustomText("barrel");
+		barrelMarker.SetColorEntry(4); // should be red
+		barrelMarker.SetIconEntry(11); // should be flag
+		
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+		
+		foreach (int playerId : playerIds)
+		{
+
+			SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+			
+			if (!playerController)
+				return;
+		
+			playerController.InsertLocalMarker(barrelMarker);
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	void SpawnBarrel(int spawnPosMap[2])
 	{
 		vector spawnPosition = MapPosToWorldPos(spawnPosMap);
@@ -618,10 +641,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 			
 		if (markerOwnerFaction.GetFactionKey() == "USSR") {	
 			TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, false);
-			SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR);
+			//This will now be done via barrel action
+			//SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR);
 			
 			AddMarkerToOpposingFaction(markerOwnerFaction, marker);
-			GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterOpforPhase, m_iNotificationDuration, false, markerOwnerFaction);
+			//GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterOpforPhase, m_iNotificationDuration, false, markerOwnerFaction);
 		} else {
 			NotifyCantTeleportThisFaction(markerOwnerFaction);
 		}

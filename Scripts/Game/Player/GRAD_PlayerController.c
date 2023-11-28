@@ -49,7 +49,9 @@ modded class SCR_PlayerController : PlayerController
 		marker.GetWorldPos(worldPos);
 		localMarker.SetWorldPos(worldPos[0], worldPos[1]);
 		localMarker.SetMarkerConfigID(marker.GetMarkerConfigID());
-		localMarker.SetCustomText("opfor");
+		localMarker.SetCustomText(marker.GetCustomText());
+		localMarker.SetColorEntry(marker.GetColorEntry());
+		localMarker.SetIconEntry(marker.GetIconEntry());
 		
 		mapMarkerManager.InsertLocalMarker(localMarker);
 	}
