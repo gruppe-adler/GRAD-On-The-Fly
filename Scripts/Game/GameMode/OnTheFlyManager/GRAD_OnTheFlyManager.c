@@ -191,17 +191,40 @@ class GRAD_OnTheFlyManager : GenericEntity
 		if (endType == "opfor")
 		{
 			gameOverType = EGameOverTypes.EDITOR_FACTION_VICTORY;
-			winFactionId = 1;
+			winFactionId = GetFactionIdByFactionKey("USSR");
 		}
 		
 		if (endType == "blufor")
 		{
 			gameOverType = EGameOverTypes.EDITOR_FACTION_VICTORY;
-			winFactionId = 0;
+			winFactionId = GetFactionIdByFactionKey("US");
 		}
 		
 		SCR_GameModeEndData endData = SCR_GameModeEndData.CreateSimple(gameOverType, -1, winFactionId);
 		gameMode.EndGameMode(endData);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	int GetFactionIdByFactionKey(string factionKey)
+	{
+		int factionId = -1;
+		
+		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
+		
+		SCR_SortedArray<SCR_Faction> outFactions = new SCR_SortedArray<SCR_Faction>();
+		factionManager.GetSortedFactionsList(outFactions);
+		
+		Print(outFactions.Count());
+		
+		for (int i = 0; i < outFactions.Count(); i++)
+		{
+			if (outFactions[i].GetFactionKey() == factionKey)
+				factionId = factionManager.GetFactionIndex(outFactions[i]);
+		}
+		
+		PrintFormat("OTF - factionKey: %1 factionId: %2", factionKey, factionId);
+		
+		return factionId;
 	}
 		
 	//------------------------------------------------------------------------------------------------
