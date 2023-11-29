@@ -65,6 +65,53 @@ class GRAD_OnTheFlyManager : GenericEntity
     }
 	
 	//------------------------------------------------------------------------------------------------
+	void OnSynchedMarkerAdded(SCR_MapMarkerBase marker)
+	{
+		if (marker.GetType() != SCR_EMapMarkerType.PLACED_CUSTOM)
+			return; // only custom markers will have marker text that we need
+		
+		string markerText = marker.GetCustomText();
+		Print(string.Format("OTF - Custom Marker '%1' placed.", markerText), LogLevel.NORMAL);
+		markerText.ToLower();
+		if (!(markerText == "debug" || markerText == "opfor" || markerText == "blufor"))
+			return; // we are only interested in these special markers
+		
+		int markerOwnerId = marker.GetMarkerOwnerID();
+		
+		// only characters with the role 'OTF Commander' either BLUFOR or OPFOR are allowed to create teleport markers
+		SCR_PlayerController pc = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(markerOwnerId));
+		SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(pc.GetControlledEntity());
+		GRAD_CharacterRoleComponent characterRoleComponent = GRAD_CharacterRoleComponent.Cast(ch.FindComponent(GRAD_CharacterRoleComponent));
+		string characterRole = characterRoleComponent.GetCharacterRole();
+		if (characterRole != "OTF Commander")
+		{
+			Print(string.Format("OTF - Wrong role for marker. Current Role '%1'", characterRole), LogLevel.NORMAL);
+			NotifyPlayerWrongRole(markerOwnerId, "OTF Commander");
+			return;
+		}
+		
+		int markerPos[2];
+		marker.GetWorldPos(markerPos);
+		
+		Faction markerOwnerFaction = SCR_FactionManager.SGetPlayerFaction(markerOwnerId);
+		
+		switch (markerText)
+		{
+			case "debug":
+				DebugMarkerCreated(marker, markerPos, markerOwnerFaction);
+				break;
+	
+			case "opfor":
+				OpforMarkerCreated(marker, markerPos, markerOwnerFaction);
+				break;
+			
+			case "blufor":
+				BluforMarkerCreated(marker, markerPos, markerOwnerFaction);
+				break;
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	bool BluforCaptured()
 	{
 		return m_bluforCaptured;
@@ -315,7 +362,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void NotifyCantTeleportYet(Faction faction)
+	void NotifyFactionCantTeleportYet(Faction faction)
 	{
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
@@ -340,7 +387,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void NotifyCantTeleportTwice(Faction faction)
+	void NotifyFactionCantTeleportTwice(Faction faction)
 	{
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
@@ -365,7 +412,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void NotifySpawnTooClose(Faction faction)
+	void NotifyFactionSpawnTooClose(Faction faction)
 	{
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
@@ -390,7 +437,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void NotifyCantTeleportThisFaction(Faction faction)
+	void NotifyFactionCantTeleport(Faction faction)
 	{
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
@@ -415,7 +462,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void NotifyWrongPhaseForMarker(Faction faction)
+	void NotifyFactionWrongPhaseForMarker(Faction faction)
 	{
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
@@ -509,6 +556,23 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 			playerController.ShowHint(message, title, duration, isSilent);
 		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void NotifyPlayerWrongRole(int playerId, string neededRole)
+	{
+
+		string title = "On The Fly";
+		string message = string.Format("You have the wrong role to create a teleport marker. You need to have the '%1' role.", neededRole);
+		int duration = m_iNotificationDuration;
+		bool isSilent = false;
+		
+		SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+		
+		if (!playerController)
+			return;
+	
+		playerController.ShowHint(message, title, duration, isSilent);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -680,7 +744,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	{
 		// manage opfor marker placement
 		if (m_iOnTheFlyPhase != EOnTheFlyPhase.OPFOR) {
-			NotifyWrongPhaseForMarker(markerOwnerFaction);
+			NotifyFactionWrongPhaseForMarker(markerOwnerFaction);
 			return;
 		}
 			
@@ -693,7 +757,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			//AddMarkerToOpposingFaction(markerOwnerFaction, marker);
 			//GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterOpforPhase, m_iNotificationDuration, false, markerOwnerFaction);
 		} else {
-			NotifyCantTeleportThisFaction(markerOwnerFaction);
+			NotifyFactionCantTeleport(markerOwnerFaction);
 		}
 	}
 	
@@ -702,12 +766,12 @@ class GRAD_OnTheFlyManager : GenericEntity
 	{
 		// manage blufor marker placement
 		if (m_iOnTheFlyPhase != EOnTheFlyPhase.BLUFOR) {
-			NotifyWrongPhaseForMarker(markerOwnerFaction);
+			NotifyFactionWrongPhaseForMarker(markerOwnerFaction);
 			return;
 		}
 		
 		if (IsBluforSpawnDistanceToShort(markerPos)) {
-			NotifySpawnTooClose(markerOwnerFaction);
+			NotifyFactionSpawnTooClose(markerOwnerFaction);
 			return;
 		}
 			
@@ -717,7 +781,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 			
         	GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterBluforPhase, m_iNotificationDuration, false, markerOwnerFaction);
 		} else {
-			NotifyCantTeleportThisFaction(markerOwnerFaction);
+			NotifyFactionCantTeleport(markerOwnerFaction);
 		}
 	}
 	

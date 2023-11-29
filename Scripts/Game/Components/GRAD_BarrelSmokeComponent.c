@@ -5,7 +5,7 @@ class GRAD_BarrelSmokeComponentClass : ScriptComponentClass
 
 class GRAD_BarrelSmokeComponent : ScriptComponent
 {
-	[Attribute(defvalue: "", uiwidget: UIWidgets.ResourceNamePicker, desc: "Smoke effect", params: "ptc", precision: 3, category: "Smoke")]
+	[Attribute(defvalue: "", uiwidget: UIWidgets.ResourceNamePicker, desc: "Smoke effect", params: "ptc", precision: 3, category: "On The Fly")]
 	protected ResourceName m_sSmokeParticle;
 	
 	private ParticleEffectEntity m_pSmokeParticle;

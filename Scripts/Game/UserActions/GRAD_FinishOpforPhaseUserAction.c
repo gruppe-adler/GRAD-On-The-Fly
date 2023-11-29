@@ -14,6 +14,13 @@ class GRAD_FinishOpforPhaseUserAction : ScriptedUserAction
 		if(!otfManager || (otfManager.GetOnTheFlyPhase() != EOnTheFlyPhase.OPFOR))
 			return false;
 		
+		// only characters with the role 'OTF Commander' can perform this action
+		SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(user);
+		GRAD_CharacterRoleComponent characterRoleComponent = GRAD_CharacterRoleComponent.Cast(ch.FindComponent(GRAD_CharacterRoleComponent));
+		string characterRole = characterRoleComponent.GetCharacterRole();
+		if (characterRole != "OTF Commander")
+			return false;
+		
 		return true;
 	}
 	
