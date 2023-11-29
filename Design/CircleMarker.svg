@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g id="CircleMarker">
+        <g transform="matrix(2.14675,0,0,2.14675,-410.029,-452.964)">
+            <circle cx="429.5" cy="449.5" r="238.5" style="fill:url(#_Radial1);"/>
+        </g>
+        <g transform="matrix(2.14675,0,0,2.14675,-410.029,-452.964)">
+            <path d="M429.5,211C561.132,211 668,317.868 668,449.5C668,581.132 561.132,688 429.5,688C297.868,688 191,581.132 191,449.5C191,317.868 297.868,211 429.5,211ZM429.5,216.444C558.127,216.444 662.556,320.873 662.556,449.5C662.556,578.127 558.127,682.556 429.5,682.556C300.873,682.556 196.444,578.127 196.444,449.5C196.444,320.873 300.873,216.444 429.5,216.444Z" style="fill:white;"/>
+        </g>
+        <g transform="matrix(0.033543,0,0,0.033543,497.593,496.922)">
+            <circle cx="429.5" cy="449.5" r="238.5" style="fill:white;"/>
+        </g>
+    </g>
+    <defs>
+        <radialGradient id="_Radial1" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.46039e-14,-238.5,238.5,1.46039e-14,432.528,449.5)"><stop offset="0" style="stop-color:white;stop-opacity:0.5"/><stop offset="0.33" style="stop-color:white;stop-opacity:1"/><stop offset="0.66" style="stop-color:white;stop-opacity:1"/><stop offset="1" style="stop-color:white;stop-opacity:0.5"/></radialGradient>
+    </defs>
+</svg>

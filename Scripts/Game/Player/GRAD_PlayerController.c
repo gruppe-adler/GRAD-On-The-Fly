@@ -20,14 +20,14 @@ modded class SCR_PlayerController : PlayerController
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void InsertLocalMarker(SCR_MapMarkerBase marker)
+	void InsertMarker(SCR_MapMarkerBase marker)
 	{
-		Rpc(RpcDo_Owner_InsertLocalMarker, marker);
+		Rpc(RpcDo_Owner_InsertMarker, marker);
 	}
 	
 	//------------------------------------------------------------------------------------------------
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
-	protected void RpcDo_Owner_InsertLocalMarker(SCR_MapMarkerBase marker)
+	protected void RpcDo_Owner_InsertMarker(SCR_MapMarkerBase marker)
 	{
 		// executed locally on players machine
 		
@@ -43,17 +43,17 @@ modded class SCR_PlayerController : PlayerController
 	{
 		SCR_MapMarkerManagerComponent mapMarkerManager = SCR_MapMarkerManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_MapMarkerManagerComponent));
 		
-		SCR_MapMarkerBase localMarker = new SCR_MapMarkerBase();
-		localMarker.SetType(marker.GetType());
+		SCR_MapMarkerBase newMarker = new SCR_MapMarkerBase();
+		newMarker.SetType(marker.GetType());
 		int worldPos[2];
 		marker.GetWorldPos(worldPos);
-		localMarker.SetWorldPos(worldPos[0], worldPos[1]);
-		localMarker.SetMarkerConfigID(marker.GetMarkerConfigID());
-		localMarker.SetCustomText(marker.GetCustomText());
-		localMarker.SetColorEntry(marker.GetColorEntry());
-		localMarker.SetIconEntry(marker.GetIconEntry());
+		newMarker.SetWorldPos(worldPos[0], worldPos[1]);
+		newMarker.SetMarkerConfigID(marker.GetMarkerConfigID());
+		newMarker.SetCustomText(marker.GetCustomText());
+		newMarker.SetColorEntry(marker.GetColorEntry());
+		newMarker.SetIconEntry(marker.GetIconEntry());
 		
-		mapMarkerManager.InsertLocalMarker(localMarker);
+		mapMarkerManager.InsertStaticMarker(newMarker);
 	}
 		
 	//------------------------------------------------------------------------------------------------

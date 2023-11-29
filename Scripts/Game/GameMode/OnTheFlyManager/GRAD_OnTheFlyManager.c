@@ -590,7 +590,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 				if (!playerController)
 					return;
 			
-				playerController.InsertLocalMarker(marker);
+				playerController.InsertMarker(marker);
 			}
 		}
 	}
@@ -610,15 +610,38 @@ class GRAD_OnTheFlyManager : GenericEntity
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
 		
+		bool ussrSynchedMarkerPlaced = false;
+		bool usSynchedMarkerPlaced = false;
+		
 		foreach (int playerId : playerIds)
 		{
+			// only characters with the role 'OTF Commander' either BLUFOR or OPFOR create the barrel marker
+			bool isCommander = false;
+			SCR_PlayerController pc = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+			SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(pc.GetControlledEntity());
+			GRAD_CharacterRoleComponent characterRoleComponent = GRAD_CharacterRoleComponent.Cast(ch.FindComponent(GRAD_CharacterRoleComponent));
+			string characterRole = characterRoleComponent.GetCharacterRole();
+			if (characterRole != "OTF Commander")
+				continue;
 
+			// create synched marker only once per faction
+			Faction faction = SCR_FactionManager.SGetPlayerFaction(playerId);
+			if (faction.GetFactionKey() == "USSR" && ussrSynchedMarkerPlaced)
+				continue;
+			if (faction.GetFactionKey() == "US" && usSynchedMarkerPlaced)
+				continue;
+			
 			SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
 			
 			if (!playerController)
 				return;
 		
-			playerController.InsertLocalMarker(barrelMarker);
+			playerController.InsertMarker(barrelMarker);
+			
+			if (faction.GetFactionKey() == "USSR")
+				ussrSynchedMarkerPlaced = true;
+			if (faction.GetFactionKey() == "US")
+				usSynchedMarkerPlaced = true;
 		}
 	}
 
