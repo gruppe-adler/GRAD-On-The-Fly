@@ -645,9 +645,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void SpawnBarrel(int spawnPosMap[2])
 	{
+		if (m_otfBarrel)
+			RplComponent.DeleteRplEntity(m_otfBarrel, false);
+		
 		vector spawnPosition = MapPosToWorldPos(spawnPosMap);
 		
-		//protected ref RandomGenerator m_pRandomGenerator = new RandomGenerator();
 		EntitySpawnParams params = new EntitySpawnParams();
 		params.Transform[3] = spawnPosition;
 		
