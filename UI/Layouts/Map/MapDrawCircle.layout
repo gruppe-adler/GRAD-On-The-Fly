@@ -5,7 +5,6 @@ FrameWidgetClass {
   OffsetTop 0
   OffsetRight -100
   OffsetBottom -30
-  Alignment -0.5 0.5
   SizeToContent 1
  }
  "Z Order" 70
@@ -23,12 +22,10 @@ FrameWidgetClass {
     OffsetRight -1024
     SizeY 1024
     OffsetBottom -1024
-    Alignment 0 0
     SizeToContent 1
    }
    Opacity 0.5
    Color 0.947 0.056 0.056 1
-   Pivot 0 0.5
    Texture "{BBDE49CD7C1A52F7}UI/Textures/Map/CircleMarker.edds"
    Size 1024 1024
   }

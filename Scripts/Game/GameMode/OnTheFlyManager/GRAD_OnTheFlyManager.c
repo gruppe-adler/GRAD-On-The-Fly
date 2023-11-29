@@ -46,6 +46,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	protected IEntity m_otfBluforSpawnVehicle;
 	protected GRAD_BarrelSmokeComponent m_smokeComponent;
 	
+	protected const int MARKER_RADIUS = 1000;
+	
 	[RplProp()]
 	protected int m_iOnTheFlyPhase;
 	
@@ -553,6 +555,26 @@ class GRAD_OnTheFlyManager : GenericEntity
 				return;
 		
 			playerController.InsertLocalMarker(barrelMarker);
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------
+	void AddBarrelSpawnRadiusMarkerToAllPlayers()
+	{
+		vector barrelWorldPos = m_otfBarrel.GetOrigin();
+		
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+		
+		foreach (int playerId : playerIds)
+		{
+
+			SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+			
+			if (!playerController)
+				return;
+		
+			playerController.AddCircleMarker(barrelWorldPos[0] - MARKER_RADIUS, barrelWorldPos[2] + MARKER_RADIUS, barrelWorldPos[0] + MARKER_RADIUS, barrelWorldPos[2] + MARKER_RADIUS);
 		}
 	}
 	

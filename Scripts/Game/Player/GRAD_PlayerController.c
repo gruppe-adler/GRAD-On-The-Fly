@@ -1,6 +1,24 @@
 //------------------------------------------------------------------------------------------------
 modded class SCR_PlayerController : PlayerController
 {
+	protected ref GRAD_MapMarkerUI m_MapMarkerUI;
+	
+	//------------------------------------------------------------------------------------------------
+	override void EOnInit(IEntity owner)
+	{
+		SCR_MapEntity.GetOnMapOpen().Insert(OnMapOpen);
+    }
+	
+	//------------------------------------------------------------------------------------------------
+	void OnMapOpen(MapConfiguration config)
+	{
+		if (!m_MapMarkerUI)
+		{
+			m_MapMarkerUI = new GRAD_MapMarkerUI();
+			m_MapMarkerUI.Init();
+		}
+	}
+	
 	//------------------------------------------------------------------------------------------------
 	void InsertLocalMarker(SCR_MapMarkerBase marker)
 	{
@@ -21,7 +39,7 @@ modded class SCR_PlayerController : PlayerController
 	}
 
 	//------------------------------------------------------------------------------------------------
-	void SetMarker(SCR_MapMarkerBase marker)
+	protected void SetMarker(SCR_MapMarkerBase marker)
 	{
 		SCR_MapMarkerManagerComponent mapMarkerManager = SCR_MapMarkerManagerComponent.Cast(GetGame().GetGameMode().FindComponent(SCR_MapMarkerManagerComponent));
 		
@@ -61,38 +79,16 @@ modded class SCR_PlayerController : PlayerController
 	}
 
 	//------------------------------------------------------------------------------------------------
-	void DrawCircleOnMap()
+	void AddCircleMarker(float startX, float startY, float endX, float endY)
 	{
-		// DO NOT USE THIS FUNCTION
-		// STILL UNDER DEVELOPMENT
-		// ONLY WORKS IF MAP IS OPEN
-		// NEEDS TO BE REDRAWN ON EVERY CHANGE OF THE MAP
-		// DIMENSIONS ARE NOT PERFECT
-		
-		SCR_MapEntity mapEntity = SCR_MapEntity.GetMapInstance();
-		CanvasWidget mapWidget = mapEntity.GetMapWidget();
-		
-		Widget mapFrame = mapEntity.GetMapMenuRoot().FindAnyWidget(SCR_MapConstants.MAP_FRAME_NAME);
-		
-		Widget line = GetGame().GetWorkspace().CreateWidgets("{4B995CEAA55BBECC}UI/Layouts/Map/MapDrawCircle.layout", mapFrame);
-		ImageWidget lineImage = ImageWidget.Cast(line.FindAnyWidget("DrawCircleImage"));
-		
-		// 4438,8662
-		int mapPosX = 4438;
-		int mapPosY = 8662;
-		int mapRadius = 1000;
-		
-		int screenPosX, screenPosY, screenRadius;
-		
-		mapEntity.WorldToScreen(mapPosX, mapPosY, screenPosX, screenPosY, true);
-		mapEntity.WorldToScreen(0, mapRadius, screenRadius, screenRadius, true);
-		
-		vector circleVector = mapEntity.GetMapWidget().SizeToPixels({ 0, screenRadius * 2});
-		lineImage.SetSize(GetGame().GetWorkspace().DPIUnscale(circleVector.Length()), GetGame().GetWorkspace().DPIUnscale(circleVector.Length()));
-		
-		Print(screenRadius);
-		
-		FrameSlot.SetPos(line, GetGame().GetWorkspace().DPIUnscale(screenPosX - circleVector.Length()), GetGame().GetWorkspace().DPIUnscale(screenPosY));	// needs unscaled coords
+		Rpc(RpcDo_Owner_AddCircleMarker, startX, startY, endX, endY);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
+	protected void RpcDo_Owner_AddCircleMarker(float startX, float startY, float endX, float endY)
+	{
+		m_MapMarkerUI.AddCircle(startX, startY, endX, endY);
 	}
 	
 	//------------------------------------------------------------------------------------------------
