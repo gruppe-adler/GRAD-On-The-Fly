@@ -35,7 +35,7 @@ modded class SCR_PlayerController : PlayerController
 		ToggleMap(true);
 		
 		// create marker
-		GetGame().GetCallqueue().CallLater(SetMarker, 3000, false, marker);
+		GetGame().GetCallqueue().CallLater(SetMarker, 1000, false, marker); // 1s delay until map is open
 	}
 
 	//------------------------------------------------------------------------------------------------
