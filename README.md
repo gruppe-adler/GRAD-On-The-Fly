@@ -3,7 +3,7 @@
 
 <p align="center">
     <a href="https://github.com/gruppe-adler/GRAD-On-The-Fly/releases/latest">
-        <img src="https://img.shields.io/badge/Version-0.0.6-blue.svg?style=flat-square" alt="GRAD On The Fly Version">
+        <img src="https://img.shields.io/badge/Version-0.0.7-blue.svg?style=flat-square" alt="GRAD On The Fly Version">
     </a>
     <a href="https://www.bistudio.com/community/licenses/arma-public-license-share-alike">
         <img src="https://img.shields.io/badge/License-APL-red.svg?style=flat-square" alt="GRAD On The Fly License">
@@ -20,7 +20,6 @@ On The Fly is a simple, dynamic TvT scenario for Arma Reforger, in which OPFOR h
 
 * [Reforger Lobby](https://reforger.armaplatform.com/workshop/5EAF2B0473DB5A99-ReforgerLobby)
 * [Shop System](https://reforger.armaplatform.com/workshop/5D2D1436D1FA5A13-ShopSystem)
-* [Placeable Objects](https://reforger.armaplatform.com/workshop/5E654D40F0D628A0-Placeableobjects)
 
 ## Recommended Mods
 
