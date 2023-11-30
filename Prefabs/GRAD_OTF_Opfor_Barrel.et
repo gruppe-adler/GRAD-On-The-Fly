@@ -1,6 +1,41 @@
 GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_BarrelFuel_01_closed.et" {
  ID "52F07DE17573BB0C"
  components {
+  ADM_ShopComponent "{5EFAFA082FC1C8DA}" {
+   m_ShopName "OTF OPFOR Shop"
+   m_AdditionalMerchandise {
+    ADM_ShopMerchandise "{5EFAFA0833468140}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFAFA083912A160}" {
+      m_sPrefab "{E5912E45754CD421}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Tracer.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFAFA087D2A56F3}" {
+       m_Quantity 10
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5EFAFA086779FEC2}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFAFA086F3E896C}" {
+      m_sPrefab "{0A84AA5A3884176F}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Last_5Tracer.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFAFA0986B9E03F}" {
+       m_Quantity 10
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5EFAFA0869A4AAB0}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFAFA08755EDA9E}" {
+      m_sPrefab "{BBB50A815A2F916B}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Ball.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFAFA098C878D04}" {
+       m_Quantity 10
+      }
+     }
+    }
+   }
+  }
   GRAD_BarrelSmokeComponent "{5EEAE5A211E50B77}" {
    m_sSmokeParticle "{1B6FD597FAE8C349}Particles/barrelSmoke.ptc"
   }
@@ -64,6 +99,19 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
       Name "Finish Opfor Phase"
      }
      Duration 3
+    }
+    ADM_ShopAction "{5EFAFA099EFF68D6}" {
+     ParentContextList {
+      "main"
+     }
+    }
+    GRAD_ShowCurrencyUserAction "{5EFC80F570F4E30E}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5EFC80F57E87A542}" {
+      Name "Show Currency"
+     }
     }
    }
   }

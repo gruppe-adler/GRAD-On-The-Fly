@@ -42,8 +42,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	
 	protected string m_winnerSide;
 	
-	protected IEntity m_otfBarrel;
-	protected IEntity m_otfBluforSpawnVehicle;
+	protected IEntity m_otfOpforBarrel;
+	protected IEntity m_otfBluforFlag;
 	protected GRAD_BarrelSmokeComponent m_smokeComponent;
 	
 	protected const int MARKER_RADIUS = 1000;
@@ -139,13 +139,13 @@ class GRAD_OnTheFlyManager : GenericEntity
 		}
 			
 		
-		if (!m_otfBarrel) {
+		if (!m_otfOpforBarrel) {
 			Print(string.Format("OTF - Skipping CheckBarrelState: No barrel yet"), LogLevel.NORMAL);
 			return;
 		}
 			
 		
-		m_smokeComponent = GRAD_BarrelSmokeComponent.Cast(m_otfBarrel.FindComponent(GRAD_BarrelSmokeComponent));
+		m_smokeComponent = GRAD_BarrelSmokeComponent.Cast(m_otfOpforBarrel.FindComponent(GRAD_BarrelSmokeComponent));
 		
 		if (!m_smokeComponent) {
 			Print(string.Format("OTF - Skipping CheckBarrelState: smoke component missing"), LogLevel.NORMAL);
@@ -319,7 +319,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		{
 			vector worldPos = {mapPos[0], 0, mapPos[1]}; 		
 			m_OpforSpawnPos = worldPos;
-			SpawnBarrel(mapPos);
+			SpawnOpforBarrel(mapPos);
 			Print(string.Format("OTF - Opfor spawn is done, barrel created"), LogLevel.NORMAL);
 						
 			// enter debug mode
@@ -327,7 +327,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 				m_debug = true;
 			}			
 		} else {
-			SpawnBluforVehicle(mapPos);
+			SpawnBluforFlag(mapPos);
 			Print(string.Format("OTF - Blufor spawn is done, spawn vehicle moved"), LogLevel.NORMAL);
 		}
 		
@@ -598,7 +598,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void AddBarrelMarkerToAllPlayers()
 	{
-		vector barrelWorldPos = m_otfBarrel.GetOrigin();
+		vector barrelWorldPos = m_otfOpforBarrel.GetOrigin();
 		
 		SCR_MapMarkerBase barrelMarker = new SCR_MapMarkerBase();
 		barrelMarker.SetType(SCR_EMapMarkerType.PLACED_CUSTOM);
@@ -648,7 +648,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void AddBarrelSpawnRadiusMarkerToAllPlayers()
 	{
-		vector barrelWorldPos = m_otfBarrel.GetOrigin();
+		vector barrelWorldPos = m_otfOpforBarrel.GetOrigin();
 		
 		array<int> playerIds = {};
 		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
@@ -666,45 +666,40 @@ class GRAD_OnTheFlyManager : GenericEntity
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void SpawnBarrel(int spawnPosMap[2])
+	void SpawnOpforBarrel(int spawnPosMap[2])
 	{
-		if (m_otfBarrel)
-			RplComponent.DeleteRplEntity(m_otfBarrel, false);
+		if (m_otfOpforBarrel)
+			RplComponent.DeleteRplEntity(m_otfOpforBarrel, false);
 		
 		vector spawnPosition = MapPosToWorldPos(spawnPosMap);
 		
 		EntitySpawnParams params = new EntitySpawnParams();
 		params.Transform[3] = spawnPosition;
 		
-		Resource resource = Resource.Load("{832EFDAE1C4B9B65}Prefabs/otfBarrel.et");
+		Resource resource = Resource.Load("{832EFDAE1C4B9B65}Prefabs/GRAD_OTF_Opfor_Barrel.et");
 		IEntity barrel = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
 		
-		m_otfBarrel = barrel;
+		m_otfOpforBarrel = barrel;
 		
 		//Why this line is not printed?
-		Print(string.Format("OTF - SpawnBarrel executed: %1", m_otfBarrel), LogLevel.NORMAL);
+		Print(string.Format("OTF - SpawnOpforBarrel executed: %1", m_otfOpforBarrel), LogLevel.NORMAL);
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void SpawnBluforVehicle(int spawnPosMap[2])
+	void SpawnBluforFlag(int spawnPosMap[2])
 	{
 		vector spawnPosition = MapPosToWorldPos(spawnPosMap);
 		
-		//protected ref RandomGenerator m_pRandomGenerator = new RandomGenerator();
 		EntitySpawnParams params = new EntitySpawnParams();
 		params.Transform[3] = spawnPosition;
 		
-		IEntity vehicle = GetGame().GetWorld().FindEntityByName("bluforSpawnVehicle");
-		if (!vehicle)
-			return;
+		Resource resource = Resource.Load("{D698B2A4491AAC4C}Prefabs/GRAD_OTF_Blufor_Flag.et");
+		IEntity flag = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
 		
-		m_otfBluforSpawnVehicle = vehicle;
-		vehicle.SetOrigin(spawnPosition); // just move for now, later might be created dynamically
-		// TODO: Changing the position of the vehicle on the server is not synced to the clients
-		// If GM moves the vehicle by hand the position is synced
+		m_otfBluforFlag = flag;
 		
 		//Why this line is not printed?
-		Print(string.Format("OTF - Blufor Spawn Vehicle executed: %1", m_otfBluforSpawnVehicle), LogLevel.NORMAL);
+		Print(string.Format("OTF - SpawnBluforFlag executed: %1", m_otfBluforFlag), LogLevel.NORMAL);
 	}
 	
 	//------------------------------------------------------------------------------------------------

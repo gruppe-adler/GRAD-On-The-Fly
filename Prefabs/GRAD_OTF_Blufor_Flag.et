@@ -1,0 +1,80 @@
+GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02/FlagPole_02_V1_US.et" {
+ ID "50C6D20663830070"
+ components {
+  ADM_ShopComponent "{5EFC80FFAA179ADF}" {
+   m_ShopName "OTF Blufor Shop"
+   m_AdditionalMerchandise {
+    ADM_ShopMerchandise "{5EFC80FFD2B8E928}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFC80FFE3F971FE}" {
+      m_sPrefab "{2EBF60EF24B108FC}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_Ball.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFC80FFECB97029}" {
+       m_Quantity 10
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5EFC80FFEBD53515}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFC80FFF5FFE1B0}" {
+      m_sPrefab "{D8F2CA92583B23D3}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_Last_5Tracer.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFC80FFF04ED6D9}" {
+       m_Quantity 10
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5EFC80FFFD8C1F89}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFC80FFFE52977C}" {
+      m_sPrefab "{A9A385FE1F7BF4BD}Prefabs/Weapons/Magazines/Magazine_556x45_STANAG_30rnd_Tracer.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFC80FF0414650A}" {
+       m_Quantity 10
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5EFC9AD910CB39D8}" {
+     m_Merchandise ADM_MerchandiseVehicle "{5EFC9AD91D463E32}" {
+      m_sPrefab "{F6B23D17D5067C11}Prefabs/Vehicles/Wheeled/M151A2/M151A2_M2HB.et"
+      m_SpawnPosition PointInfo "{5EFC9AD91F024F8B}" {
+       Offset 0 0 15
+      }
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFC9AD93EFD82B5}" {
+       m_Quantity 1000
+      }
+     }
+    }
+   }
+  }
+  ActionsManagerComponent "{5EFC80FFB171142A}" {
+   ActionContexts {
+    UserActionContext "{5EFC80FFB0E7B62A}" {
+     ContextName "main"
+     Position PointInfo "{5EFC80FFBCED0E02}" {
+      Offset 0 1.2 0
+     }
+    }
+   }
+   additionalActions {
+    ADM_ShopAction "{5EFC80FFB8AA1F5B}" {
+     ParentContextList {
+      "main"
+     }
+    }
+    GRAD_ShowCurrencyUserAction "{5EFC80FFCC822EBB}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5EFC80FFCBF73926}" {
+      Name "Show Currency"
+     }
+    }
+   }
+  }
+  RplComponent "{5EFC80FFAFF86E41}" {
+  }
+ }
+}

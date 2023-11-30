@@ -44,6 +44,3 @@ $grp SCR_AIGroup : "{E3545CFEDD312D54}Prefabs/Groups/OPFOR/Group_USSR_RifleSquad
   m_bPlayable 1
  }
 }
-Vehicle bluforSpawnVehicle : "{F6B23D17D5067C11}Prefabs/Vehicles/Wheeled/M151A2/M151A2_M2HB.et" {
- coords 4712.18 27.854 11148.564
-}
