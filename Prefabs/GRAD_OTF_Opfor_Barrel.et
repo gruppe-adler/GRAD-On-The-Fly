@@ -97,7 +97,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      Duration 3
     }
-    SCR_PickUpItemAction "{5EF882171E58A52E}" {
+    GRAD_PickUpItemAction "{5EF882171E58A52E}" {
      ParentContextList {
       "main"
      }
