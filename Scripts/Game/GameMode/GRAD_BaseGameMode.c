@@ -12,6 +12,8 @@ modded class SCR_BaseGameMode
 		if (newState == SCR_EGameModeState.GAME)
 		{
 			GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
+			if (!otfManager)
+				return;
 			
 			otfManager.SetOnTheFlyPhase(EOnTheFlyPhase.GAMEMASTER);
 		}
