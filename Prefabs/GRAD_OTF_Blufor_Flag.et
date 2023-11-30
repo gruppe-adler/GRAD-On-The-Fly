@@ -87,6 +87,26 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
       }
      }
     }
+    ADM_ShopMerchandise "{5EFCF0B36459C351}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFCF0B366F35735}" {
+      m_sPrefab "{E8F00BF730225B00}Prefabs/Weapons/Grenades/Grenade_M67.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFCF0B36D48E38F}" {
+       m_Quantity 25
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5EFCF0B36B519DAA}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFCF0B3756D23B1}" {
+      m_sPrefab "{9DB69176CEF0EE97}Prefabs/Weapons/Grenades/Smoke_ANM8HC.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFCF0B370B2C600}" {
+       m_Quantity 15
+      }
+     }
+    }
    }
   }
   ActionsManagerComponent "{5EFC80FFB171142A}" {
