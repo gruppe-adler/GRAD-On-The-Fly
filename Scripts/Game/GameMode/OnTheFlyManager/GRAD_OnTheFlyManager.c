@@ -18,7 +18,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long in milliseconds is the win conditions check interval.", category: "On The Fly - Parameters", params: "1000 60000 1000")]
 	protected int m_iCheckInterval;
 	
-	[Attribute(defvalue: "20", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long in check cycles the barrel needs to be captured by BLUFOR to win.", category: "On The Fly - Parameters", params: "1 100 1")]
+	[Attribute(defvalue: "120", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How long in check cycles the barrel needs to be captured by BLUFOR to win.", category: "On The Fly - Parameters", params: "1 300 1")]
 	protected int m_iMaxCaptureTime;
 	
 	[Attribute(defvalue: "1000", uiwidget: UIWidgets.Slider, enums: NULL, desc: "How far away BLUFOR needs to spawn from OPFOR barrel.", category: "On The Fly - Parameters", params: "1 5000 1")]
