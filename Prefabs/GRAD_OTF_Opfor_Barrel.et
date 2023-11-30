@@ -7,6 +7,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
     ADM_ShopMerchandise "{5EFAFA0833468140}" {
      m_Merchandise ADM_MerchandiseItem "{5EFAFA083912A160}" {
       m_sPrefab "{E5912E45754CD421}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Tracer.et"
+      m_AllowSaleWithFullInventory 0
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFAFA087D2A56F3}" {
@@ -17,6 +18,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
     ADM_ShopMerchandise "{5EFAFA086779FEC2}" {
      m_Merchandise ADM_MerchandiseItem "{5EFAFA086F3E896C}" {
       m_sPrefab "{0A84AA5A3884176F}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Last_5Tracer.et"
+      m_AllowSaleWithFullInventory 0
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFAFA0986B9E03F}" {
@@ -27,10 +29,22 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
     ADM_ShopMerchandise "{5EFAFA0869A4AAB0}" {
      m_Merchandise ADM_MerchandiseItem "{5EFAFA08755EDA9E}" {
       m_sPrefab "{BBB50A815A2F916B}Prefabs/Weapons/Magazines/Magazine_545x39_AK_30rnd_Ball.et"
+      m_AllowSaleWithFullInventory 0
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFAFA098C878D04}" {
        m_Quantity 10
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5EFC9E9CAE72242C}" {
+     m_Merchandise ADM_MerchandiseItem "{5EFC9E9CB5F5D6D5}" {
+      m_sPrefab "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et"
+      m_AllowSaleWithFullInventory 0
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5EFC9E9CB3458783}" {
+       m_Quantity 250
       }
      }
     }
