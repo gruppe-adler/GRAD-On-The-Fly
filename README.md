@@ -60,4 +60,4 @@ Both sides can buy weapons, ammunition, grenades and smoke grenades. OPFOR can b
 * [Forum](https://forum.gruppe-adler.de)
 
 ## License
-GRAD COOP Template for Reforger is licensed under the ([APL](https://www.bohemia.net/community/licenses/arma-public-license)).
+GRAD On The Fly is licensed under the ([APL](https://www.bohemia.net/community/licenses/arma-public-license)).
