@@ -48,36 +48,6 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
       }
      }
     }
-    ADM_ShopMerchandise "{5EFCF0B181042729}" {
-     m_Merchandise ADM_MerchandiseItem "{5EFCF0B182224ECE}" {
-      m_sPrefab "{03854A674FA06CD4}Prefabe/USSR/SBS_USSR.et"
-     }
-     m_RequiredPayment {
-      ADM_PaymentMethodCurrency "{5EFCF0B18B4658FD}" {
-       m_Quantity 100
-      }
-     }
-    }
-    ADM_ShopMerchandise "{5EFCF0B19DCA34C3}" {
-     m_Merchandise ADM_MerchandiseItem "{5EFCF0B19FBCE639}" {
-      m_sPrefab "{6F4BE0B6DBF60DB0}Prefabe/USSR/SBM_USSR.et"
-     }
-     m_RequiredPayment {
-      ADM_PaymentMethodCurrency "{5EFCF0B1A55F4B63}" {
-       m_Quantity 200
-      }
-     }
-    }
-    ADM_ShopMerchandise "{5EFCF0B1A1D89405}" {
-     m_Merchandise ADM_MerchandiseItem "{5EFCF0B1A235792F}" {
-      m_sPrefab "{6ABE237130A4F706}Prefabe/USSR/SBL_USSR.et"
-     }
-     m_RequiredPayment {
-      ADM_PaymentMethodCurrency "{5EFCF0B1A81EEBC2}" {
-       m_Quantity 400
-      }
-     }
-    }
     ADM_ShopMerchandise "{5EFCF0B1E6739913}" {
      m_Merchandise ADM_MerchandiseItem "{5EFCF0B1E0860003}" {
       m_sPrefab "{D6EF54367CECE1D9}Prefabs/Weapons/Explosives/Mine_TM62M/Mine_TM62M.et"
