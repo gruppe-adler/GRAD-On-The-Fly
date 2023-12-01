@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C2DC6593C00F988A}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_GL_P_OTF.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

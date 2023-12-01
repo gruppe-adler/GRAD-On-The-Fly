@@ -1,0 +1,15 @@
+SCR_ChimeraCharacter : "{C262DC827577226C}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_LAT_P.et" {
+ ID "51FA8A5F28FD04BA"
+ components {
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5F028E5C685ACE6B}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Jacket_US_BDU.et"
+     PrefabsToSpawn {
+      "{987A18EFE753A396}Prefabs/Items/Wallet_900.et"
+     }
+    }
+   }
+  }
+ }
+}

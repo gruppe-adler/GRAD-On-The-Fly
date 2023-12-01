@@ -1,0 +1,8 @@
+GenericEntity : "{B0E67230AEEE2DF3}Prefabs/Items/Wallet.et" {
+ ID "5D211A2C0EC40C47"
+ components {
+  ADM_CurrencyComponent "{5D211A2A4EA6E75E}" {
+   m_Value 900
+  }
+ }
+}

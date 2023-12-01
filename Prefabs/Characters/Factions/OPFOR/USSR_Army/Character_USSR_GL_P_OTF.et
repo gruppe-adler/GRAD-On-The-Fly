@@ -1,0 +1,15 @@
+SCR_ChimeraCharacter : "{DA4B14A5D57123A6}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_GL_P.et" {
+ ID "51C707EFDE2A1213"
+ components {
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{5F028E5AB87F8518}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Jacket_M88_rolledup.et"
+     PrefabsToSpawn {
+      "{987A18EFE753A396}Prefabs/Items/Wallet_900.et"
+     }
+    }
+   }
+  }
+ }
+}

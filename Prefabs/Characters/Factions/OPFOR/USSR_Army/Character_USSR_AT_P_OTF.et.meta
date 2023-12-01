@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C9C30D515FAA0D2A}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_AT_P_OTF.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}
