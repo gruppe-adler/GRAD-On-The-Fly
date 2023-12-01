@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{B002BB8542E3AF4B}Prefabs/Props/Military/Sandbags/Sandbag_01_wall_solid_burlap_OTF.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

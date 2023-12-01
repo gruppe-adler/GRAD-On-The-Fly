@@ -1,0 +1,57 @@
+GenericEntity : "{CD67070EFAFC28C7}Prefabs/Props/Military/Sandbags/Sandbag_01_wall_burlap.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  ActionsManagerComponent "{5F02C188ABA01572}" {
+   ActionContexts {
+    UserActionContext "{5F02C188B56F3F32}" {
+     ContextName "main"
+     Position PointInfo "{5F02C188B6F7B72C}" {
+      Offset 0 1.5 0
+     }
+     Radius 1
+    }
+   }
+   additionalActions {
+    GRAD_PickUpFortificationAction "{5F02C188B8825691}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5F02C188C5C460B2}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+  InventoryItemComponent "{5F02C18FA8AA1E06}" {
+   Attributes SCR_ItemAttributeCollection "{5F02C18F16014236}" {
+    ItemDisplayName UIInfo "{5F02C18F7DF9FAB7}" {
+     Name "Sandbag wall"
+     Description "On The Fly Fortification"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5F02C18ED3C65581}" {
+     Weight 0.5
+     SizeSetupStrategy Manual
+     ItemDimensions 10 10 10
+     ItemVolume 500
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5F02C18E1860CCC1}" {
+      CameraPreset Top
+      CameraOrbitAngles 60 0 0
+      CameraDistanceToItem 3
+      FOV 60
+      AspectRatio 1
+      IsDynamicObject 1
+     }
+    }
+    CommonItemType "NONE"
+    m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
+   }
+   CanBeGarbaged 0
+  }
+ }
+}

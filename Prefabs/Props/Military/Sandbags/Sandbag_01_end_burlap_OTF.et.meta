@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{CFF68BE998CE1DAA}Prefabs/Props/Military/Sandbags/Sandbag_01_end_burlap_OTF.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

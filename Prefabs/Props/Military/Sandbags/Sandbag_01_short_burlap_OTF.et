@@ -1,0 +1,57 @@
+GenericEntity : "{CFFEB23FBEA00322}Prefabs/Props/Military/Sandbags/Sandbag_01_short_burlap.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  ActionsManagerComponent "{5F02C1893668277A}" {
+   ActionContexts {
+    UserActionContext "{5F02C18931EBF171}" {
+     ContextName "main"
+     Position PointInfo "{5F02C1896A8A6BE9}" {
+      Offset 0 0.5 0
+     }
+     Radius 0.5
+    }
+   }
+   additionalActions {
+    GRAD_PickUpFortificationAction "{5F02C1893DFD26C9}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5F02C1893FB7C7E9}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+  InventoryItemComponent "{5F02C18FA1B42984}" {
+   Attributes SCR_ItemAttributeCollection "{5F02C18F19FBA397}" {
+    ItemDisplayName UIInfo "{5F02C18F479C47E7}" {
+     Name "Sandbag short"
+     Description "On The Fly Fortification"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5F02C18ECE5B8952}" {
+     Weight 0.5
+     SizeSetupStrategy Manual
+     ItemDimensions 10 10 10
+     ItemVolume 500
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5F02C18E0EB737D0}" {
+      CameraPreset Top
+      CameraOrbitAngles 60 0 0
+      CameraDistanceToItem 3
+      FOV 60
+      AspectRatio 1
+      IsDynamicObject 1
+     }
+    }
+    CommonItemType "NONE"
+    m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
+   }
+   CanBeGarbaged 0
+  }
+ }
+}

@@ -1,0 +1,57 @@
+GenericEntity : "{B31A14BC1A0E7776}Prefabs/Props/Military/Sandbags/Sandbag_01_round_burlap.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  InventoryItemComponent "{5F02B81C8CD979EA}" {
+   Attributes SCR_ItemAttributeCollection "{5F02B81C94DA5C7C}" {
+    ItemDisplayName UIInfo "{5F02B81C9D937EFC}" {
+     Name "Sandbag round"
+     Description "On The Fly Fortification"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5F02B81CB10B2AD2}" {
+     Weight 0.5
+     SizeSetupStrategy Manual
+     ItemDimensions 10 10 10
+     ItemVolume 500
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5F02B81C209E4CD5}" {
+      CameraPreset Top
+      CameraOrbitAngles 60 0 0
+      CameraDistanceToItem 3
+      FOV 60
+      AspectRatio 1
+      IsDynamicObject 1
+     }
+    }
+    CommonItemType "NONE"
+    m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
+    m_bStackable 0
+   }
+   CanBeGarbaged 0
+  }
+  ActionsManagerComponent "{5F02B81F5CF2E6E5}" {
+   ActionContexts {
+    UserActionContext "{5F02B81F598CE8BF}" {
+     ContextName "main"
+     Position PointInfo "{5F02B81F63FE390E}" {
+      Offset 0 0.5 0
+     }
+    }
+   }
+   additionalActions {
+    GRAD_PickUpFortificationAction "{5F02C18B1452DA1D}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5F02C18B115D7FDF}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+ }
+}

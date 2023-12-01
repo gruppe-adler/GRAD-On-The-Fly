@@ -1,0 +1,56 @@
+GenericEntity : "{7AF4B627D5C90235}Prefabs/Props/Military/Sandbags/Sandbag_01_round_high_burlap.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  ActionsManagerComponent "{5F02C18913893DBA}" {
+   ActionContexts {
+    UserActionContext "{5F02C1891C1C7F67}" {
+     ContextName "main"
+     Position PointInfo "{5F02C1895942E205}" {
+      Offset 0 1 0
+     }
+    }
+   }
+   additionalActions {
+    GRAD_PickUpFortificationAction "{5F02C1891B0934B5}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5F02C18926976093}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+  InventoryItemComponent "{5F02C18FA542C2FD}" {
+   Attributes SCR_ItemAttributeCollection "{5F02C18F240ABD61}" {
+    ItemDisplayName UIInfo "{5F02C18F2A6EA88A}" {
+     Name "Sandbag round high"
+     Description "On The Fly Fortification"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5F02C18EC197D8E1}" {
+     Weight 0.5
+     SizeSetupStrategy Manual
+     ItemDimensions 10 10 10
+     ItemVolume 500
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5F02C18E07432A1B}" {
+      CameraPreset Top
+      CameraOrbitAngles 60 0 0
+      CameraDistanceToItem 3
+      FOV 60
+      AspectRatio 1
+      IsDynamicObject 1
+     }
+    }
+    CommonItemType "NONE"
+    m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
+   }
+   CanBeGarbaged 0
+  }
+ }
+}

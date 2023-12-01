@@ -1,5 +1,5 @@
 //------------------------------------------------------------------------------------------------
-class GRAD_PickUpItemAction : SCR_PickUpItemAction
+class GRAD_PickUpFortificationAction : SCR_PickUpItemAction
 {
 	//------------------------------------------------------------------------------------------------
 	override bool CanBePerformedScript(IEntity user)
@@ -9,7 +9,12 @@ class GRAD_PickUpItemAction : SCR_PickUpItemAction
 		
 		GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
 		
-		if(!otfManager || (otfManager.GetOnTheFlyPhase() != EOnTheFlyPhase.OPFOR))
+		if(!otfManager)
+			return false;
+		
+		int otfPhase = otfManager.GetOnTheFlyPhase();
+		
+		if(!((otfPhase == EOnTheFlyPhase.OPFOR) || (otfPhase == EOnTheFlyPhase.BLUFOR)))
 			return false;
 		
 		return true;

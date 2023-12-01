@@ -78,6 +78,106 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
       }
      }
     }
+    ADM_ShopMerchandise "{5F02B81DCEC928F0}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02B81DCB6C5BB5}" {
+      m_sPrefab "{764124BAA469BEC8}Prefabs/Props/Military/Sandbags/Sandbag_01_round_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02B81DD6FC1E2B}" {
+       m_Quantity 150
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18D9E8C372C}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18D9B3D3EC8}" {
+      m_sPrefab "{5749FA9F11F8E736}Prefabs/Props/Military/Sandbags/Sandbag_01_round_high_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18DA65260D1}" {
+       m_Quantity 300
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18DAA527C54}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18DB5ACCD29}" {
+      m_sPrefab "{3C652B98CB965DD1}Prefabs/Props/Military/Sandbags/Sandbag_01_short_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18DB3FC5B15}" {
+       m_Quantity 100
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18DC0D46A6D}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18DC2F0005E}" {
+      m_sPrefab "{76EAFE0AC39BD0D0}Prefabs/Props/Military/Sandbags/Sandbag_01_short_high_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18DC93A4061}" {
+       m_Quantity 200
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18DD0B6AE85}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18DD8696412}" {
+      m_sPrefab "{12031AAFA5ABAE90}Prefabs/Props/Military/Sandbags/Sandbag_01_wall_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18DE5213E8A}" {
+       m_Quantity 600
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18DED8A03E9}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18DEFA2FE95}" {
+      m_sPrefab "{B002BB8542E3AF4B}Prefabs/Props/Military/Sandbags/Sandbag_01_wall_solid_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18DEACFDB3F}" {
+       m_Quantity 600
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18DF2581CAF}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18DFEB1933A}" {
+      m_sPrefab "{CFF68BE998CE1DAA}Prefabs/Props/Military/Sandbags/Sandbag_01_end_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18D053BEE5B}" {
+       m_Quantity 75
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18D019134F4}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18D020BED79}" {
+      m_sPrefab "{E0D033BD39DC9A8A}Prefabs/Props/Military/Sandbags/Sandbag_01_end_high_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18D0FC724ED}" {
+       m_Quantity 150
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18D1124EB4D}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18D1338C5F0}" {
+      m_sPrefab "{10FA5620AC3DE19E}Prefabs/Props/Military/Sandbags/Sandbag_01_long_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18D1C7137C5}" {
+       m_Quantity 200
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F02C18D1B00A67B}" {
+     m_Merchandise ADM_MerchandiseItem "{5F02C18D25D11EB9}" {
+      m_sPrefab "{06697B47F099B5E2}Prefabs/Props/Military/Sandbags/Sandbag_01_long_high_burlap_OTF.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F02C18D217E98DE}" {
+       m_Quantity 400
+      }
+     }
+    }
    }
   }
   GRAD_BarrelSmokeComponent "{5EEAE5A211E50B77}" {
@@ -127,14 +227,6 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      Duration 3
     }
-    GRAD_PickUpItemAction "{5EF882171E58A52E}" {
-     ParentContextList {
-      "main"
-     }
-     UIInfo UIInfo "{5EF88215A5B75121}" {
-      Name "#AR-Inventory_PickUp"
-     }
-    }
     GRAD_FinishOpforPhaseUserAction "{5EF8B4DFE411DC12}" {
      ParentContextList {
       "main"
@@ -155,6 +247,14 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      UIInfo UIInfo "{5EFC80F57E87A542}" {
       Name "Show Currency"
+     }
+    }
+    GRAD_PickUpBarrelAction "{5F02C18B9924A574}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{5F02C18B9AE58071}" {
+      Name "#AR-Inventory_PickUp"
      }
     }
    }
