@@ -10,7 +10,10 @@ SCR_ChimeraCharacter : "{47B0BA658525301A}Prefabs/Characters/Factions/OPFOR/USSR
   SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
    InitialInventoryItems {
     ItemsInitConfigurationItem "{5D7CC173E6675BF7}" {
-     PrefabsToSpawn + {
+    }
+    ItemsInitConfigurationItem "{5F028E59448FC644}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Jacket_M88.et"
+     PrefabsToSpawn {
       "{B0E67230AEEE2DF3}Prefabs/Items/Wallet.et"
      }
     }
