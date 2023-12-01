@@ -40,6 +40,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	
 	protected int m_bluforCapturingProgress;
 	
+	protected bool m_bCheckWinConditionsActive = true;
+	
 	protected string m_winnerSide;
 	
 	protected IEntity m_otfOpforBarrel;
@@ -176,6 +178,9 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void CheckWinConditions()
 	{
+		if (!m_bCheckWinConditionsActive)
+			return;
+		
 		if (GetOnTheFlyPhase() != EOnTheFlyPhase.GAME) {
 			Print(string.Format("OTF - Game not started yet"), LogLevel.NORMAL);
 			return;
@@ -216,7 +221,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 		}
 		
 		if (m_winConditionActive) {
-			showGameOver(m_winnerSide);
+			// show game over screen with a 20s delay
+	        GetGame().GetCallqueue().CallLater(showGameOver, 20000, false, m_winnerSide);
 		}
 	}
 	
@@ -262,8 +268,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		SCR_SortedArray<SCR_Faction> outFactions = new SCR_SortedArray<SCR_Faction>();
 		factionManager.GetSortedFactionsList(outFactions);
-		
-		Print(outFactions.Count());
 		
 		for (int i = 0; i < outFactions.Count(); i++)
 		{
