@@ -57,6 +57,7 @@ Both sides can buy weapons, ammunition, grenades and smoke grenades. OPFOR can b
 * [Discord](https://discord.com/invite/ZDqp45q)
 * [Website](https://gruppe-adler.de/home)
 * [Forum](https://forum.gruppe-adler.de)
+* [German manual](https://docs.google.com/document/d/1FSpiU-pYJ450AN3pfVhC7-Jnc-KTcV0rTnz6Wrbcw9Y/edit?usp=sharing)
 
 ## License
 GRAD On The Fly is licensed under the ([APL](https://www.bohemia.net/community/licenses/arma-public-license)).
