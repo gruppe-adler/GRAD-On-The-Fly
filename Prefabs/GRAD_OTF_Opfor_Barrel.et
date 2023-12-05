@@ -3,6 +3,9 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
  components {
   ADM_ShopComponent "{5EFAFA082FC1C8DA}" {
    m_ShopName "OTF OPFOR Shop"
+   m_Categories {
+    "{BD4950A188201509}Configs/ShopCategories/Rifles.conf" "{F33BFD2C8453B27F}Configs/ShopCategories/MachineGuns.conf" "{3F39EFFFE7E8E753}Configs/ShopCategories/Magazines.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{211556D7ACE2140B}Configs/ShopCategories/Grenades.conf" "{6A0CDFB7108A69E7}Configs/ShopCategories/Launchers.conf" "{C6A3C02F85B92641}Configs/ShopCategories/Ammo.conf" "{AE221453FBEB14D7}Configs/ShopCategories/Fortifications.conf"
+   }
    m_AdditionalMerchandise {
     ADM_ShopMerchandise "{5EFAFA0833468140}" {
      m_Merchandise ADM_MerchandiseItem "{5EFAFA083912A160}" {
@@ -175,6 +178,66 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5F02C18D217E98DE}" {
        m_Quantity 400
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB10B55AE411}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB10B6FC94C7}" {
+      m_sPrefab "{A7AF84C6C58BA3E8}Prefabs/Weapons/MachineGuns/RPK74/MG_RPK74.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB10BB3AFFC3}" {
+       m_Quantity 250
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB10C3CD7CF8}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB10CDA1C47D}" {
+      m_sPrefab "{7A82FE978603F137}Prefabs/Weapons/Launchers/RPG7/Launcher_RPG7.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB10D7318A2F}" {
+       m_Quantity 250
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB10DF05E623}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB10D8561F5C}" {
+      m_sPrefab "{32E12D322E107F1C}Prefabs/Weapons/Ammo/Ammo_Rocket_PG7VM.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB10F58EB1AD}" {
+       m_Quantity 150
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB1013C3B7FE}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB101D8E1418}" {
+      m_sPrefab "{D78C667F59829717}Prefabs/Weapons/Magazines/Magazine_545x39_RPK_45rnd_4Ball_1Tracer.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB1038A80641}" {
+       m_Quantity 15
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB1046EC9AE1}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB1042935F0A}" {
+      m_sPrefab "{BC74DAC891D48540}Prefabs/Weapons/Magazines/Magazine_545x39_RPK_45rnd_Ball.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB1054F18FBE}" {
+       m_Quantity 15
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB1053DD68B4}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB105CC62910}" {
+      m_sPrefab "{5897D01F41DB5D2D}Prefabs/Weapons/Magazines/Magazine_545x39_RPK_45rnd_Tracer.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB1064873D57}" {
+       m_Quantity 15
       }
      }
     }

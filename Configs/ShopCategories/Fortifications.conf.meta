@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{AE221453FBEB14D7}Configs/ShopCategories/Fortifications.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

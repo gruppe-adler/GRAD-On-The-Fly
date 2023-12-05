@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{C5DFDD83143AE1C7}Configs/ShopCategories/Helicopters.conf"
+ Configurations {
+  CONFResourceClass PC {
+  }
+  CONFResourceClass XBOX_ONE : PC {
+  }
+  CONFResourceClass XBOX_SERIES : PC {
+  }
+  CONFResourceClass PS4 : PC {
+  }
+  CONFResourceClass HEADLESS : PC {
+  }
+ }
+}

@@ -3,6 +3,9 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
  components {
   ADM_ShopComponent "{5EFC80FFAA179ADF}" {
    m_ShopName "OTF Blufor Shop"
+   m_Categories {
+    "{BD4950A188201509}Configs/ShopCategories/Rifles.conf" "{F33BFD2C8453B27F}Configs/ShopCategories/MachineGuns.conf" "{3F39EFFFE7E8E753}Configs/ShopCategories/Magazines.conf" "{211556D7ACE2140B}Configs/ShopCategories/Grenades.conf" "{6A0CDFB7108A69E7}Configs/ShopCategories/Launchers.conf" "{C6A3C02F85B92641}Configs/ShopCategories/Ammo.conf" "{C5DFDD83143AE1C7}Configs/ShopCategories/Helicopters.conf" "{22C577631947EB80}Configs/ShopCategories/Wheeled.conf"
+   }
    m_AdditionalMerchandise {
     ADM_ShopMerchandise "{5EFC80FFD2B8E928}" {
      m_Merchandise ADM_MerchandiseItem "{5EFC80FFE3F971FE}" {
@@ -104,6 +107,66 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFCF0B370B2C600}" {
        m_Quantity 15
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB2E007DB4D7}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB2E02718191}" {
+      m_sPrefab "{D2B48DEBEF38D7D7}Prefabs/Weapons/MachineGuns/M249/MG_M249.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB2E14AAB475}" {
+       m_Quantity 500
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB2E1DC3B3A1}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB2E1ECDA3A8}" {
+      m_sPrefab "{06D722FC2666EB83}Prefabs/Weapons/Magazines/Box_556x45_M249_200rnd_4Ball_1Tracer.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB2E27895E9C}" {
+       m_Quantity 80
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB2E2C76A96F}" {
+     m_Merchandise ADM_MerchandiseType "{5F0ABB2E2ED858DD}" {
+      m_sPrefab "{4FCBBDF274FD2157}Prefabs/Weapons/Magazines/Box_556x45_M249_200rnd_Ball.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB2E34C23A7D}" {
+       m_Quantity 80
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB2E308B9F29}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB2E3D35DDFB}" {
+      m_sPrefab "{4EEDDB27C023B8B9}Prefabs/Weapons/Magazines/Box_556x45_M249_200rnd_Tracer.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB2E45B303AD}" {
+       m_Quantity 80
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB2E4C9B9F27}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB2E49426C0E}" {
+      m_sPrefab "{9C5C20FB0E01E64F}Prefabs/Weapons/Launchers/M72/Launcher_M72A3.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB2E515B3CD1}" {
+       m_Quantity 200
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB2E592EFF4E}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB2E5AEFBC67}" {
+      m_sPrefab "{79FA751EEBE25DDE}Prefabs/Weapons/Ammo/Ammo_Rocket_M72A3.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB2E6DC1D99C}" {
+       m_Quantity 200
       }
      }
     }

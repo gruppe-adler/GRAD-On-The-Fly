@@ -7,7 +7,7 @@ SCR_AIGroup : "{1E91FCDB0DA40A55}Prefabs/Groups/BLUFOR/Group_US_SentryTeam_p.et"
    m_iSquadCallsign 4
   }
  }
- coords 4648.129 0 11124.745
+ coords 4648.129 29.684 11124.745
  m_aUnitPrefabSlots {
   "{E74FC9AB1A057CB1}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_SL_P_OTF_Commander.et" "{E58AC2E6219C4C2C}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_RTO_P_OTF.et"
  }
