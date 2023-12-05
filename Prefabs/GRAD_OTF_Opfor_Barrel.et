@@ -4,7 +4,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
   ADM_ShopComponent "{5EFAFA082FC1C8DA}" {
    m_ShopName "OTF OPFOR Shop"
    m_Categories {
-    "{BD4950A188201509}Configs/ShopCategories/Rifles.conf" "{F33BFD2C8453B27F}Configs/ShopCategories/MachineGuns.conf" "{3F39EFFFE7E8E753}Configs/ShopCategories/Magazines.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{211556D7ACE2140B}Configs/ShopCategories/Grenades.conf" "{6A0CDFB7108A69E7}Configs/ShopCategories/Launchers.conf" "{C6A3C02F85B92641}Configs/ShopCategories/Ammo.conf" "{AE221453FBEB14D7}Configs/ShopCategories/Fortifications.conf"
+    "{BD4950A188201509}Configs/ShopCategories/Rifles.conf" "{F33BFD2C8453B27F}Configs/ShopCategories/MachineGuns.conf" "{3F39EFFFE7E8E753}Configs/ShopCategories/Magazines.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{211556D7ACE2140B}Configs/ShopCategories/Grenades.conf" "{6A0CDFB7108A69E7}Configs/ShopCategories/Launchers.conf" "{C6A3C02F85B92641}Configs/ShopCategories/Ammo.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{AE221453FBEB14D7}Configs/ShopCategories/Fortifications.conf"
    }
    m_AdditionalMerchandise {
     ADM_ShopMerchandise "{5EFAFA0833468140}" {
@@ -238,6 +238,16 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5F0ABB1064873D57}" {
        m_Quantity 15
+      }
+     }
+    }
+    ADM_ShopMerchandise "{5F0ABB29041BE829}" {
+     m_Merchandise ADM_MerchandiseItem "{5F0ABB29010C2C49}" {
+      m_sPrefab "{41A9C55B61F375F0}Prefabs/Items/Equipment/Backpacks/Backpack_Kolobok.et"
+     }
+     m_RequiredPayment {
+      ADM_PaymentMethodCurrency "{5F0ABB290CDC188B}" {
+       m_Quantity 100
       }
      }
     }
