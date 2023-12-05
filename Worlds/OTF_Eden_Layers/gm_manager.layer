@@ -32,9 +32,41 @@ PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_Game
    Factions {
     SCR_Faction "{56DEAC40D2DBC8B1}" {
      m_bIsPlayable 1
+     m_CallsignInfo SCR_FactionCallsignInfo "{5DA0F2A6677ADA9E}" {
+      m_aSquadNames {
+       SCR_CallsignInfo "{5F0ABB0532BCB519}" {
+        m_sCallsign "Greyhound"
+       }
+       SCR_CallsignInfo "{5F0ABB053A909584}" {
+        m_sCallsign "Pitbull"
+       }
+       SCR_CallsignInfo "{5F0ABB0546F93A25}" {
+        m_sCallsign "Shepherd"
+       }
+      }
+      m_sCallsignGroupFormat "%3"
+      m_sCallsignCharacterFormat "%3: %4"
+      m_sCallsignCharacterWithRoleFormat "%3: %4"
+     }
     }
     SCR_Faction "{56DEAC40D3C2E623}" {
      m_bIsPlayable 1
+     m_CallsignInfo SCR_FactionCallsignInfo "{5DA0F2A67DFB8809}" {
+      m_aSquadNames {
+       SCR_CallsignInfo "{5F0ABB06E4F02D36}" {
+        m_sCallsign "Moscow"
+       }
+       SCR_CallsignInfo "{5F0ABB060E6F478E}" {
+        m_sCallsign "Rostov"
+       }
+       SCR_CallsignInfo "{5F0ABB061E6B9DC9}" {
+        m_sCallsign "Sochi"
+       }
+      }
+      m_sCallsignGroupFormat "%3"
+      m_sCallsignCharacterFormat "%3 %4"
+      m_sCallsignCharacterWithRoleFormat "%3 %4"
+     }
     }
    }
   }
