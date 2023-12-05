@@ -1,6 +1,17 @@
 SCR_ChimeraCharacter : "{DA4B14A5D57123A6}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_GL_P.et" {
  ID "51C707EFDE2A1213"
  components {
+  SCR_CharacterInventoryStorageComponent "{520EA1D2DB118DAC}" {
+   components {
+    SCR_EquipmentStorageComponent "{56B49DA9722B635D}" {
+     InitialStorageSlots {
+      SCR_EquipmentStorageSlot BinocularSlot {
+       Prefab "{243948B23D90BECB}Prefabs/Items/Equipment/Binoculars/Binoculars_B8/Binoculars_B8.et"
+      }
+     }
+    }
+   }
+  }
   SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
    InitialInventoryItems {
     ItemsInitConfigurationItem "{5F028E5AB87F8518}" {

@@ -26,7 +26,7 @@ SCR_AIGroup : "{41F0D95175F5D179}Prefabs/Groups/OPFOR/Group_USSR_SentryTeam_p.et
  }
  coords 4935.035 30.319 11917.365
  m_aUnitPrefabSlots {
-  "{0C1CE4A991A41B7C}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Rifleman_P_OTF_Commander.et" "{2E823593233F49A0}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Rifleman_P_OTF.et"
+  "{E370BE864F610A10}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_SL_P_OTF_Commander.et" "{2E823593233F49A0}Prefabs/Characters/Factions/OPFOR/USSR_Army/Character_USSR_Rifleman_P_OTF.et"
  }
  m_bDeleteWhenEmpty 0
  m_iMaxMembers 2
