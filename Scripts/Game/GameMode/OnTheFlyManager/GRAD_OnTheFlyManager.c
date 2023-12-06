@@ -685,7 +685,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		m_otfOpforBarrel = barrel;
 		
-		//Why this line is not printed?
 		Print(string.Format("OTF - SpawnOpforBarrel executed: %1", m_otfOpforBarrel), LogLevel.NORMAL);
 	}
 	
@@ -702,7 +701,6 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		m_otfBluforFlag = flag;
 		
-		//Why this line is not printed?
 		Print(string.Format("OTF - SpawnBluforFlag executed: %1", m_otfBluforFlag), LogLevel.NORMAL);
 	}
 	
