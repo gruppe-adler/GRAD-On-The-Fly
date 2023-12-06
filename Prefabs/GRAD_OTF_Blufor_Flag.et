@@ -4,7 +4,7 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
   ADM_ShopComponent "{5EFC80FFAA179ADF}" {
    m_ShopName "OTF Blufor Shop"
    m_Categories {
-    "{BD4950A188201509}Configs/ShopCategories/Rifles.conf" "{F33BFD2C8453B27F}Configs/ShopCategories/MachineGuns.conf" "{3F39EFFFE7E8E753}Configs/ShopCategories/Magazines.conf" "{211556D7ACE2140B}Configs/ShopCategories/Grenades.conf" "{6A0CDFB7108A69E7}Configs/ShopCategories/Launchers.conf" "{C6A3C02F85B92641}Configs/ShopCategories/Ammo.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{C5DFDD83143AE1C7}Configs/ShopCategories/Helicopters.conf" "{22C577631947EB80}Configs/ShopCategories/Wheeled.conf"
+    "{BD4950A188201509}Configs/ShopCategories/Rifles.conf" "{F33BFD2C8453B27F}Configs/ShopCategories/MachineGuns.conf" "{3F39EFFFE7E8E753}Configs/ShopCategories/Magazines.conf" "{211556D7ACE2140B}Configs/ShopCategories/Grenades.conf" "{6A0CDFB7108A69E7}Configs/ShopCategories/Launchers.conf" "{C6A3C02F85B92641}Configs/ShopCategories/Rockets.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{C5DFDD83143AE1C7}Configs/ShopCategories/Helicopters.conf" "{22C577631947EB80}Configs/ShopCategories/Wheeled.conf"
    }
    m_AdditionalMerchandise {
     ADM_ShopMerchandise "{5EFC80FFD2B8E928}" {
@@ -197,12 +197,12 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
       "main"
      }
     }
-    GRAD_ShowCurrencyUserAction "{5EFC80FFCC822EBB}" {
+    GRAD_CheckBalanceUserAction "{5F0C7C86D7075612}" {
      ParentContextList {
       "main"
      }
-     UIInfo UIInfo "{5EFC80FFCBF73926}" {
-      Name "Show Currency"
+     UIInfo UIInfo "{5F0C7C86D39E4A6B}" {
+      Name "Check Balance"
      }
     }
    }

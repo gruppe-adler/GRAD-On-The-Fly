@@ -1,7 +1,5 @@
-class GRAD_ShowCurrencyUserAction : ScriptedUserAction
+class GRAD_CheckBalanceUserAction : ScriptedUserAction
 {
-	private GRAD_BarrelSmokeComponent m_BarrelSmokeComponent;
-	
 	//------------------------------------------------------------------------------------------------
 	override bool CanBeShownScript(IEntity user)
 	{
@@ -34,7 +32,7 @@ class GRAD_ShowCurrencyUserAction : ScriptedUserAction
 		int totalCurrency = ADM_CurrencyComponent.FindTotalCurrencyInInventory(inventory);
 		
 		string title = "On The Fly";
-		string message = string.Format("You have a total amount of %1$.", totalCurrency);
+		string message = string.Format("You have a total amount of %1$ in your wallet.", totalCurrency);
 		int duration = 5;
 		bool isSilent = false;
 		

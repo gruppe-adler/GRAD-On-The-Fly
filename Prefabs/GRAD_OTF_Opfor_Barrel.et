@@ -4,7 +4,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
   ADM_ShopComponent "{5EFAFA082FC1C8DA}" {
    m_ShopName "OTF OPFOR Shop"
    m_Categories {
-    "{BD4950A188201509}Configs/ShopCategories/Rifles.conf" "{F33BFD2C8453B27F}Configs/ShopCategories/MachineGuns.conf" "{3F39EFFFE7E8E753}Configs/ShopCategories/Magazines.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{211556D7ACE2140B}Configs/ShopCategories/Grenades.conf" "{6A0CDFB7108A69E7}Configs/ShopCategories/Launchers.conf" "{C6A3C02F85B92641}Configs/ShopCategories/Ammo.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{AE221453FBEB14D7}Configs/ShopCategories/Fortifications.conf"
+    "{BD4950A188201509}Configs/ShopCategories/Rifles.conf" "{F33BFD2C8453B27F}Configs/ShopCategories/MachineGuns.conf" "{3F39EFFFE7E8E753}Configs/ShopCategories/Magazines.conf" "{97BB2041EFC236DC}Configs/ShopCategories/Explosives.conf" "{211556D7ACE2140B}Configs/ShopCategories/Grenades.conf" "{6A0CDFB7108A69E7}Configs/ShopCategories/Launchers.conf" "{C6A3C02F85B92641}Configs/ShopCategories/Rockets.conf" "{EA73C8038D88FDB3}Configs/ShopCategories/Backpacks.conf" "{AE221453FBEB14D7}Configs/ShopCategories/Fortifications.conf"
    }
    m_AdditionalMerchandise {
     ADM_ShopMerchandise "{5EFAFA0833468140}" {
@@ -294,11 +294,13 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
     }
    }
    additionalActions {
-    GRAD_ToggleSmokeUserAction "{5EEAE5AAFEB8E578}" {
+    GRAD_PickUpBarrelAction "{5F02C18B9924A574}" {
      ParentContextList {
       "main"
      }
-     Duration 3
+     UIInfo UIInfo "{5F02C18B9AE58071}" {
+      Name "#AR-Inventory_PickUp"
+     }
     }
     GRAD_FinishOpforPhaseUserAction "{5EF8B4DFE411DC12}" {
      ParentContextList {
@@ -309,25 +311,23 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      Duration 3
     }
+    GRAD_ToggleSmokeUserAction "{5EEAE5AAFEB8E578}" {
+     ParentContextList {
+      "main"
+     }
+     Duration 3
+    }
     ADM_ShopAction "{5EFAFA099EFF68D6}" {
      ParentContextList {
       "main"
      }
     }
-    GRAD_ShowCurrencyUserAction "{5EFC80F570F4E30E}" {
+    GRAD_CheckBalanceUserAction "{5F0C7C86A3C12EA5}" {
      ParentContextList {
       "main"
      }
-     UIInfo UIInfo "{5EFC80F57E87A542}" {
-      Name "Show Currency"
-     }
-    }
-    GRAD_PickUpBarrelAction "{5F02C18B9924A574}" {
-     ParentContextList {
-      "main"
-     }
-     UIInfo UIInfo "{5F02C18B9AE58071}" {
-      Name "#AR-Inventory_PickUp"
+     UIInfo UIInfo "{5F0C7C86AE8C4096}" {
+      Name "Check Balance"
      }
     }
    }
