@@ -1,6 +1,81 @@
 GenericEntity : "{B547CF929FCC6BB7}Prefabs/Props/Military/Sandbags/Sandbag_01_end_high_burlap.et" {
  ID "F0DBA538AC2A0552"
  components {
+  SignalsManagerComponent "{5F1077C71FBC3CDD}" {
+  }
+  GRAD_PlacementOverrideComponent "{5F1077C74B00C005}" {
+   m_bOverrideVanillaPlacement 1
+  }
+  SCR_PlaceableInventoryItemComponent "{5F02C18FBB9426E0}" {
+   Attributes SCR_ItemAttributeCollection "{5F02C18F07A21FCE}" {
+    ItemDisplayName UIInfo "{5F02C18EA4EEDCC4}" {
+     Name "Sandbag end high"
+     Description "On The Fly Fortification"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{5F02C18EED422874}" {
+     Weight 0
+     SizeSetupStrategy Manual
+     ItemDimensions 10 10 10
+     ItemVolume 1000
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{5F1077C31F047939}" {
+     IkSettings {
+      ItemIKSettings "{59E4E696CE54F34A}" {
+       InAds 0
+       OutAds 0
+       MovementSpeedRange 0 1
+       IkSettingsStand 6
+       IkSettingsCrouch 6
+       IkSettingsProne 6
+      }
+     }
+     AnimationInstance "{AF06D3F738A50403}anims/workspaces/player/player_main_heavy.asi"
+     AnimationIKPose "{5EF679CCFE1123FD}Assets/Weapons/Explosives/Mine_M15AT/anims/p_mine_ik.anm"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{5F02C18E3239C8ED}" {
+      CameraPreset Top
+      CameraOrbitAngles 60 0 0
+      CameraDistanceToItem 3
+      FOV 60
+      AspectRatio 1
+      IsDynamicObject 1
+     }
+     CharacterModifierAttributes "{5F1077C33AEE92B7}" {
+      StanceLimits 0.05 1
+      SpeedLimit 1.6
+      ADSSpeedLimit 1
+      SpeedLimitHighready 1
+      AllowGadgetUse 0
+      AllowJumping 0
+     }
+     HolsteredItemAttributes "{5F1077C2852D2C03}" {
+      LinearOffset 0 0 0
+      AngularOffset 0 0 0
+      HiddenHolstered 1
+     }
+    }
+    CommonItemType "NONE"
+    m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
+    m_bStackable 0
+   }
+   CanBeGarbaged 0
+  }
+  SCR_PlaceableItemComponent "{5F1077C627B5DA36}" {
+   m_fMaxPlacementDistance 5
+   m_ePlacementType XYZ
+  }
+  WeaponComponent "{5F1077C03499B045}" {
+   useAimingType None
+   AllowedRaise "Only lowered"
+   WeaponSlotType "primary"
+   BeActiveWhenDropped 1
+   BeActiveWhenInitWithoutParent 1
+  }
   ActionsManagerComponent "{5F02C1881D42A968}" {
    ActionContexts {
     UserActionContext "{5F02C1881C722737}" {
@@ -21,37 +96,6 @@ GenericEntity : "{B547CF929FCC6BB7}Prefabs/Props/Military/Sandbags/Sandbag_01_en
      }
     }
    }
-  }
-  InventoryItemComponent "{5F02C18FBB9426E0}" {
-   Attributes SCR_ItemAttributeCollection "{5F02C18F07A21FCE}" {
-    ItemDisplayName UIInfo "{5F02C18EA4EEDCC4}" {
-     Name "Sandbag end high"
-     Description "On The Fly Fortification"
-    }
-    ItemPhysAttributes ItemPhysicalAttributes "{5F02C18EED422874}" {
-     Weight 0.5
-     SizeSetupStrategy Manual
-     ItemDimensions 10 10 10
-     ItemVolume 500
-     DimensionScaler 1
-     RestingAdditiveRotationLS 0 0 0
-     RestingAdditiveOffsetLS 0 0 0
-    }
-    CustomAttributes {
-     PreviewRenderAttributes "{5F02C18E3239C8ED}" {
-      CameraPreset Top
-      CameraOrbitAngles 60 0 0
-      CameraDistanceToItem 3
-      FOV 60
-      AspectRatio 1
-      IsDynamicObject 1
-     }
-    }
-    CommonItemType "NONE"
-    m_Size SLOT_2x2
-    m_SlotType SLOT_ANY
-   }
-   CanBeGarbaged 0
   }
  }
 }

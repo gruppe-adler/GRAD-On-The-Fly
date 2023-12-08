@@ -1,6 +1,8 @@
 GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_BarrelFuel_01_closed.et" {
  ID "52F07DE17573BB0C"
  components {
+  SignalsManagerComponent "{5F0C9047E21A8720}" {
+  }
   ADM_ShopComponent "{5EFAFA082FC1C8DA}" {
    m_ShopName "OTF OPFOR Shop"
    m_Categories {
@@ -256,16 +258,37 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
   GRAD_BarrelSmokeComponent "{5EEAE5A211E50B77}" {
    m_sSmokeParticle "{1B6FD597FAE8C349}Particles/barrelSmoke.ptc"
   }
-  InventoryItemComponent "{5EE96A2B1D3A8161}" {
+  GRAD_PlacementOverrideComponent "{5F1077CC9A46297B}" {
+   m_bOverrideVanillaPlacement 1
+  }
+  SCR_PlaceableInventoryItemComponent "{5EE96A2B1D3A8161}" {
    Attributes SCR_ItemAttributeCollection "{5EE96A2B1D3A8179}" {
     ItemDisplayName UIInfo "{5EE96A2B1D3A817F}" {
-     Name "Barrel"
-     Description "Barrel with 200l of Oil"
+     Name "OTF Barrel"
+     Description "Barrel contains the prize"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{5EE96A2B1D3A817D}" {
      Weight 0.5
      SizeSetupStrategy Manual
-     ItemVolume 500
+     ItemDimensions 10 10 10
+     ItemVolume 1000
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{5F0EE3E5C38A1D40}" {
+     IkSettings {
+      ItemIKSettings "{59E4E696CE54F34A}" {
+       InAds 0
+       OutAds 0
+       MovementSpeedRange 0 1
+       IkSettingsStand 6
+       IkSettingsCrouch 6
+       IkSettingsProne 6
+      }
+     }
+     AnimationInstance "{AF06D3F738A50403}anims/workspaces/player/player_main_heavy.asi"
+     AnimationIKPose "{5EF679CCFE1123FD}Assets/Weapons/Explosives/Mine_M15AT/anims/p_mine_ik.anm"
     }
     CustomAttributes {
      PreviewRenderAttributes "{5EE96A2B1D3A8170}" {
@@ -275,14 +298,38 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
       CameraOffset 0 0 0
       IsDynamicObject 1
      }
+     CharacterModifierAttributes "{5F0EE3E5D1AE0ED4}" {
+      StanceLimits 0.05 1
+      SpeedLimit 1.6
+      ADSSpeedLimit 1
+      SpeedLimitHighready 1
+      AllowGadgetUse 0
+      AllowJumping 0
+     }
+     HolsteredItemAttributes "{5F0EE3E5DD363FD1}" {
+      LinearOffset 0 0 0
+      AngularOffset 0 0 0
+      HiddenHolstered 1
+     }
     }
     CommonItemType "NONE"
     m_Size SLOT_2x2
     m_SlotType SLOT_ANY
+    m_bStackable 0
    }
    CanBeGarbaged 0
   }
+  SCR_PlaceableItemComponent "{5F0C9043EC2054BB}" {
+   m_fMaxPlacementDistance 5
+   m_ePlacementType XYZ
+  }
   ScriptComponent "{5EE96BE82A130E2C}" {
+  }
+  WeaponComponent "{5F0C9041B576D7B7}" {
+   AllowedRaise "Only lowered"
+   WeaponSlotType "primary"
+   BeActiveWhenDropped 1
+   BeActiveWhenInitWithoutParent 1
   }
   ActionsManagerComponent "{5EEAE5A88BC0BB03}" {
    ActionContexts {
