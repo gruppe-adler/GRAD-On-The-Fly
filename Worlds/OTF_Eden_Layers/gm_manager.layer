@@ -26,6 +26,7 @@ PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_Game
  coords 6628.146 157.608 6465.25
  m_bMarkersOnlyOnBriefing 0
  m_bKillRedundantUnits 1
+ m_iFreezeTime 0
  {
   SCR_FactionManager "5EF5512A533A11FE" {
    ID "5ED9088735FF2D8B"
