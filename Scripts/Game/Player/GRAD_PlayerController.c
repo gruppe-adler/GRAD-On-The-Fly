@@ -6,11 +6,11 @@ modded class SCR_PlayerController : PlayerController
 	//------------------------------------------------------------------------------------------------
 	override void EOnInit(IEntity owner)
 	{
-		SCR_MapEntity.GetOnMapOpen().Insert(OnMapOpen);
+		InitMapMarkerUI();
     }
 	
 	//------------------------------------------------------------------------------------------------
-	void OnMapOpen(MapConfiguration config)
+	void InitMapMarkerUI()
 	{
 		if (!m_MapMarkerUI)
 		{
