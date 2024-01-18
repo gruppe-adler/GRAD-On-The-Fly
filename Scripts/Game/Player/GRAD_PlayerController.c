@@ -152,16 +152,28 @@ modded class SCR_PlayerController : PlayerController
 		
 		vector newWorldPos;
 		
+		int teleportAttemptsCounter = 0;
+		
 		while (!teleportSuccessful)
 		{
-			mapPos[0] = mapPos[0] + Math.RandomFloat(-3, 3);
-			mapPos[1] = mapPos[1] + Math.RandomFloat(-3, 3);
+			if (teleportAttemptsCounter >= 100)
+			{
+				ShowHint("Teleport not successful. Contact your Game Master for manual teleport.", "On The Fly", 10, false);
+				Print(string.Format("OTF - Player with ID %1 NOT successfully teleported to position %2", GetPlayerId(), newWorldPos), LogLevel.NORMAL);
+				break;
+			}
+			
+			mapPos[0] = mapPos[0] + Math.RandomFloat(-15, 15);
+			mapPos[1] = mapPos[1] + Math.RandomFloat(-15, 15);
 			
 			newWorldPos = otfManager.MapPosToWorldPos(mapPos);
 			
 			teleportSuccessful = SCR_Global.TeleportLocalPlayer(newWorldPos, SCR_EPlayerTeleportedReason.DEFAULT);
+			
+			if (teleportSuccessful)
+				Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2", GetPlayerId(), newWorldPos), LogLevel.NORMAL);
+			
+			teleportAttemptsCounter++;
 		}
-		
-		Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2", GetPlayerId(), newWorldPos), LogLevel.NORMAL);
 	}
 };
