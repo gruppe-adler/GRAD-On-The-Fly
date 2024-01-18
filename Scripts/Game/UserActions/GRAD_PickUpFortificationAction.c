@@ -2,6 +2,12 @@
 class GRAD_PickUpFortificationAction : SCR_PickUpItemAction
 {
 	//------------------------------------------------------------------------------------------------
+	override bool CanBeShownScript(IEntity user)
+	{
+		return CanBePerformed(user);
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	override bool CanBePerformedScript(IEntity user)
  	{
 		if ( !super.CanBePerformedScript( user ) )
