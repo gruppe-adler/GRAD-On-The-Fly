@@ -1,7 +1,12 @@
 PS_MissionDescription : "{3136BE42592F3B1B}PrefabsEditable/MissionDescription/EditableMissionDescription.et" {
  coords 4843.307 27.676 11948.725
- m_sTitle "Rules"
- m_sTextData "Opfor Spawn Barrel"
+ m_sTitle "Overview"
+ m_sTextData "- OPFOR spawns barrel via OPFOR map marker"\
+ "- OPFOR buys and builds fortifications"\
+ "- OPFOR finishes OPFOR phase"\
+ "- BLUFOR spawns outside radius via BLUFOR map marker"\
+ "- BLUFOR buys vehicles"\
+ "- The battle begins"
  m_aVisibleForFactions {
   "USSR" "US"
  }
