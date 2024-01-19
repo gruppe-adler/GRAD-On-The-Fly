@@ -35,9 +35,9 @@ class GRAD_FinishOpforPhaseUserAction : ScriptedUserAction
 			return;
 		
 		otfManager.SetOnTheFlyPhase(EOnTheFlyPhase.BLUFOR);
-		
-		otfManager.AddBarrelMarkerToAllPlayers();
-		
+
 		otfManager.AddBarrelSpawnRadiusMarkerToAllPlayers();
+			
+		otfManager.AddBarrelMarkerToAllPlayers();
 	}
 }

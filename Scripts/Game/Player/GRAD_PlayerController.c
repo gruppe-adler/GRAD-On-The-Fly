@@ -31,11 +31,7 @@ modded class SCR_PlayerController : PlayerController
 	{
 		// executed locally on players machine
 		
-		// Open map before creating marker
-		ToggleMap(true);
-		
-		// create marker
-		GetGame().GetCallqueue().CallLater(SetMarker, 1000, false, marker); // 1s delay until map is open
+		SetMarker(marker);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -88,6 +84,9 @@ modded class SCR_PlayerController : PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
 	protected void RpcDo_Owner_AddCircleMarker(float startX, float startY, float endX, float endY)
 	{
+		// Close map before drawing circle; otherwise it's not visible
+		ToggleMap(false);
+		
 		m_MapMarkerUI.AddCircle(startX, startY, endX, endY);
 	}
 	
@@ -117,9 +116,6 @@ modded class SCR_PlayerController : PlayerController
 	protected void RpcDo_Owner_TeleportPlayer(vector pos)
 	{
 		// executed locally on players machine
-		
-		// Close map before creating marker
-		ToggleMap(false);
 		
 		if(SCR_Global.TeleportLocalPlayer(pos, SCR_EPlayerTeleportedReason.DEFAULT))
 			Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2", GetPlayerId(), pos), LogLevel.NORMAL);
