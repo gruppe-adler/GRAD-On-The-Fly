@@ -127,6 +127,26 @@ class GRAD_MapMarkerUI
 		circle.m_fEndPointY = endPointY;
 		
 		m_aCircles.Insert(circle);
+		
+		// directly display the circle if the map is already open
+		SCR_PlayerController pc = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		if (!pc) return;
+		
+		SCR_ChimeraCharacter ch = SCR_ChimeraCharacter.Cast(pc.GetControlledEntity());
+		if (!ch) return;
+		
+		SCR_GadgetManagerComponent gadgetManager = SCR_GadgetManagerComponent.Cast(ch.FindComponent(SCR_GadgetManagerComponent));
+		if (!gadgetManager) return;
+		
+		if (!gadgetManager.GetGadgetByType(EGadgetType.MAP)) return;
+		
+		SCR_MapEntity mapEntity = SCR_MapEntity.Cast(gadgetManager.GetGadgetByType(EGadgetType.MAP));
+		
+		if (mapEntity.IsOpen())
+		{
+			circle.CreateCircle(m_wDrawingContainer);
+			GetGame().GetCallqueue().CallLater(circle.UpdateCircle, 0, false);
+		}
 	}
 	
 	//------------------------------------------------------------------------------------------------

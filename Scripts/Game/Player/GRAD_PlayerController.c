@@ -29,8 +29,8 @@ modded class SCR_PlayerController : PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
 	protected void RpcDo_Owner_InsertMarker(SCR_MapMarkerBase marker)
 	{
-		// executed locally on players machine
-		
+		// executed locally on players PS_VirtualMachine
+
 		SetMarker(marker);
 	}
 
@@ -84,9 +84,6 @@ modded class SCR_PlayerController : PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
 	protected void RpcDo_Owner_AddCircleMarker(float startX, float startY, float endX, float endY)
 	{
-		// Close map before drawing circle; otherwise it's not visible
-		ToggleMap(false);
-		
 		m_MapMarkerUI.AddCircle(startX, startY, endX, endY);
 	}
 	
