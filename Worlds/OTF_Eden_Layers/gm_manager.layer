@@ -44,6 +44,15 @@ PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_Game
        SCR_CallsignInfo "{5F0ABB0546F93A25}" {
         m_sCallsign "Shepherd"
        }
+       SCR_CallsignInfo "{6090863B145D65AD}" {
+        m_sCallsign "Terrier"
+       }
+       SCR_CallsignInfo "{6090863B179BD1C1}" {
+        m_sCallsign "Beagle"
+       }
+       SCR_CallsignInfo "{6090863B1109C582}" {
+        m_sCallsign "Mastiff"
+       }
       }
       m_sCallsignGroupFormat "%3"
       m_sCallsignCharacterFormat "%3: %4"
@@ -62,6 +71,15 @@ PS_GameModeCoop PS_GameMode_Lobby1 : "{9C2001FE7A2F2281}Prefabs/MP/Modes/PS_Game
        }
        SCR_CallsignInfo "{5F0ABB061E6B9DC9}" {
         m_sCallsign "Sochi"
+       }
+       SCR_CallsignInfo "{6090863B679E4DA7}" {
+        m_sCallsign "Kazan"
+       }
+       SCR_CallsignInfo "{6090863B666448C5}" {
+        m_sCallsign "Irkutsk"
+       }
+       SCR_CallsignInfo "{6090863B66211256}" {
+        m_sCallsign "Omsk"
        }
       }
       m_sCallsignGroupFormat "%3"

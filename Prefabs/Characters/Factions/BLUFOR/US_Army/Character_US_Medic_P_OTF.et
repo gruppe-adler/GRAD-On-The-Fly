@@ -1,0 +1,18 @@
+SCR_ChimeraCharacter : "{C9E4FEAF5AAC8D8C}Prefabs/Characters/Factions/BLUFOR/US_Army/Character_US_Medic.et" {
+ ID "51FA8A5F10E81780"
+ components {
+  PS_PlayableComponent "{5EFCC1946F475F15}" {
+   m_bIsPlayable 1
+  }
+  SCR_InventoryStorageManagerComponent "{520EA1D2DB118DE5}" {
+   InitialInventoryItems {
+    ItemsInitConfigurationItem "{6090863FAC76BFBB}" {
+     TargetStorage "Prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup.et"
+     PrefabsToSpawn {
+      "{987A18EFE753A396}Prefabs/Items/Wallet_900.et"
+     }
+    }
+   }
+  }
+ }
+}
