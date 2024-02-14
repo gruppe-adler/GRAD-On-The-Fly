@@ -345,8 +345,11 @@ class GRAD_OnTheFlyManager : GenericEntity
 			SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
 			
 			if (!playerController)
+			{
+				Print(string.Format("OTF - Player controller missing for player ID: %1 (Skip Teleport)", playerId), LogLevel.WARNING);
 				return;
-			
+			}
+						
 			if (playerFaction == faction)
 			{
 				Print(string.Format("OTF - Player with ID %1 is Member of Faction %2 and will be teleported to %3", playerId, playerFaction.GetFactionKey(), mapPos), LogLevel.NORMAL);

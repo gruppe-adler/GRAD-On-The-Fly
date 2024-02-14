@@ -115,9 +115,9 @@ modded class SCR_PlayerController : PlayerController
 		// executed locally on players machine
 		
 		if(SCR_Global.TeleportLocalPlayer(pos, SCR_EPlayerTeleportedReason.DEFAULT))
-			Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2", GetPlayerId(), pos), LogLevel.NORMAL);
+			Print(string.Format("OTF - Player with ID %1 successfully teleported to position %2 - Deprecated", GetPlayerId(), pos), LogLevel.NORMAL);
 		else
-			Print(string.Format("OTF - Player with ID %1 NOT successfully teleported to position %2", GetPlayerId(), pos), LogLevel.WARNING);
+			Print(string.Format("OTF - Player with ID %1 NOT successfully teleported to position %2 - Deprecated", GetPlayerId(), pos), LogLevel.WARNING);
 	}
 
 	//------------------------------------------------------------------------------------------------
@@ -135,7 +135,10 @@ modded class SCR_PlayerController : PlayerController
 		IEntity playerEntity = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
 		
 		if (!playerEntity)
+		{
+			Print(string.Format("OTF - Player entity missing; skipping teleport"), LogLevel.WARNING);
 			return;
+		}
 		
 		Print(string.Format("OTF - Player with ID %1 has position %2", playerId, playerEntity.GetOrigin()), LogLevel.NORMAL);
 		
@@ -149,15 +152,15 @@ modded class SCR_PlayerController : PlayerController
 		
 		while (!teleportSuccessful)
 		{
-			if (teleportAttemptsCounter >= 100)
+			if (teleportAttemptsCounter >= 5)
 			{
 				ShowHint("Teleport not successful. Contact your Game Master for manual teleport.", "On The Fly", 10, false);
 				Print(string.Format("OTF - Player with ID %1 NOT successfully teleported to position %2", GetPlayerId(), newWorldPos), LogLevel.NORMAL);
 				break;
 			}
 			
-			mapPos[0] = mapPos[0] + Math.RandomFloat(-15, 15);
-			mapPos[1] = mapPos[1] + Math.RandomFloat(-15, 15);
+			mapPos[0] = mapPos[0] + Math.RandomFloat(-30, 30);
+			mapPos[1] = mapPos[1] + Math.RandomFloat(-30, 30);
 			
 			newWorldPos = otfManager.MapPosToWorldPos(mapPos);
 			
