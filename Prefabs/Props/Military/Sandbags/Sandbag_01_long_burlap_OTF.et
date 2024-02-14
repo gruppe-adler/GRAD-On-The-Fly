@@ -16,7 +16,7 @@ GenericEntity : "{21D83950DF36F250}Prefabs/Props/Military/Sandbags/Sandbag_01_lo
      Weight 0
      SizeSetupStrategy Manual
      ItemDimensions 10 10 10
-     ItemVolume 1000
+     ItemVolume 100
      DimensionScaler 1
      RestingAdditiveRotationLS 0 0 0
      RestingAdditiveOffsetLS 0 0 0
@@ -63,7 +63,6 @@ GenericEntity : "{21D83950DF36F250}Prefabs/Props/Military/Sandbags/Sandbag_01_lo
     m_SlotType SLOT_ANY
     m_bStackable 0
    }
-   CanBeGarbaged 0
   }
   SCR_PlaceableItemComponent "{5F1077C63AF65F0C}" {
    m_fMaxPlacementDistance 5

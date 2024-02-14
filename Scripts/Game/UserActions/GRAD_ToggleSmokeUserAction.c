@@ -25,8 +25,8 @@ class GRAD_ToggleSmokeUserAction : ScriptedUserAction
 		
 		return true;
 	}
-	
-	//---------------------------------------------------------
+
+	//------------------------------------------------------------------------------------------------
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity)
 	{
 		if (m_BarrelSmokeComponent.IsSmoking())

@@ -268,10 +268,10 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      Description "Barrel contains the prize"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{5EE96A2B1D3A817D}" {
-     Weight 0.5
+     Weight 0
      SizeSetupStrategy Manual
      ItemDimensions 10 10 10
-     ItemVolume 1000
+     ItemVolume 100
      DimensionScaler 1
      RestingAdditiveRotationLS 0 0 0
      RestingAdditiveOffsetLS 0 0 0

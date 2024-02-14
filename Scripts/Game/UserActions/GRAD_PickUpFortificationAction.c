@@ -4,7 +4,17 @@ class GRAD_PickUpFortificationAction : SCR_PickUpItemAction
 	//------------------------------------------------------------------------------------------------
 	override bool CanBeShownScript(IEntity user)
 	{
-		return CanBePerformed(user);
+		GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
+		
+		if(!otfManager)
+			return false;
+		
+		int otfPhase = otfManager.GetOnTheFlyPhase();
+		
+		if(!((otfPhase == EOnTheFlyPhase.OPFOR) || (otfPhase == EOnTheFlyPhase.BLUFOR)))
+			return false;
+		
+		return true;
 	}
 	
 	//------------------------------------------------------------------------------------------------

@@ -4,7 +4,12 @@ class GRAD_PickUpBarrelAction : SCR_PickUpItemAction
 	//------------------------------------------------------------------------------------------------
 	override bool CanBeShownScript(IEntity user)
 	{
-		return CanBePerformed(user);
+		GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
+		
+		if(!otfManager || (otfManager.GetOnTheFlyPhase() != EOnTheFlyPhase.OPFOR))
+			return false;
+		
+		return true;
 	}
 
 	//------------------------------------------------------------------------------------------------
