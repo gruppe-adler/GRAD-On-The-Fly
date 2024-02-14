@@ -1,0 +1,104 @@
+GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_BarrelFuel_01_closed.et" {
+ ID "52F07DE17573BB0C"
+ components {
+  SignalsManagerComponent "{609D0A2EBF5B01DA}" {
+  }
+  GRAD_PlacementOverrideComponent "{609D0A2EBF664042}" {
+   m_bOverrideVanillaPlacement 1
+  }
+  MeshObject "{5872F0EB7FA40561}" {
+   Object "{9364B0DB0E8914B6}Assets/Props/Infrastructure/ConeTraffic_01/ConeTraffic_01.xob"
+  }
+  SCR_PlaceableInventoryItemComponent "{609D0A2EBF66407D}" {
+   Attributes SCR_ItemAttributeCollection "{609D0A2EBF66407F}" {
+    ItemDisplayName UIInfo "{609D0A2EBF664079}" {
+     Name "OTF Barrel"
+     Description "Barrel contains the prize"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{609D0A2EBF66407A}" {
+     Weight 0
+     SizeSetupStrategy Manual
+     ItemDimensions 10 10 10
+     ItemVolume 100
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    ItemAnimationAttributes ItemAnimationAttributes "{609D0A2EBF664075}" {
+     IkSettings {
+      ItemIKSettings "{609D0A2EBF664077}" {
+       InAds 0
+       OutAds 0
+       MovementSpeedRange 0 1
+       IkSettingsStand 6
+       IkSettingsCrouch 6
+       IkSettingsProne 6
+      }
+     }
+     AnimationInstance "{AF06D3F738A50403}anims/workspaces/player/player_main_heavy.asi"
+     AnimationIKPose "{5EF679CCFE1123FD}Assets/Weapons/Explosives/Mine_M15AT/anims/p_mine_ik.anm"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{609D0A2EBF664072}" {
+      CameraPreset Top
+      CameraOrbitAngles 45 0 0
+      CameraDistanceToItem 1.3
+      CameraOffset 0 0 0
+      IsDynamicObject 1
+     }
+     CharacterModifierAttributes "{609D0A2EBF66406C}" {
+      StanceLimits 0.05 1
+      SpeedLimit 1.6
+      ADSSpeedLimit 1
+      SpeedLimitHighready 1
+      AllowGadgetUse 0
+      AllowJumping 0
+     }
+     HolsteredItemAttributes "{609D0A2EBF66406E}" {
+      LinearOffset 0 0 0
+      AngularOffset 0 0 0
+      HiddenHolstered 1
+     }
+    }
+    CommonItemType "NONE"
+    m_Size SLOT_2x2
+    m_SlotType SLOT_ANY
+    m_bStackable 0
+   }
+  }
+  SCR_PlaceableItemComponent "{609D0A2EBF664068}" {
+   m_fMaxPlacementDistance 5
+   m_ePlacementType XYZ
+  }
+  ScriptComponent "{609D0A2EBF664069}" {
+  }
+  WeaponComponent "{609D0A2EBF66406A}" {
+   AllowedRaise "Only lowered"
+   WeaponSlotType "primary"
+   BeActiveWhenDropped 1
+   BeActiveWhenInitWithoutParent 1
+  }
+  ActionsManagerComponent "{609D0A2EBF664065}" {
+   ActionContexts {
+    UserActionContext "{609D0A2EBF664066}" {
+     ContextName "main"
+     Position PointInfo "{609D0A2EBF664060}" {
+      Offset 0 0.5 0
+     }
+    }
+   }
+   additionalActions {
+    GRAD_PickUpVehicleSpawnAction "{609D0A2EBF664063}" {
+     ParentContextList {
+      "main"
+     }
+     UIInfo UIInfo "{609D0A2EBF66401C}" {
+      Name "#AR-Inventory_PickUp"
+     }
+    }
+   }
+  }
+ }
+ coords 40.511 22.929 -10.1
+ Flags 3
+}

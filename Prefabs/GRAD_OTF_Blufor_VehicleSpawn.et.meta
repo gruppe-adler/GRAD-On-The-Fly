@@ -1,0 +1,15 @@
+MetaFileClass {
+ Name "{544543D51890CFF6}Prefabs/GRAD_OTF_Blufor_VehicleSpawn.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

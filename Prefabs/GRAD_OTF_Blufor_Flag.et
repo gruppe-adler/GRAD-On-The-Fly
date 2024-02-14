@@ -43,9 +43,6 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
     ADM_ShopMerchandise "{5EFC9AD910CB39D8}" {
      m_Merchandise ADM_MerchandiseVehicle "{5EFC9AD91D463E32}" {
       m_sPrefab "{F6B23D17D5067C11}Prefabs/Vehicles/Wheeled/M151A2/M151A2_M2HB.et"
-      m_SpawnPosition PointInfo "{5EFC9AD91F024F8B}" {
-       Offset 0 1 15
-      }
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFC9AD93EFD82B5}" {
@@ -56,9 +53,6 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
     ADM_ShopMerchandise "{5EFC9E9BF2D6AAC8}" {
      m_Merchandise ADM_MerchandiseVehicle "{5EFC9E9BF9C0882F}" {
       m_sPrefab "{70BAEEFC2D3FEE64}Prefabs/Vehicles/Helicopters/UH1H/UH1H.et"
-      m_SpawnPosition PointInfo "{5EFC9E9D86F01DFF}" {
-       Offset 0 1 15
-      }
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFC9E9B1355521B}" {
@@ -69,9 +63,6 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
     ADM_ShopMerchandise "{5EFC9E9B241ED04E}" {
      m_Merchandise ADM_MerchandiseVehicle "{5EFC9E9B2152420F}" {
       m_sPrefab "{F1FBD0972FA5FE09}Prefabs/Vehicles/Wheeled/M923A1/M923A1_transport.et"
-      m_SpawnPosition PointInfo "{5EFC9E9D8A07CB73}" {
-       Offset 0 1 15
-      }
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFC9E9D9CDADA83}" {

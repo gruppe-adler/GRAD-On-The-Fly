@@ -694,6 +694,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 	//------------------------------------------------------------------------------------------------
 	void SpawnBluforFlag(int spawnPosMap[2])
 	{
+		//----------------------------------------
+		
 		vector spawnPosition = MapPosToWorldPos(spawnPosMap);
 		
 		EntitySpawnParams params = new EntitySpawnParams();
@@ -701,6 +703,29 @@ class GRAD_OnTheFlyManager : GenericEntity
 		
 		Resource resource = Resource.Load("{D698B2A4491AAC4C}Prefabs/GRAD_OTF_Blufor_Flag.et");
 		IEntity flag = GetGame().SpawnEntityPrefab(resource, GetGame().GetWorld(), params);
+		
+		//----------------------------------------
+		
+		// spawn the traffic cone for vehicle spawn with an offeset of [1, 1]
+		int vehicleSpawnPosMap[2];
+		vehicleSpawnPosMap[0] = spawnPosMap[0] + 1;
+		vehicleSpawnPosMap[1] = spawnPosMap[1] + 1;
+		
+		//----------------------------------------
+		
+		vector vehicleSpawnPosition = MapPosToWorldPos(vehicleSpawnPosMap);
+
+		EntitySpawnParams paramsVehicleSpawn = new EntitySpawnParams();
+		paramsVehicleSpawn.Transform[3] = vehicleSpawnPosition;
+		
+		Resource resourceVehicleSpawn = Resource.Load("{544543D51890CFF6}Prefabs/GRAD_OTF_Blufor_VehicleSpawn.et");
+		IEntity vehicleSpawn = GetGame().SpawnEntityPrefab(resourceVehicleSpawn, GetGame().GetWorld(), paramsVehicleSpawn);
+		
+		//----------------------------------------
+		
+		vehicleSpawn.SetName("BLUFOR_VehicleSpawn");
+		
+		//----------------------------------------
 		
 		m_otfBluforFlag = flag;
 		

@@ -1,16 +1,22 @@
 [BaseContainerProps()]
 modded class ADM_MerchandiseVehicle: ADM_MerchandiseType
-{	
+{
+	//------------------------------------------------------------------------------------------------
 	override EntitySpawnParams GetVehicleSpawnTransform(ADM_ShopBaseComponent shop)
 	{
 		EntitySpawnParams params = EntitySpawnParams();
 		params.TransformMode = ETransformMode.WORLD;
 		
-		if (m_SpawnPosition && !shop.IsInherited(ADM_PhysicalShopComponent)) {
+		if (m_SpawnPosition && !shop.IsInherited(ADM_PhysicalShopComponent))
+		{
 			m_SpawnPosition.GetWorldTransform(params.Transform);
 			params.Transform[3] = shop.GetOwner().CoordToParent(params.Transform[3]);
-		} else {
-			shop.GetOwner().GetTransform(params.Transform);
+		} 
+		else
+		{
+			IEntity vehicleSpawn = GetGame().GetWorld().FindEntityByName("BLUFOR_VehicleSpawn");
+			vehicleSpawn.GetTransform(params.Transform);
+			//shop.GetOwner().GetTransform(params.Transform);
 		}		
 		
 		bool foundPositionEmpty = false;
