@@ -17,7 +17,7 @@ SCR_ChimeraCharacter : "{F9C5F4700B5D87FB}Prefabs/Characters/Factions/OPFOR/USSR
     ItemsInitConfigurationItem "{5F028E5A81FD7CAA}" {
      TargetStorage "Prefabs/Characters/Uniforms/Jacket_M88_rolledup.et"
      PrefabsToSpawn {
-      "{987A18EFE753A396}Prefabs/Items/Wallet_900.et"
+      "{E8F24915C249D953}Prefabs/Items/Wallet_200.et"
      }
     }
    }

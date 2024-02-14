@@ -17,7 +17,7 @@ SCR_ChimeraCharacter : "{7E44CF4FB58F8FF7}Prefabs/Characters/Factions/BLUFOR/US_
     ItemsInitConfigurationItem "{5F028E5C5231A466}" {
      TargetStorage "Prefabs/Characters/Uniforms/Jacket_US_BDU_rolledup.et"
      PrefabsToSpawn {
-      "{987A18EFE753A396}Prefabs/Items/Wallet_900.et"
+      "{E8F24915C249D953}Prefabs/Items/Wallet_200.et"
      }
     }
    }

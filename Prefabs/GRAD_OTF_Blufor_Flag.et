@@ -96,7 +96,7 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFCF0B36D48E38F}" {
-       m_Quantity 25
+       m_Quantity 50
       }
      }
     }
@@ -156,7 +156,7 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5F0ABB2E515B3CD1}" {
-       m_Quantity 200
+       m_Quantity 400
       }
      }
     }
@@ -176,7 +176,7 @@ GenericEntity : "{E55FC02F8C1518A2}Prefabs/Structures/Military/Flags/FlagPole_02
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5F0ABB293C17701D}" {
-       m_Quantity 100
+       m_Quantity 10
       }
      }
     }

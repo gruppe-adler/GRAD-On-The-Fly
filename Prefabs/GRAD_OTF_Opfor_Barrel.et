@@ -69,7 +69,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5EFCF0B3169CD57A}" {
-       m_Quantity 25
+       m_Quantity 50
       }
      }
     }
@@ -189,7 +189,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5F0ABB10BB3AFFC3}" {
-       m_Quantity 250
+       m_Quantity 350
       }
      }
     }
@@ -199,7 +199,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5F0ABB10D7318A2F}" {
-       m_Quantity 250
+       m_Quantity 400
       }
      }
     }
@@ -209,7 +209,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5F0ABB10F58EB1AD}" {
-       m_Quantity 150
+       m_Quantity 200
       }
      }
     }
@@ -249,7 +249,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      m_RequiredPayment {
       ADM_PaymentMethodCurrency "{5F0ABB290CDC188B}" {
-       m_Quantity 100
+       m_Quantity 10
       }
      }
     }
@@ -317,7 +317,6 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
     m_SlotType SLOT_ANY
     m_bStackable 0
    }
-   CanBeGarbaged 0
   }
   SCR_PlaceableItemComponent "{5F0C9043EC2054BB}" {
    m_fMaxPlacementDistance 5
