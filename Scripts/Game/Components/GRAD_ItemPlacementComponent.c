@@ -144,9 +144,7 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 
 		if (m_bPlacementOverrideEnabled)
 		{
-			Print(string.Format("OTF - Flags before: %1", weaponEntity.GetFlags()), LogLevel.NORMAL);
 			weaponEntity.SetFlags(weaponEntity.GetFlags() | EntityFlags.VISIBLE);
-			Print(string.Format("OTF - Flags after: %1", weaponEntity.GetFlags()), LogLevel.NORMAL);
 			
 			inputManager.ActivateContext("RotatePreviewContext", 0);
 			inputManager.RemoveActionListener("RotateLeft", EActionTrigger.DOWN, RotateLeft);
@@ -170,9 +168,7 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		
 		if (m_bPlacementOverrideEnabled)
 		{
-			Print(string.Format("OTF - Flags before: %1", weaponEntity.GetFlags()), LogLevel.NORMAL);
 			weaponEntity.ClearFlags(EntityFlags.VISIBLE);
-			Print(string.Format("OTF - Flags after: %1", weaponEntity.GetFlags()), LogLevel.NORMAL);
 			
 			//weaponEntity.SetScale(0.1); // doesn't work; perhaps because weapon is contineously transformed
 			
