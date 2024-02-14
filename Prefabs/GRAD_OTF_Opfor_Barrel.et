@@ -363,7 +363,7 @@ GenericEntity : "{46F077BDA1AF95B2}PrefabsEditable/Auto/Props/Industrial/E_Barre
      }
      Duration 3
     }
-    ADM_ShopAction "{5EFAFA099EFF68D6}" {
+    GRAD_OpforShopAction "{5EFAFA099EFF68D6}" {
      ParentContextList {
       "main"
      }
