@@ -108,14 +108,14 @@ modded class SCR_PlayerController : PlayerController
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	void ShowOverlay(string message, string title, int duration, bool isSilent)
+	void ShowOverlay(string message, int duration)
 	{
-		Rpc(RpcDo_Owner_ShowOverlay, message, title, duration, isSilent);
+		Rpc(RpcDo_Owner_ShowOverlay, message, duration);
 	}
 	
 	//------------------------------------------------------------------------------------------------
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
-	protected void RpcDo_Owner_ShowOverlay(string message, string title, int duration, bool isSilent)
+	protected void RpcDo_Owner_ShowOverlay(string message, int duration)
 	{
 		// executed locally on players machine
 
@@ -126,12 +126,14 @@ modded class SCR_PlayerController : PlayerController
 		
 		m_wDisplay = GetGame().GetWorkspace().CreateWidgets(m_sOverlay);
 		
-		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindWidget("Text0"));
+		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindAnyWidget("Text0"));
 		
 		if (textWidget)
 			textWidget.SetText(message);
 		
-		GetGame().GetCallqueue().CallLater(RemoveOverlay, 5000, false); // 5 sec later
+		SCR_UISoundEntity.SoundEvent(SCR_SoundEvent.TASK_CREATED);
+		
+		GetGame().GetCallqueue().CallLater(RemoveOverlay, duration * 1000, false); // x sec later
 	}
 	
 	//------------------------------------------------------------------------------------------------
