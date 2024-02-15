@@ -841,7 +841,7 @@ class GRAD_OnTheFlyManager : GenericEntity
 		if (markerOwnerFaction.GetFactionKey() == "US") {
 			TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, false);
 			SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
-			GetGame().GetCallqueue().CallLater(DeleteFortificationsFromOpforInventories, 1*60*1000, false); // after 10 minutes in GAME phase
+			GetGame().GetCallqueue().CallLater(DeleteFortificationsFromOpforInventories, 10*60*1000, false); // after 10 minutes in GAME phase
 			
         	GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterBluforPhase, m_iNotificationDuration, false, markerOwnerFaction);
 		} else {
