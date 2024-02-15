@@ -562,6 +562,8 @@ class GRAD_OnTheFlyManager : GenericEntity
 				return;
 		
 			playerController.ShowHint(message, title, duration, isSilent);
+			
+			playerController.ShowOverlay(message, title, duration, isSilent);
 		}
 	}
 	

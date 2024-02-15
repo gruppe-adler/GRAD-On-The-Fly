@@ -1,0 +1,47 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  HorizontalLayoutWidgetClass "{609D131751EF5C01}" {
+   Name "HorizontalLayout0"
+   Slot FrameWidgetSlot "{609D131751EF5C67}" {
+    Anchor 0.5 0 0.5 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 1920
+    OffsetRight -1920
+    SizeY 1080
+    OffsetBottom -1080
+    Alignment 0.5 0
+    SizeToContent 1
+   }
+   {
+    VerticalLayoutWidgetClass "{609D1317595CBD5F}" {
+     Name "VerticalLayout0"
+     Slot LayoutSlot "{609D1317595CBEBD}" {
+      HorizontalAlign 1
+     }
+     {
+      ImageWidgetClass "{609D13131477C7F1}" {
+       Name "Image0"
+       Slot LayoutSlot {
+        HorizontalAlign 1
+        Padding 0 0 0 0
+       }
+       Texture "{68E736A2003A18AC}UI/OTF/thumbnail.edds"
+       Size 256 256
+      }
+      TextWidgetClass "{609D13129CC48E26}" {
+       Name "Text0"
+       Slot LayoutSlot {
+       }
+       Text "OPFOR Phase has started"
+       "Font Size" 36
+       "Horizontal Alignment" Center
+      }
+     }
+    }
+   }
+  }
+ }
+}

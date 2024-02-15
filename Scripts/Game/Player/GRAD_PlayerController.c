@@ -1,6 +1,11 @@
 //------------------------------------------------------------------------------------------------
 modded class SCR_PlayerController : PlayerController
 {
+	[Attribute(defvalue: "{257513225CC1D5FB}UI/OTF/OTF_Overlay.layout")]
+	protected ResourceName m_sOverlay;
+	
+	protected ref Widget m_wDisplay;
+	
 	protected ref GRAD_MapMarkerUI m_MapMarkerUI;
 	
 	//------------------------------------------------------------------------------------------------
@@ -100,6 +105,42 @@ modded class SCR_PlayerController : PlayerController
 		// executed locally on players machine
 		
 		SCR_HintManagerComponent.GetInstance().ShowCustomHint(message, title, duration, isSilent);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void ShowOverlay(string message, string title, int duration, bool isSilent)
+	{
+		Rpc(RpcDo_Owner_ShowOverlay, message, title, duration, isSilent);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
+	protected void RpcDo_Owner_ShowOverlay(string message, string title, int duration, bool isSilent)
+	{
+		// executed locally on players machine
+
+		if (m_wDisplay)
+		{
+			delete m_wDisplay;
+		}
+		
+		m_wDisplay = GetGame().GetWorkspace().CreateWidgets(m_sOverlay);
+		
+		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindWidgetByName("Text0"));
+		
+		if (textWidget)
+			textWidget.SetText(message);
+		
+		GetGame().GetCallqueue().CallLater(RemoveOverlay, 5000, false); // 5 sec later
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected void RemoveOverlay()
+	{
+		if (m_wDisplay)
+		{
+			delete m_wDisplay;
+		}
 	}
 		
 	//------------------------------------------------------------------------------------------------
