@@ -126,7 +126,7 @@ modded class SCR_PlayerController : PlayerController
 		
 		m_wDisplay = GetGame().GetWorkspace().CreateWidgets(m_sOverlay);
 		
-		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindWidgetByName("Text0"));
+		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindWidget("Text0"));
 		
 		if (textWidget)
 			textWidget.SetText(message);
