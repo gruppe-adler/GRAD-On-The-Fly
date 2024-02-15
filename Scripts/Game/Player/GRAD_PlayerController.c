@@ -304,7 +304,13 @@ modded class SCR_PlayerController : PlayerController
 
 		m_iTimerDuration++;
 	}
-		
+
+	//------------------------------------------------------------------------------------------------
+	int GetTimerDuration()
+	{
+		return m_iTimerDuration;
+	}
+			
 	//------------------------------------------------------------------------------------------------
 	void TeleportPlayer(vector pos)
 	{

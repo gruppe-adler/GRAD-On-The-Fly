@@ -13,6 +13,10 @@ class GRAD_BluforShopAction : ADM_ShopAction
 		
 		if(!((otfPhase == EOnTheFlyPhase.BLUFOR) || (otfPhase == EOnTheFlyPhase.GAME)))
 			return false;
+
+		SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		if (playerController.GetTimerDuration() > (15 * 60))
+			return false;
 		
 		return true;
 	}
@@ -31,6 +35,10 @@ class GRAD_BluforShopAction : ADM_ShopAction
 		int otfPhase = otfManager.GetOnTheFlyPhase();
 		
 		if(!((otfPhase == EOnTheFlyPhase.BLUFOR) || (otfPhase == EOnTheFlyPhase.GAME)))
+			return false;
+
+		SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		if (playerController.GetTimerDuration() > (15 * 60))
 			return false;
 		
 		return true;

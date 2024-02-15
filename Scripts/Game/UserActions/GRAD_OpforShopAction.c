@@ -11,7 +11,11 @@ class GRAD_OpforShopAction : ADM_ShopAction
 		
 		int otfPhase = otfManager.GetOnTheFlyPhase();
 		
-		if(!((otfPhase == EOnTheFlyPhase.OPFOR) || (otfPhase == EOnTheFlyPhase.BLUFOR)))
+		if(!((otfPhase == EOnTheFlyPhase.OPFOR) || (otfPhase == EOnTheFlyPhase.BLUFOR) || (otfPhase == EOnTheFlyPhase.GAME)))
+			return false;
+		
+		SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		if (playerController.GetTimerDuration() > (5 * 60))
 			return false;
 		
 		return true;
@@ -30,7 +34,11 @@ class GRAD_OpforShopAction : ADM_ShopAction
 		
 		int otfPhase = otfManager.GetOnTheFlyPhase();
 		
-		if(!((otfPhase == EOnTheFlyPhase.OPFOR) || (otfPhase == EOnTheFlyPhase.BLUFOR)))
+		if(!((otfPhase == EOnTheFlyPhase.OPFOR) || (otfPhase == EOnTheFlyPhase.BLUFOR) || (otfPhase == EOnTheFlyPhase.GAME)))
+			return false;
+		
+		SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerController());
+		if (playerController.GetTimerDuration() > (5 * 60))
 			return false;
 		
 		return true;
