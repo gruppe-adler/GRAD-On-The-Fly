@@ -841,10 +841,33 @@ class GRAD_OnTheFlyManager : GenericEntity
 		if (markerOwnerFaction.GetFactionKey() == "US") {
 			TeleportFactionToMapPos(markerOwnerFaction, markerOwnerFaction.GetFactionKey(), markerPos, false);
 			SetOnTheFlyPhase(EOnTheFlyPhase.GAME);
+			GetGame().GetCallqueue().CallLater(DeleteFortificationsFromOpforInventories, 1*60*1000, false); // after 10 minutes in GAME phase
 			
         	GetGame().GetCallqueue().CallLater(NotifyOpposingFactionAfterBluforPhase, m_iNotificationDuration, false, markerOwnerFaction);
 		} else {
 			NotifyFactionCantTeleport(markerOwnerFaction);
+		}
+	}
+
+	//------------------------------------------------------------------------------------------------
+	void DeleteFortificationsFromOpforInventories()
+	{
+		array<int> playerIds = {};
+		GetGame().GetPlayerManager().GetAllPlayers(playerIds);
+
+		Faction faction = GetGame().GetFactionManager().GetFactionByKey("USSR");
+
+		foreach (int playerId : playerIds)
+		{
+			if (SCR_FactionManager.SGetPlayerFaction(playerId) == faction)
+			{
+				SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerManager().GetPlayerController(playerId));
+				
+				if (!playerController)
+					return;
+			
+				playerController.DeleteFortificationsFromInventory();
+			}
 		}
 	}
 	

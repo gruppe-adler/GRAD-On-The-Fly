@@ -33,6 +33,41 @@ modded class SCR_PlayerController : PlayerController
 		}
 	}
 	
+	//------------------------------------------------------------------------------------------------	
+	void DeleteFortificationsFromInventory()
+	{
+		Rpc(RpcDo_Owner_DeleteFortificationsFromInventory);
+	}
+		
+	//------------------------------------------------------------------------------------------------
+	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
+	protected void RpcDo_Owner_DeleteFortificationsFromInventory()
+	{
+		// executed locally on players PS_VirtualMachine
+
+		IEntity entity = GetControlledEntity();
+		
+		SCR_InventoryStorageManagerComponent inventoryStorageManager = SCR_InventoryStorageManagerComponent.Cast(entity.FindComponent(SCR_InventoryStorageManagerComponent));
+		
+		array<IEntity> items = {};
+		inventoryStorageManager.GetItems(items);
+		
+		int count = 0;
+		foreach(IEntity item : items)
+		{
+			// fortification items are identified by having the placementOverrideComponent
+			// strictly this would also be true for the barrel and for the traffic cone
+			GRAD_PlacementOverrideComponent placementOverrideComponent = GRAD_PlacementOverrideComponent.Cast(item.FindComponent(GRAD_PlacementOverrideComponent));
+			if (placementOverrideComponent)
+			{
+				delete item;
+				count++;
+			}
+		}
+		
+		Print(string.Format("OTF - %1 fortification items deleted from inventory", count), LogLevel.NORMAL);
+	}
+	
 	//------------------------------------------------------------------------------------------------
 	void InsertMarker(SCR_MapMarkerBase marker)
 	{
