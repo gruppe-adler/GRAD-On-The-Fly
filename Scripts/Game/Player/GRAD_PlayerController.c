@@ -4,7 +4,16 @@ modded class SCR_PlayerController : PlayerController
 	[Attribute(defvalue: "{257513225CC1D5FB}UI/OTF/OTF_Overlay.layout")]
 	protected ResourceName m_sOverlay;
 	
+	[Attribute(defvalue: "{B764E0A789AF2F5F}UI/OTF/OTF_CountdownTimer.layout")]
+	protected ResourceName m_sCountdownTimer;
+	
 	protected ref Widget m_wDisplay;
+	
+	protected bool m_bCoutdownRunning = false;
+	protected bool m_bTimerRunning = false;
+	
+	protected int m_iCountdownDuration = 0;
+	protected int m_iTimerDuration = 0;
 	
 	protected ref GRAD_MapMarkerUI m_MapMarkerUI;
 	
@@ -117,6 +126,10 @@ modded class SCR_PlayerController : PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
 	protected void RpcDo_Owner_ShowOverlay(string message, int duration)
 	{
+		// Disable countdown/timer if new overlay will be displayed
+		m_bCoutdownRunning = false;
+		m_bTimerRunning = false;
+		
 		// executed locally on players machine
 
 		if (m_wDisplay)
@@ -142,7 +155,154 @@ modded class SCR_PlayerController : PlayerController
 		if (m_wDisplay)
 		{
 			delete m_wDisplay;
+		}	
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void ShowCountdown(int duration)
+	{
+		Rpc(RpcDo_Owner_ShowCountdown, duration);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
+	protected void RpcDo_Owner_ShowCountdown(int duration)
+	{
+		// executed locally on players machine
+
+		if (m_wDisplay)
+		{
+			delete m_wDisplay;
 		}
+		
+		m_wDisplay = GetGame().GetWorkspace().CreateWidgets(m_sCountdownTimer);
+		
+		m_bCoutdownRunning = true;
+		
+		m_iCountdownDuration = duration;
+		
+		UpdateCountdown();
+		
+		// kill every previously running process
+		GetGame().GetCallqueue().Remove(UpdateCountdown);
+		GetGame().GetCallqueue().Remove(UpdateTimer);
+		
+		GetGame().GetCallqueue().CallLater(UpdateCountdown, 1000, true); // every second
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected void UpdateCountdown()
+	{
+		if (!m_bCoutdownRunning)
+		{
+			GetGame().GetCallqueue().Remove(UpdateCountdown);
+			return;
+		}
+		
+		int minutes = m_iCountdownDuration / 60;
+		int seconds = m_iCountdownDuration - (minutes * 60);
+		
+		string minutesStr;
+		string secondsStr;
+
+		if (minutes < 10)
+			minutesStr = string.Format("0%1", minutes);
+		else
+			minutesStr = string.Format("%1", minutes);
+		
+		if (seconds < 10)
+			secondsStr = string.Format("0%1", seconds);
+		else
+			secondsStr = string.Format("%1", seconds);
+		
+		if (!m_wDisplay)
+			return;
+		
+		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindAnyWidget("Text0"));
+		
+		if (textWidget)
+			textWidget.SetText(string.Format("%1:%2", minutesStr, secondsStr));
+		
+		if (m_iCountdownDuration == 0)
+		{
+			GetGame().GetCallqueue().Remove(UpdateCountdown);
+			
+			m_bCoutdownRunning = false;
+			
+			if (textWidget)
+			{
+				textWidget.SetColor(new Color(1.0, 0.0, 0.0, 1.0));
+				SCR_UISoundEntity.SoundEvent(SCR_SoundEvent.SOUND_SIREN);
+			}
+		}
+		else
+			m_iCountdownDuration--;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	void ShowTimer()
+	{
+		Rpc(RpcDo_Owner_ShowTimer);
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
+	protected void RpcDo_Owner_ShowTimer()
+	{
+		// executed locally on players machine
+
+		if (m_wDisplay)
+		{
+			delete m_wDisplay;
+		}
+		
+		m_wDisplay = GetGame().GetWorkspace().CreateWidgets(m_sCountdownTimer);
+		
+		m_bTimerRunning = true;
+		
+		UpdateTimer();
+		
+		// kill every previously running process
+		GetGame().GetCallqueue().Remove(UpdateTimer);
+		GetGame().GetCallqueue().Remove(UpdateCountdown);
+		
+		GetGame().GetCallqueue().CallLater(UpdateTimer, 1000, true); // every second
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected void UpdateTimer()
+	{
+		if (!m_bTimerRunning)
+		{
+			GetGame().GetCallqueue().Remove(UpdateTimer);
+			return;
+		}
+		
+		int minutes = m_iTimerDuration / 60;
+		int seconds = m_iTimerDuration - (minutes * 60);
+		
+		string minutesStr;
+		string secondsStr;
+
+		if (minutes < 10)
+			minutesStr = string.Format("0%1", minutes);
+		else
+			minutesStr = string.Format("%1", minutes);
+		
+		if (seconds < 10)
+			secondsStr = string.Format("0%1", seconds);
+		else
+			secondsStr = string.Format("%1", seconds);
+		
+		if (!m_wDisplay)
+			return;
+		
+		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindAnyWidget("Text0"));
+		
+		if (textWidget)
+			textWidget.SetText(string.Format("%1:%2", minutesStr, secondsStr));
+
+		m_iTimerDuration++;
 	}
 		
 	//------------------------------------------------------------------------------------------------

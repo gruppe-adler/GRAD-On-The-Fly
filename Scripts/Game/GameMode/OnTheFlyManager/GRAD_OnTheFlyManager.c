@@ -564,6 +564,17 @@ class GRAD_OnTheFlyManager : GenericEntity
 			//playerController.ShowHint(message, title, duration, isSilent);
 			
 			playerController.ShowOverlay(message, duration);
+			
+			if (phase != EOnTheFlyPhase.GAME)
+			{
+				// After Overlay is closed (1 sec later), show the countdown with 5 minutes
+				GetGame().GetCallqueue().CallLater(playerController.ShowCountdown, (duration + 1) * 1000, false, 5*60);
+			}
+			else
+			{
+				// After Overlay is closed (1 sec later), show the timer
+				GetGame().GetCallqueue().CallLater(playerController.ShowTimer, (duration + 1) * 1000, false);
+			}
 		}
 	}
 	

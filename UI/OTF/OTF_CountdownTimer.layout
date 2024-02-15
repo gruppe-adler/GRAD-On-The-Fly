@@ -1,0 +1,44 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  HorizontalLayoutWidgetClass "{609EB9D3C19E753B}" {
+   Name "HorizontalLayout0"
+   Slot FrameWidgetSlot "{609EB9D3C19E750F}" {
+    Anchor 0.5 0 0.5 0
+    OffsetLeft 0
+    OffsetTop 0
+    SizeX 100
+    OffsetRight -100
+    SizeY 30
+    OffsetBottom -30
+    Alignment 0.5 0
+    SizeToContent 1
+   }
+   {
+    VerticalLayoutWidgetClass "{609EB9D3C29C702D}" {
+     Name "VerticalLayout0"
+     Slot LayoutSlot "{609EB9C5AE5244FA}" {
+      HorizontalAlign 1
+      VerticalAlign 1
+      Padding 0 30 0 0
+      SizeMode Auto
+     }
+     {
+      TextWidgetClass "{609EB9D3CECD7FE4}" {
+       Name "Text0"
+       Slot LayoutSlot "{609EB9C5AE524433}" {
+        HorizontalAlign 1
+        VerticalAlign 1
+       }
+       Text "00:00"
+       "Font Size" 42
+       "Min Font Size" 42
+       "Horizontal Alignment" Center
+       "Vertical Alignment" Center
+      }
+     }
+    }
+   }
+  }
+ }
+}
