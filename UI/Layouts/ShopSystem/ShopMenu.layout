@@ -1,0 +1,41 @@
+FrameWidgetClass {
+ {
+  OverlayWidgetClass "{5D594E3BC64D6A67}" {
+   Prefab "{5D594E3BC64D6A67}"
+   {
+    VerticalLayoutWidgetClass "{5D594E3BC64D6A64}" {
+     Prefab "{5D594E3BC64D6A64}"
+     {
+      HorizontalLayoutWidgetClass "{5D594E3BC64D6A65}" {
+       Prefab "{5D594E3BC64D6A65}"
+       Slot LayoutSlot "{5CA449954CA519E8}" {
+        HorizontalAlign 2
+       }
+       {
+        VerticalLayoutWidgetClass "{609F1571E30A1F0B}" {
+         Name "VerticalLayout1"
+         Slot LayoutSlot "{609F157037224BAA}" {
+          Padding 0 0 20 0
+         }
+         "Fill Origin" Center
+         {
+          TextWidgetClass "{609F1571E30A1F0A}" {
+           Name "Balance"
+           Slot LayoutSlot "{609F157033E1DFA9}" {
+           }
+           Text "Balance 100 $"
+           "Font Size" 32
+           "Min Font Size" 32
+           "Horizontal Alignment" Center
+           "Vertical Alignment" Center
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+ }
+}
