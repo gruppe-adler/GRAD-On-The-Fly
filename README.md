@@ -3,7 +3,7 @@
 
 <p align="center">
     <a href="https://github.com/gruppe-adler/GRAD-On-The-Fly/releases/latest">
-        <img src="https://img.shields.io/badge/Version-0.1.3-blue.svg?style=flat-square" alt="GRAD On The Fly Version">
+        <img src="https://img.shields.io/badge/Version-0.1.4-blue.svg?style=flat-square" alt="GRAD On The Fly Version">
     </a>
     <a href="https://www.bistudio.com/community/licenses/arma-public-license-share-alike">
         <img src="https://img.shields.io/badge/License-APL-red.svg?style=flat-square" alt="GRAD On The Fly License">
