@@ -7,7 +7,9 @@ modded class SCR_PlayerController : PlayerController
 	[Attribute(defvalue: "{B764E0A789AF2F5F}UI/OTF/OTF_CountdownTimer.layout")]
 	protected ResourceName m_sCountdownTimer;
 	
-	protected ref Widget m_wDisplay;
+	protected ref Widget m_wOverlayDisplay;
+	protected ref Widget m_wCountdownDisplay;
+	protected ref Widget m_wTimerDisplay;
 	
 	protected bool m_bCoutdownRunning = false;
 	protected bool m_bTimerRunning = false;
@@ -161,20 +163,20 @@ modded class SCR_PlayerController : PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Owner)]
 	protected void RpcDo_Owner_ShowOverlay(string message, int duration)
 	{
+		// executed locally on players machine
+		
 		// Disable countdown/timer if new overlay will be displayed
 		m_bCoutdownRunning = false;
 		m_bTimerRunning = false;
 		
-		// executed locally on players machine
-
-		if (m_wDisplay)
-		{
-			delete m_wDisplay;
-		}
+		// Remove previously displays
+		RemoveOverlay();
+		RemoveCountdown();
+		RemoveTimer();
 		
-		m_wDisplay = GetGame().GetWorkspace().CreateWidgets(m_sOverlay);
+		m_wOverlayDisplay = GetGame().GetWorkspace().CreateWidgets(m_sOverlay);
 		
-		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindAnyWidget("Text0"));
+		TextWidget textWidget = TextWidget.Cast(m_wOverlayDisplay.FindAnyWidget("Text0"));
 		
 		if (textWidget)
 			textWidget.SetText(message);
@@ -187,12 +189,12 @@ modded class SCR_PlayerController : PlayerController
 	//------------------------------------------------------------------------------------------------
 	protected void RemoveOverlay()
 	{
-		if (m_wDisplay)
+		if (m_wOverlayDisplay)
 		{
-			delete m_wDisplay;
+			delete m_wOverlayDisplay;
 		}	
 	}
-	
+
 	//------------------------------------------------------------------------------------------------
 	void ShowCountdown(int duration)
 	{
@@ -205,12 +207,16 @@ modded class SCR_PlayerController : PlayerController
 	{
 		// executed locally on players machine
 
-		if (m_wDisplay)
-		{
-			delete m_wDisplay;
-		}
+		// Disable countdown/timer if new overlay will be displayed
+		m_bCoutdownRunning = false;
+		m_bTimerRunning = false;
 		
-		m_wDisplay = GetGame().GetWorkspace().CreateWidgets(m_sCountdownTimer);
+		// Remove previously displays
+		RemoveOverlay();
+		RemoveCountdown();
+		RemoveTimer();
+		
+		m_wCountdownDisplay = GetGame().GetWorkspace().CreateWidgets(m_sCountdownTimer);
 		
 		m_bCoutdownRunning = true;
 		
@@ -250,10 +256,10 @@ modded class SCR_PlayerController : PlayerController
 		else
 			secondsStr = string.Format("%1", seconds);
 		
-		if (!m_wDisplay)
+		if (!m_wCountdownDisplay)
 			return;
 		
-		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindAnyWidget("Text0"));
+		TextWidget textWidget = TextWidget.Cast(m_wCountdownDisplay.FindAnyWidget("Text0"));
 		
 		if (textWidget)
 			textWidget.SetText(string.Format("%1:%2", minutesStr, secondsStr));
@@ -275,6 +281,15 @@ modded class SCR_PlayerController : PlayerController
 	}
 	
 	//------------------------------------------------------------------------------------------------
+	protected void RemoveCountdown()
+	{
+		if (m_wCountdownDisplay)
+		{
+			delete m_wCountdownDisplay;
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	void ShowTimer()
 	{
 		Rpc(RpcDo_Owner_ShowTimer);
@@ -286,14 +301,20 @@ modded class SCR_PlayerController : PlayerController
 	{
 		// executed locally on players machine
 
-		if (m_wDisplay)
-		{
-			delete m_wDisplay;
-		}
+		// Disable countdown/timer if new overlay will be displayed
+		m_bCoutdownRunning = false;
+		m_bTimerRunning = false;
 		
-		m_wDisplay = GetGame().GetWorkspace().CreateWidgets(m_sCountdownTimer);
+		// Remove previously displays
+		RemoveOverlay();
+		RemoveCountdown();
+		RemoveTimer();
+		
+		m_wTimerDisplay = GetGame().GetWorkspace().CreateWidgets(m_sCountdownTimer);
 		
 		m_bTimerRunning = true;
+		
+		m_iTimerDuration = 0;
 		
 		UpdateTimer();
 		
@@ -329,15 +350,24 @@ modded class SCR_PlayerController : PlayerController
 		else
 			secondsStr = string.Format("%1", seconds);
 		
-		if (!m_wDisplay)
+		if (!m_wTimerDisplay)
 			return;
 		
-		TextWidget textWidget = TextWidget.Cast(m_wDisplay.FindAnyWidget("Text0"));
+		TextWidget textWidget = TextWidget.Cast(m_wTimerDisplay.FindAnyWidget("Text0"));
 		
 		if (textWidget)
 			textWidget.SetText(string.Format("%1:%2", minutesStr, secondsStr));
 
 		m_iTimerDuration++;
+	}
+	
+	//------------------------------------------------------------------------------------------------
+	protected void RemoveTimer()
+	{
+		if (m_wTimerDisplay)
+		{
+			delete m_wTimerDisplay;
+		}	
 	}
 
 	//------------------------------------------------------------------------------------------------
