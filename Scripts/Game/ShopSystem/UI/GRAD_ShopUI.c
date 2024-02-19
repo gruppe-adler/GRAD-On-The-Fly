@@ -3,14 +3,6 @@ modded class ADM_ShopUI: ChimeraMenuBase
 	protected TextWidget m_wBalance;
 	
 	//------------------------------------------------------------------------------------------------
-	override void PurchaseItem(SCR_ButtonComponent button)
-	{
-		super.PurchaseItem(button);
-		
-		UpdateBalance();
-	}
-
-	//------------------------------------------------------------------------------------------------
 	void UpdateBalance()
 	{
 		SCR_PlayerController playerController = SCR_PlayerController.Cast(GetGame().GetPlayerController());
@@ -22,7 +14,15 @@ modded class ADM_ShopUI: ChimeraMenuBase
 		int totalCurrency = ADM_CurrencyComponent.FindTotalCurrencyInInventory(inventory);
 		
 		if (m_wBalance)
+		{
 			m_wBalance.SetText(string.Format("Balance %1 $", totalCurrency));
+		}
+		else
+		{
+			// This is not called, perhaps because the class is destroyed
+			GetGame().GetCallqueue().Remove(UpdateBalance);
+			Print("OTF - Update Balance REMOVED", LogLevel.NORMAL);
+		}
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -33,8 +33,11 @@ modded class ADM_ShopUI: ChimeraMenuBase
 		m_wBalance = TextWidget.Cast(m_wRoot.FindAnyWidget("Balance"));
 		
 		if (!m_wBalance)
+		{
 			Print("OTF - Couldn't find m_wBalance widget!", LogLevel.ERROR);
+			return;
+		}
 		
-		UpdateBalance();
+		GetGame().GetCallqueue().CallLater(UpdateBalance, 100, true); // every 0.1 seconds
 	}
 }

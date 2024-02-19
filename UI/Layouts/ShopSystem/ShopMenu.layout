@@ -23,7 +23,7 @@ FrameWidgetClass {
            Name "Balance"
            Slot LayoutSlot "{609F157033E1DFA9}" {
            }
-           Text "Balance 100 $"
+           Text "Balance 0 $"
            "Font Size" 32
            "Min Font Size" 32
            "Horizontal Alignment" Center
