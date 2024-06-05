@@ -18,7 +18,11 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		if (!controlledEntity)
 			return;
 		
-		SCR_CharacterControllerComponent characterController = GetCharacterController(controlledEntity);
+		ChimeraCharacter character = ChimeraCharacter.Cast(controlledEntity);
+		if (!character)
+			return;
+		
+		CharacterControllerComponent characterController = character.GetCharacterController();
 		if (!characterController)
 			return;
 		
@@ -28,7 +32,6 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		if (characterController.IsUsingItem())
 			return;
 		
-		ChimeraCharacter character = ChimeraCharacter.Cast(controlledEntity);
 		vector mat[4];
 		Math3D.MatrixCopy(m_vCurrentMat, mat);
 		PointInfo ptWS = new PointInfo();
@@ -39,9 +42,10 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		
 		/* ======================================== */
 		// modded: disable placing animation
+		/*
 		if (m_bPlacementOverrideEnabled)
 		{
-			SCR_ConsumableEffectAnimationParameters animParams; // added by mod
+			ItemUseParameters animParams; // added by mod
 			OnPlacingEnded(m_EquippedItem, true, animParams); // added by mod
 			DisablePreview();
 		}
@@ -55,6 +59,7 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 				DisablePreview();
 			}
 		}
+		*/
 		/* ======================================== */
 
 		characterController.GetAnimationComponent().GetCommandHandler().AlignNewTurns();
