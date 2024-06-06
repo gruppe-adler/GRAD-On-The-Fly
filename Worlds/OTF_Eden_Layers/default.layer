@@ -11,9 +11,6 @@ PS_MissionDescription : "{3136BE42592F3B1B}PrefabsEditable/MissionDescription/Ed
   "USSR" "US"
  }
 }
-GenericEntity : "{832EFDAE1C4B9B65}Prefabs/GRAD_OTF_Opfor_Barrel.et" {
- coords 4942.693 28.364 11907.353
-}
 $grp PS_ManualMarker : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker.et" {
  {
   coords 4936.267 28.299 11923.688
@@ -35,7 +32,4 @@ $grp PS_ManualMarker : "{CD85ADE9E0F54679}PrefabsEditable/Markers/EditableMarker
    "USSR" "US"
   }
  }
-}
-GenericEntity : "{D698B2A4491AAC4C}Prefabs/GRAD_OTF_Blufor_Flag.et" {
- coords 4944.467 28.381 11906.576
 }

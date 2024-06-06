@@ -52,8 +52,8 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		// modded: disable placing animation
 		if (m_bPlacementOverrideEnabled)
 		{
-			//SCR_ConsumableEffectAnimationParameters animParams; // added by mod
-			//OnPlacingEnded(m_EquippedItem, true, animParams); // added by mod
+			ItemUseParameters animParams; // added by mod
+			OnPlacingEnded(m_EquippedItem, true, animParams); // added by mod
 			DisablePreview();
 		}
 		else
