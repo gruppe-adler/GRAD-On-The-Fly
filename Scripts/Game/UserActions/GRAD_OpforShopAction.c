@@ -4,6 +4,9 @@ class GRAD_OpforShopAction : ADM_ShopAction
 	//------------------------------------------------------------------------------------------------
 	override bool CanBeShownScript(IEntity user)
 	{
+		if (!super.CanBeShownScript(user))
+			return false;
+		
 		GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();
 		
 		if(!otfManager)
@@ -24,7 +27,7 @@ class GRAD_OpforShopAction : ADM_ShopAction
 	//------------------------------------------------------------------------------------------------
 	override bool CanBePerformedScript(IEntity user)
  	{
-		if ( !super.CanBePerformedScript( user ) )
+		if (!super.CanBePerformedScript(user))
 			return false;
 		
 		GRAD_OnTheFlyManager otfManager = GRAD_OnTheFlyManager.GetInstance();

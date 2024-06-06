@@ -18,11 +18,7 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		if (!controlledEntity)
 			return;
 		
-		ChimeraCharacter character = ChimeraCharacter.Cast(controlledEntity);
-		if (!character)
-			return;
-		
-		CharacterControllerComponent characterController = character.GetCharacterController();
+		SCR_CharacterControllerComponent characterController = GetCharacterController(controlledEntity);
 		if (!characterController)
 			return;
 		
@@ -32,6 +28,9 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		if (characterController.IsUsingItem())
 			return;
 		
+		ChimeraCharacter character = ChimeraCharacter.Cast(controlledEntity);
+		CharacterAnimationComponent animationComponent = character.GetAnimationComponent();
+		int itemActionId = animationComponent.BindCommand("CMD_Item_Action");
 		vector mat[4];
 		Math3D.MatrixCopy(m_vCurrentMat, mat);
 		PointInfo ptWS = new PointInfo();
@@ -40,9 +39,17 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		mat[0] = Vector(mat[2][2], mat[2][1], -mat[2][0]);
 		ptWS.Set(null, "", mat);
 		
+		ItemUseParameters params = new ItemUseParameters();
+		params.SetEntity(m_EquippedItem);
+		params.SetAllowMovementDuringAction(false);
+		params.SetKeepInHandAfterSuccess(false);
+		params.SetCommandID(itemActionId);
+		params.SetCommandIntArg(1);
+		params.SetMaxAnimLength(15.0);
+		params.SetAlignmentPoint(ptWS);
+		
 		/* ======================================== */
 		// modded: disable placing animation
-		/*
 		if (m_bPlacementOverrideEnabled)
 		{
 			ItemUseParameters animParams; // added by mod
@@ -51,15 +58,12 @@ modded class SCR_ItemPlacementComponent : ScriptComponent
 		}
 		else
 		{
-			CharacterAnimationComponent animationComponent = character.GetAnimationComponent();
-			int itemActionId = animationComponent.BindCommand("CMD_Item_Action");
-			if (characterController.TryUseItemOverrideParams(m_EquippedItem, false, false, itemActionId, 1, 0, 15.0, 1, 0.0, false, ptWS))
+			if (characterController.TryUseItemOverrideParams(params))
 			{
 				characterController.m_OnItemUseEndedInvoker.Insert(OnPlacingEnded);
 				DisablePreview();
-			}
+			}			
 		}
-		*/
 		/* ======================================== */
 
 		characterController.GetAnimationComponent().GetCommandHandler().AlignNewTurns();

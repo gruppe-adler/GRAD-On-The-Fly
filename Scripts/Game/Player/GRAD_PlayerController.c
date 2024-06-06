@@ -22,6 +22,8 @@ modded class SCR_PlayerController : PlayerController
 	//------------------------------------------------------------------------------------------------
 	override void EOnInit(IEntity owner)
 	{
+		super.EOnInit(owner);
+		
 		InitMapMarkerUI();
     }
 	
@@ -100,7 +102,7 @@ modded class SCR_PlayerController : PlayerController
 		newMarker.SetColorEntry(marker.GetColorEntry());
 		newMarker.SetIconEntry(marker.GetIconEntry());
 		
-		mapMarkerManager.InsertStaticMarker(newMarker, true, true);
+		mapMarkerManager.InsertStaticMarker(newMarker, true);
 	}
 		
 	//------------------------------------------------------------------------------------------------
